@@ -6,20 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>Java面向对象编程知识点总结 | LangInteger</title>
+  <title>Java排序算法的实现及比美 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="主要是针对Java面向对象部分知识点的梳理，方便日后查找。">
+  <meta name="description" content="今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了100000~1000000数据量之间排序性能的测试，由于归并排序比较扯淡，不在次次测试之列。">
 <meta name="keywords" content="java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java面向对象编程知识点总结">
-<meta property="og:url" content="http://LangInteger.github.io/2018/04/05/java-oop/index.html">
+<meta property="og:title" content="Java排序算法的实现及比美">
+<meta property="og:url" content="http://LangInteger.github.io/2018/04/07/java-sort-algrithm/index.html">
 <meta property="og:site_name" content="LangInteger">
-<meta property="og:description" content="主要是针对Java面向对象部分知识点的梳理，方便日后查找。">
+<meta property="og:description" content="今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了100000~1000000数据量之间排序性能的测试，由于归并排序比较扯淡，不在次次测试之列。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-07T15:59:53.130Z">
+<meta property="og:image" content="http://langinteger.github.io/2018/04/07/java-sort-algrithm/sort_result_table.png">
+<meta property="og:image" content="http://langinteger.github.io/2018/04/07/java-sort-algrithm/sort_result_chart.png">
+<meta property="og:updated_time" content="2018-04-07T15:59:54.269Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java面向对象编程知识点总结">
-<meta name="twitter:description" content="主要是针对Java面向对象部分知识点的梳理，方便日后查找。">
+<meta name="twitter:title" content="Java排序算法的实现及比美">
+<meta name="twitter:description" content="今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了100000~1000000数据量之间排序性能的测试，由于归并排序比较扯淡，不在次次测试之列。">
+<meta name="twitter:image" content="http://langinteger.github.io/2018/04/07/java-sort-algrithm/sort_result_table.png">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -167,331 +170,50 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java-oop" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-java-sort-algrithm" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java面向对象编程知识点总结
+      Java排序算法的实现及比美
     </h1>
   
 
         
-        <a href="/2018/04/05/java-oop/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:37:25.725Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
+        <a href="/2018/04/07/java-sort-algrithm/" class="archive-article-date">
+  	<time datetime="2018-04-07T15:35:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>主要是针对Java面向对象部分知识点的梳理，方便日后查找。<br><a id="more"></a></p>
-<h2 id="1-类和对象"><a href="#1-类和对象" class="headerlink" title="1 类和对象"></a>1 类和对象</h2><h3 id="1-类"><a href="#1-类" class="headerlink" title="1. 类"></a>1. 类</h3><ul>
-<li>是同种对象的集合与抽象，是产生对象的模版</li>
-<li>数据类型是指数据集和基于这个数据集的操作，类则是我们的自定义类型，需要由我们定义成员变量和基于数据集的成员方法。</li>
-</ul>
-<h3 id="2-程序设计方式"><a href="#2-程序设计方式" class="headerlink" title="2. 程序设计方式"></a>2. 程序设计方式</h3><ul>
-<li>面向过程程序设计<ul>
-<li>把静态问题转化为一系列动作，即把动作用函数描述，其重点是算法和数据结构。</li>
-</ul>
-</li>
-<li>面向对象程序设计<ul>
-<li>代码的基本单位是类，各类间发消息推进动作，传递消息就相当于是方法调用，其重点是对对象和消息。</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-OO的真正意义"><a href="#3-OO的真正意义" class="headerlink" title="3. OO的真正意义"></a>3. OO的真正意义</h3><ul>
-<li>是使得软件开发接近人类的正常思维，将许多原来由人完成的工作交给机器去完成。，把更多的精力放到问题本身，而不是在问题的转化中。</li>
-<li>OO的完整方法<ul>
-<li>面向对象的分析</li>
-<li>面向对象的设计</li>
-<li>面向对象的程序设计</li>
-<li>代码重用</li>
-</ul>
-</li>
-</ul>
-<h2 id="2-面向对象三大特性"><a href="#2-面向对象三大特性" class="headerlink" title="2. 面向对象三大特性"></a>2. 面向对象三大特性</h2><h3 id="1-封装"><a href="#1-封装" class="headerlink" title="1. 封装"></a>1. 封装</h3><ul>
-<li>封装是一种信息隐藏技术，是指将数据和基于数据的操作封装在一起，数据被保护在内部，系统的其他部分只有通过在数据外面的被授权的操作才能够进行交互，目的在于将类使用者class user和类设计者class creator分开。在面向对象的编程中，用类来封装相关的数据和方法，保证了数据的安全和系统的严密性。</li>
-<li>封装的优点<ul>
-<li>隐藏类的实现细节,实现了信息的隐藏及安全性</li>
-<li>提高了程序的模块化，且易于维护</li>
-<li>具体实现是编写该类的人控制的,让使用者只能通过事先定制好的方法来访问数据，实现者可以方便地加入控制逻辑，限制对属性的不合理操作</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-继承"><a href="#2-继承" class="headerlink" title="2. 继承"></a>2. 继承</h3><ul>
-<li>使程序结构清晰，减少了编码和维护的工作量，子类可以使用父类所提供的方法，实现了代码的复用。</li>
-</ul>
-<h3 id="3-多态"><a href="#3-多态" class="headerlink" title="3. 多态"></a>3. 多态</h3><ul>
-<li>编译时多态：同一类中参数不同的同名方法（重载）<ul>
-<li>方法的签名(signature)：声明方法的方法头中方法名加上方法的参数列表，可以唯一确定一个方法</li>
-<li>类体中不能声明签名完全相同的两个方法</li>
-<li>当两个方法具有相同的方法名，但有不同数量或类型的参数，而导致不同的方法签名时，称这两个方法互相重载</li>
-</ul>
-</li>
-<li>运行时多态：父类和子类之间的同名方法</li>
-</ul>
-<h2 id="3-类的定义"><a href="#3-类的定义" class="headerlink" title="3. 类的定义"></a>3. 类的定义</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[修饰符] class 类名 [extends 父类名]</span><br><span class="line">                    [implements 接口名]</span><br><span class="line">&#123;</span><br><span class="line">    [成员变量声明；]</span><br><span class="line">    [成员方法声明；]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-类体"><a href="#1-类体" class="headerlink" title="1. 类体"></a>1. 类体</h3><ul>
-<li>一为成员变量定义(域) Field</li>
-<li>二为成员方法定义　</li>
-</ul>
-<h3 id="2-创建对象"><a href="#2-创建对象" class="headerlink" title="2. 创建对象"></a>2. 创建对象</h3><ul>
-<li>步骤一：申明一个对象（引用变量）</li>
-<li>步骤二：初始化</li>
-<li>步骤三：赋初值</li>
-</ul>
-<h3 id="3-构造方法"><a href="#3-构造方法" class="headerlink" title="3. 构造方法"></a>3. 构造方法</h3><ul>
-<li>构造方法作用概述<ul>
-<li>给对象的数据进行初始化</li>
-</ul>
-</li>
-<li>构造方法格式<ul>
-<li>方法名与类名相同</li>
-<li>没有返回值类型，连void都没有</li>
-<li>没有具体的返回值</li>
-</ul>
-</li>
-<li>构造方法注意事项<ul>
-<li>如果你不提供构造方法，系统会给出默认构造方法</li>
-<li>如果你提供了构造方法，系统将不再提供</li>
-<li>构造方法也是可以重载的</li>
-</ul>
-</li>
-</ul>
-<h3 id="4-局部变量"><a href="#4-局部变量" class="headerlink" title="4. 局部变量"></a>4. 局部变量</h3><ul>
-<li>在一个方法（参数列表里）或者方法里面的代码块中定义的变量称为局部变量</li>
-<li>局部变量在方法或代码块被执行时创建，在方法或代码块结束时被销毁。</li>
-<li>局部变量必须先赋值再使用，否则会出现编译错误。</li>
-</ul>
-<h3 id="5-成员变量的隐藏性"><a href="#5-成员变量的隐藏性" class="headerlink" title="5. 成员变量的隐藏性"></a>5. 成员变量的隐藏性</h3><ul>
-<li>局部变量与成员变量名字相同时，则成员变量将被隐藏，即在这个方法内暂时失效，只有局部变量起作用</li>
-</ul>
-<h3 id="6-类的初始化过程总结"><a href="#6-类的初始化过程总结" class="headerlink" title="6. 类的初始化过程总结"></a>6. 类的初始化过程总结</h3><ul>
-<li>Student s = new Student();在内存中做了哪些事情?<ul>
-<li>加载Student.class文件进内存</li>
-<li>在栈内存为s开辟空间</li>
-<li>在堆内存为学生对象开辟空间</li>
-<li>对学生对象的成员变量进行默认初始化</li>
-<li>对学生对象的成员变量进行显示初始化</li>
-<li>通过构造方法对学生对象的成员变量赋值</li>
-<li>学生对象初始化完毕，把对象地址赋值给s变量</li>
-</ul>
-</li>
-</ul>
-<h3 id="7-static关键字"><a href="#7-static关键字" class="headerlink" title="7. static关键字"></a>7. static关键字</h3><ul>
-<li>特点<ul>
-<li>随着类的加载而加载</li>
-<li>优先于对象存在</li>
-<li>被类的所有对象共享</li>
-<li>可以通过类名调用（建议只用类名调用）</li>
-</ul>
-</li>
-<li>注意事项<ul>
-<li>在静态方法中是没有this关键字的</li>
-<li>静态方法只能访问静态的成员变量和静态的成员方法</li>
-</ul>
-</li>
-<li>静态变量和成员变量的区别<ul>
-<li>所属不同<br>静态变量属于类，所以也称为为类变量<br>成员变量属于对象，所以也称为实例变量(对象变量)</li>
-<li>内存中位置不同<ul>
-<li>静态变量存储于方法区的静态区</li>
-<li>成员变量存储于堆内存</li>
-</ul>
-</li>
-<li>内存出现时间不同<ul>
-<li>静态变量随着类的加载而加载，随着类的消失而消失</li>
-<li>成员变量随着对象的创建而存在，随着对象的消失而消失</li>
-</ul>
-</li>
-<li>调用不同<ul>
-<li>静态变量可以通过类名调用，也可以通过对象调用</li>
-<li>成员变量只能通过对象名调用</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="8-代码块"><a href="#8-代码块" class="headerlink" title="8. 代码块"></a>8. 代码块</h3><ul>
-<li>在Java中，使用{}括起来的代码被称为代码块，根据其位置和声明的不同，可做如下分类。<ul>
-<li>局部代码块 <ul>
-<li>在方法中出现；限定变量生命周期，及早释放，提高内存利用率</li>
-</ul>
-</li>
-<li>构造代码块 <ul>
-<li>在类中方法外出现；多个构造方法方法中相同的代码存放到一起，每次调用构造都执行，并且在构造方法前执行</li>
-</ul>
-</li>
-<li>静态代码块<ul>
-<li>在类中方法外出现，加了static修饰</li>
-<li>在类中方法外出现，并加上static修饰；用于给类进行初始化，在加载的时候就执行，并且值执行一次。</li>
-</ul>
-</li>
-<li>同步代码块：多线程部分讲解</li>
-</ul>
-</li>
-</ul>
-<h3 id="9-域的访问控制"><a href="#9-域的访问控制" class="headerlink" title="9. 域的访问控制"></a>9. 域的访问控制</h3><ul>
-<li>通过访问控制修饰符 (access modifiers)可以限制成员变量在类或对象外部的可见性<ul>
-<li>public — 共有的，域在任何地方都可以访问。</li>
-<li>protected — 受保护的，仅在类体中、子类类体中或同包的其它类类体中可访问。即：在类中被申明为保护的域可以被同一个包中的该类的对象访问。也能被其子类访问，而不管它们是否在同一个包中 。</li>
-<li>private - 私有的，域仅在类体中可访问。只有同一类中创建的对象才能访问私有域。在其他类中创建的对象不能访问私有域。</li>
-<li>（不写）—默认的package，没有任何访问修饰符修饰的域，仅在类体中、同包的其它类类体中可访问。</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-继承"><a href="#4-继承" class="headerlink" title="4. 继承"></a>4. 继承</h2><h3 id="1-继承的理解"><a href="#1-继承的理解" class="headerlink" title="1. 继承的理解"></a>1. 继承的理解</h3><ul>
-<li>对真实世界中对象继承关系的支持，满足面向对象建模的需要</li>
-<li>实现OOP中对象多态性（Polymorphism）的前提</li>
-<li>代码复用</li>
-<li>继承一定程度上帮助程序员摆脱java中严格类型限制的约束<ul>
-<li>表现为子类对象可被声明为父类类型</li>
-</ul>
-</li>
-</ul>
-<h3 id="2-继承语法格式"><a href="#2-继承语法格式" class="headerlink" title="2. 继承语法格式"></a>2. 继承语法格式</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[修饰符] <span class="class"><span class="keyword">class</span> <span class="title">B</span> <span class="keyword">extends</span> <span class="title">A</span> </span>&#123;语句&#125;</span><br></pre></td></tr></table></figure>
+        <p>今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了100000~1000000数据量之间排序性能的测试，由于归并排序比较扯淡，不在次次测试之列。<br><a id="more"></a></p>
 <ul>
-<li>子类拥有父类中所有成员，但只能访问public和protected的成员变量和方法</li>
-<li>子类对象的成员舒适化之前，必须首先完成对父类/祖先类成员的初始化，原因是子类依赖于父类，为保证子类代码的正常运行</li>
-</ul>
-<h3 id="3-子类对象的初始化"><a href="#3-子类对象的初始化" class="headerlink" title="3. 子类对象的初始化"></a>3. 子类对象的初始化</h3><h4 id="1-显示初始化"><a href="#1-显示初始化" class="headerlink" title="1. 显示初始化"></a>1. 显示初始化</h4><ul>
-<li>在子类构造函数的第一句话通过super(参数)调用父类的构造函数<h4 id="2-隐式初始化"><a href="#2-隐式初始化" class="headerlink" title="2. 隐式初始化"></a>2. 隐式初始化</h4></li>
-<li>当父类提供了默认构造函数，且父类的其它构造函数未被显式调用，则在执行子类的构造函数之前Java会自动执行父类的构造函数。</li>
-</ul>
-<h3 id="4-final关键字"><a href="#4-final关键字" class="headerlink" title="4. final关键字"></a>4. final关键字</h3><ul>
-<li>final修饰的成员变量初始化之后不能再被重新赋值</li>
-<li>被final修饰的类不能被继承</li>
-<li>被final修饰的方法不能被覆盖</li>
-</ul>
-<h3 id="5-import和package关键字"><a href="#5-import和package关键字" class="headerlink" title="5. import和package关键字"></a>5. import和package关键字</h3><ul>
-<li>import关键字进行导包操作，Java默认导入java.lang包</li>
-<li>package的作用<ul>
-<li>将类和接口分组，包名表示其用途</li>
-<li>创建了不同的命名空间，解决命名冲突的问题</li>
-<li>提供了对应用程序内部实现机制的保护域</li>
+<li>本文分三个章节：<ul>
+<li>排序算法测试分析</li>
+<li>O(n^2)算法和它们的亲戚一览</li>
+<li>政治正确的快排</li>
 </ul>
 </li>
 </ul>
-<h2 id="5-运行时多态"><a href="#5-运行时多态" class="headerlink" title="5. 运行时多态"></a>5. 运行时多态</h2><h3 id="1-运行时多态的前提"><a href="#1-运行时多态的前提" class="headerlink" title="1. 运行时多态的前提"></a>1. 运行时多态的前提</h3><ul>
-<li>要有继承关系</li>
-<li>要有方法覆盖</li>
-<li>有父类引用指向子类对象</li>
-</ul>
-<h3 id="2-方法覆盖"><a href="#2-方法覆盖" class="headerlink" title="2. 方法覆盖"></a>2. 方法覆盖</h3><ul>
-<li>在子类中替换父类对某个方法的实现</li>
-<li>替换的方法要与原方法有相同的方法签名和返回值类型</li>
-<li>重写方法的修饰符不能比原方法更严格</li>
-</ul>
-<h3 id="3-覆盖的注意事项"><a href="#3-覆盖的注意事项" class="headerlink" title="3. 覆盖的注意事项"></a>3. 覆盖的注意事项</h3><ul>
-<li>被final，static修饰的方法无法被覆盖</li>
-<li>被synchronized，native修饰的方法可以被覆盖</li>
-<li>被覆盖的方法参数列表中有被声明为final的，不必再被声明为final</li>
-<li>只有在子类中可访问的父类的方法才可覆盖</li>
-<li>静态方法不能被覆盖，只能被隐藏</li>
-<li>构造方法并非member，不参与继承，故隐藏或覆盖无从谈起</li>
-</ul>
-<h3 id="4-多态的核心"><a href="#4-多态的核心" class="headerlink" title="4. 多态的核心"></a>4. 多态的核心</h3><ul>
-<li>父类引用指向子类对象<ul>
-<li>父类类型 a = new 子类类型();</li>
-<li>子类 is a 父类</li>
-<li>运行时类型为引用变量所指对象的类型，编译时类型是引用变量的自身类型</li>
-</ul>
+<h2 id="1-排序测试结果分析"><a href="#1-排序测试结果分析" class="headerlink" title="1 排序测试结果分析"></a>1 排序测试结果分析</h2><ul>
+<li><p>这次测试中有三种O(n^2)的算法，分别为冒泡排序、简单选择排序、插入排序，和一种O(nlogn)的快排算法。四种算法在10万至100万数据量之间奋力一搏，其中尤以冒泡排序欲仙欲死（反正等得我花儿都谢了的），具体的测试数据见下表。<br><img src="/2018/04/07/java-sort-algrithm/sort_result_table.png" alt="sort-result-table"></p>
 </li>
-<li>多态中的成员访问<ul>
-<li>成员变量<ul>
-<li>编译看左边：可访问成员看声明类型</li>
-<li>运行看左边：实际访问的成员变量值是声明类型中定义的</li>
-</ul>
-</li>
-<li>成员方法<ul>
-<li>编译看左边：可访问成员变量范围由声明类型决定</li>
-<li>运行看右边：实际访问到的方法由引用指向示例的实际类型确定</li>
-</ul>
+<li><p>为了让结果更加直观，又绘了一张图（见下）。可以看到，冒泡排序扶摇直上，不坠青云之志，简单选择和插入则你追我赶，情意绵绵，只有快速排序仰望星空，却又不忘脚踏实地，<br><img src="/2018/04/07/java-sort-algrithm/sort_result_chart.png" alt="sort-result-chart"></p>
 </li>
 </ul>
-</li>
-<li>赋值兼容性规则<ul>
-<li>复制号右边表达式的类型必须与左边引用表达式类型相同或为其子类</li>
-<li>方法的return语句返回的结果的类型必为方法声明中返回类型或其子类型</li>
-<li>所有的引用变量都可以赋值为null</li>
+<h2 id="2-O-n-2-算法和它们的亲戚一览"><a href="#2-O-n-2-算法和它们的亲戚一览" class="headerlink" title="2 O(n^2)算法和它们的亲戚一览"></a>2 O(n^2)算法和它们的亲戚一览</h2><ul>
+<li><code>冒泡排序</code>是依次将相邻的两个数进行比较，经过<strong>一趟</strong>比较会把一个数（无序序列中的最大值或者最小值）放到序列的最终位置。冒泡排序是<code>稳定</code>的。冒泡排序的亲戚是<code>快速排序</code>，这是一种经典的基于<code>分治法</code>的算法，<code>快速排序</code>是<code>不稳定</code>的。</li>
+<li><code>简单选择排序</code>：对线性表L[1..n]，第i趟排序即从L[i…n]中选择关键字最小的元素与L(i)交换，每一趟排序可以确定一个元素的最终位置。<code>简单选择排序</code>是<code>不稳定</code>的，因为它很跳。简单选择排序的亲戚是<code>堆排序</code>，它将顺序表看成是完全二叉树的顺序存储结构，借用完全二叉树中父节点和子节点的关系，在无序区中找到关键字最大（或最小）的元素。<code>堆排序</code>也是<code>不稳定</code>的。</li>
+<li><code>直接插入排序</code>：每次将一个待排序的元素，按其关键字大小插入前面已经有序的子序列中，<code>直接插入</code>排序是稳定的，其插入的过程可以通过<code>二分查找</code>进行优化。直接插入排序的亲戚是<code>希尔排序</code>，又称为缩小增量排序，它先对原序列的子序列进行直接插入排序，完成后整个序列基本有序，再对全体记录进行一次直接插入排序。<code>希尔排序</code>时间复杂度不确定且<code>不稳定</code>。</li>
 </ul>
-</li>
-<li>转型<ul>
-<li>向上转型：父类引用指向子类实例/对象 =&gt; 要先进行向上转型才能进行向下转型</li>
-<li>向下转型：子类引用指向父类实例/对象 =&gt; 子类中如果定义了只属于自己的成员的时候会出问题</li>
+<h2 id="3-政治正确的快排"><a href="#3-政治正确的快排" class="headerlink" title="3 政治正确的快排"></a>3 政治正确的快排</h2><ul>
+<li>经过本次测试，让我更加坚定了快速排序一百年不动摇的大政方针，坚决拥护以快排为中心的排序中央，胸前的红领巾更加鲜艳了。<br>*代码如下：</li>
 </ul>
-</li>
-</ul>
-<h2 id="6-抽象类"><a href="#6-抽象类" class="headerlink" title="6. 抽象类"></a>6. 抽象类</h2><ul>
-<li>对于一些泛指的类型（如动物），并不能确定其行为的具体实现，故引入抽象内作为对对象行为的抽象，作为一个框架来使用。</li>
-</ul>
-<h3 id="1-抽象类-方法注意事项"><a href="#1-抽象类-方法注意事项" class="headerlink" title="1. 抽象类/方法注意事项"></a>1. 抽象类/方法注意事项</h3><ul>
-<li>必须加abstract修饰</li>
-<li>抽象类不可实例化</li>
-<li>抽象方法不能有方法体，大括号也没得</li>
-<li>含抽象方法的类一定为抽象类，抽象类可以没有抽象方法，这样做的目的是不想让别人实例化</li>
-</ul>
-<h3 id="2-抽象类的成员特点"><a href="#2-抽象类的成员特点" class="headerlink" title="2. 抽象类的成员特点"></a>2. 抽象类的成员特点</h3><ul>
-<li>成员变量可为常量也可为变量</li>
-<li>成员方法中的抽象方法强制非抽象子类实现</li>
-<li>抽象类也有构造方法</li>
-<li>抽象类的子类如实现了父类中的全部抽象方法，可以不为抽象类，否则必须为抽象类</li>
-</ul>
-<h2 id="7-接口"><a href="#7-接口" class="headerlink" title="7. 接口"></a>7. 接口</h2><ul>
-<li>是一个完全抽象的类，JDK8新特性引入之前，接口中的所有成员方法都是抽象方法</li>
-</ul>
-<h3 id="1-使用场景"><a href="#1-使用场景" class="headerlink" title="1. 使用场景"></a>1. 使用场景</h3><ul>
-<li>用来申明某些不是被所有子类所共有的行为，且这些特殊群体的表现又各有不同</li>
-</ul>
-<h3 id="2-接口的特点"><a href="#2-接口的特点" class="headerlink" title="2. 接口的特点"></a>2. 接口的特点</h3><ul>
-<li>接口中可以没有方法，被称为空接口，通常用作标记</li>
-<li>接口的子类为抽象类和具体类</li>
-<li>类只支持单亲继承，而接口实现了多重继承（但由于没有方法体，在1.8之前几无意义）</li>
-</ul>
-<h3 id="3-JDK1-8接口新特性"><a href="#3-JDK1-8接口新特性" class="headerlink" title="3. JDK1.8接口新特性"></a>3. JDK1.8接口新特性</h3><ul>
-<li><ol>
-<li>默认方法default =&gt; 与一般的可继承方法无异，在接口中新增默认方法，不会影响已经实现了该接口的类，是用来修改接口的好方法</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>静态方法static =&gt; 静态方法一般定义在接口中使用，但也可以在接口外通过“接口名.方法”访问，通常被用来作为一种工具方法</li>
-</ol>
-</li>
-</ul>
-<h3 id="4-接口成员特征"><a href="#4-接口成员特征" class="headerlink" title="4. 接口成员特征"></a>4. 接口成员特征</h3><ul>
-<li>接口中可以生命成员变量和成员方法</li>
-<li>接口中的成员皆为public，若不标记则默认为public</li>
-<li>接口成员默认为static final，必须显示初始化</li>
-<li>接口中方法必须被abstract（JDK1.8之前）修饰，默认为public abstract</li>
-</ul>
-<h2 id="8-内部类"><a href="#8-内部类" class="headerlink" title="8. 内部类"></a>8. 内部类</h2><ul>
-<li>就是定义在其他类内部的类</li>
-</ul>
-<h3 id="1-重要特点"><a href="#1-重要特点" class="headerlink" title="1. 重要特点"></a>1. 重要特点</h3><ul>
-<li>内部类可以直接访问外部类的成员，包括私有</li>
-</ul>
-<h3 id="2-按位置分类"><a href="#2-按位置分类" class="headerlink" title="2. 按位置分类"></a>2. 按位置分类</h3><ul>
-<li>定义在类成员位置 =&gt; 成员内部类<ul>
-<li>在外部类中new内部类对象可以直接访问；在外部类外访问，则需要先创建外部类对象，后在外部类对象基础上new内部类对象</li>
-<li>private，static可用来修饰成员内部类</li>
-</ul>
-</li>
-<li>定义在局部位置 =&gt; 局部内部类<ul>
-<li>可直接访问外部类的成员</li>
-<li>局部内部类只能在方法体中访问</li>
-<li>在方法体中使用局部内部类创建对象</li>
-</ul>
-</li>
-<li>匿名内部类<ul>
-<li>是一个（继承了类或者实现了接口的子类）的匿名对象</li>
-<li>匿名内部类的类型是其父类类型（一般是接口或者抽象类），用到了向上转型</li>
-<li>开发中在形参为接口类型的方法中经常使用</li>
-</ul>
-</li>
-</ul>
-
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qSort</span><span class="params">(<span class="keyword">int</span>[] target)</span> </span>&#123;</span><br><span class="line">    qSort(target, <span class="number">0</span>, target.length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qSort</span><span class="params">(<span class="keyword">int</span>[] target, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (start &lt; end) &#123;</span><br><span class="line">        <span class="keyword">int</span> pivotPositon = partion(target, start, end);</span><br><span class="line">        qSort(target, start, pivotPositon - <span class="number">1</span>);</span><br><span class="line">        qSort(target, pivotPositon + <span class="number">1</span>, end);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partion</span><span class="params">(<span class="keyword">int</span>[] target, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot = target[start];</span><br><span class="line">    <span class="keyword">while</span>(start &lt; end) &#123;</span><br><span class="line">        <span class="keyword">while</span> (start &lt; end &amp;&amp; target[end] &gt;= pivot)</span><br><span class="line">            end--;</span><br><span class="line">        target[start] = target[end];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (start &lt; end &amp;&amp; target[start] &lt;= pivot)</span><br><span class="line">            start++;</span><br><span class="line">        target[end] = target[start];</span><br><span class="line">    &#125;</span><br><span class="line">    target[start] = pivot;</span><br><span class="line">    <span class="keyword">return</span> start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
 
       
@@ -586,7 +308,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/05/java-oop/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/07/java-sort-algrithm/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -600,18 +322,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/07/java-sort-algrithm/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java排序算法的实现及比美
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/05/linear-list-java/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">线性表顺序映像的Java实现</div>
+    <a href="/2018/04/05/java-oop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java面向对象编程知识点总结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -638,7 +351,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-类和对象"><span class="toc-number">1.</span> <span class="toc-text">1 类和对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-类"><span class="toc-number">1.1.</span> <span class="toc-text">1. 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-程序设计方式"><span class="toc-number">1.2.</span> <span class="toc-text">2. 程序设计方式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-OO的真正意义"><span class="toc-number">1.3.</span> <span class="toc-text">3. OO的真正意义</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-面向对象三大特性"><span class="toc-number">2.</span> <span class="toc-text">2. 面向对象三大特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-封装"><span class="toc-number">2.1.</span> <span class="toc-text">1. 封装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-继承"><span class="toc-number">2.2.</span> <span class="toc-text">2. 继承</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-多态"><span class="toc-number">2.3.</span> <span class="toc-text">3. 多态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-类的定义"><span class="toc-number">3.</span> <span class="toc-text">3. 类的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-类体"><span class="toc-number">3.1.</span> <span class="toc-text">1. 类体</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-创建对象"><span class="toc-number">3.2.</span> <span class="toc-text">2. 创建对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-构造方法"><span class="toc-number">3.3.</span> <span class="toc-text">3. 构造方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-局部变量"><span class="toc-number">3.4.</span> <span class="toc-text">4. 局部变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-成员变量的隐藏性"><span class="toc-number">3.5.</span> <span class="toc-text">5. 成员变量的隐藏性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6-类的初始化过程总结"><span class="toc-number">3.6.</span> <span class="toc-text">6. 类的初始化过程总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-static关键字"><span class="toc-number">3.7.</span> <span class="toc-text">7. static关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-代码块"><span class="toc-number">3.8.</span> <span class="toc-text">8. 代码块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-域的访问控制"><span class="toc-number">3.9.</span> <span class="toc-text">9. 域的访问控制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-继承"><span class="toc-number">4.</span> <span class="toc-text">4. 继承</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-继承的理解"><span class="toc-number">4.1.</span> <span class="toc-text">1. 继承的理解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-继承语法格式"><span class="toc-number">4.2.</span> <span class="toc-text">2. 继承语法格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-子类对象的初始化"><span class="toc-number">4.3.</span> <span class="toc-text">3. 子类对象的初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-显示初始化"><span class="toc-number">4.3.1.</span> <span class="toc-text">1. 显示初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-隐式初始化"><span class="toc-number">4.3.2.</span> <span class="toc-text">2. 隐式初始化</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-final关键字"><span class="toc-number">4.4.</span> <span class="toc-text">4. final关键字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-import和package关键字"><span class="toc-number">4.5.</span> <span class="toc-text">5. import和package关键字</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-运行时多态"><span class="toc-number">5.</span> <span class="toc-text">5. 运行时多态</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-运行时多态的前提"><span class="toc-number">5.1.</span> <span class="toc-text">1. 运行时多态的前提</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-方法覆盖"><span class="toc-number">5.2.</span> <span class="toc-text">2. 方法覆盖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-覆盖的注意事项"><span class="toc-number">5.3.</span> <span class="toc-text">3. 覆盖的注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-多态的核心"><span class="toc-number">5.4.</span> <span class="toc-text">4. 多态的核心</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-抽象类"><span class="toc-number">6.</span> <span class="toc-text">6. 抽象类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-抽象类-方法注意事项"><span class="toc-number">6.1.</span> <span class="toc-text">1. 抽象类/方法注意事项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-抽象类的成员特点"><span class="toc-number">6.2.</span> <span class="toc-text">2. 抽象类的成员特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-接口"><span class="toc-number">7.</span> <span class="toc-text">7. 接口</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-使用场景"><span class="toc-number">7.1.</span> <span class="toc-text">1. 使用场景</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-接口的特点"><span class="toc-number">7.2.</span> <span class="toc-text">2. 接口的特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-JDK1-8接口新特性"><span class="toc-number">7.3.</span> <span class="toc-text">3. JDK1.8接口新特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-接口成员特征"><span class="toc-number">7.4.</span> <span class="toc-text">4. 接口成员特征</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-内部类"><span class="toc-number">8.</span> <span class="toc-text">8. 内部类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-重要特点"><span class="toc-number">8.1.</span> <span class="toc-text">1. 重要特点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-按位置分类"><span class="toc-number">8.2.</span> <span class="toc-text">2. 按位置分类</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-排序测试结果分析"><span class="toc-number">1.</span> <span class="toc-text">1 排序测试结果分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-O-n-2-算法和它们的亲戚一览"><span class="toc-number">2.</span> <span class="toc-text">2 O(n^2)算法和它们的亲戚一览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-政治正确的快排"><span class="toc-number">3.</span> <span class="toc-text">3 政治正确的快排</span></a></li></ol>
                     </div>
                 </span>
             </div>
