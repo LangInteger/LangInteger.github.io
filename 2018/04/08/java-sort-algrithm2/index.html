@@ -6,16 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>Archives: 2018/4 | LangInteger</title>
+  <title>Java排序算法的实现及比美-进阶篇 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LangInteger">
-<meta property="og:url" content="http://LangInteger.github.io/archives/2018/04/index.html">
+  <meta name="description" content="继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java排序算法的实现及比美-进阶篇">
+<meta property="og:url" content="http://LangInteger.github.io/2018/04/08/java-sort-algrithm2/index.html">
 <meta property="og:site_name" content="LangInteger">
+<meta property="og:description" content="继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://langinteger.github.io/2018/04/08/java-sort-algrithm2/sort_result_nlogn_web.png">
+<meta property="og:image" content="http://langinteger.github.io/2018/04/08/java-sort-algrithm2/Sorting_heapsort_anim.gif">
+<meta property="og:updated_time" content="2018-04-08T06:10:45.494Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LangInteger">
+<meta name="twitter:title" content="Java排序算法的实现及比美-进阶篇">
+<meta name="twitter:description" content="继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。">
+<meta name="twitter:image" content="http://langinteger.github.io/2018/04/08/java-sort-algrithm2/sort_result_nlogn_web.png">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -145,36 +152,69 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-java-sort-algrithm2" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      Java排序算法的实现及比美-进阶篇
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/08/java-sort-algrithm2/" class="archive-article-date">
+
+        
+        <a href="/2018/04/08/java-sort-algrithm2/" class="archive-article-date">
   	<time datetime="2018-04-08T05:03:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-08</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/08/java-sort-algrithm2/">Java排序算法的实现及比美-进阶篇</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。<br><a id="more"></a></p>
+</blockquote>
+<h2 id="1-封神榜"><a href="#1-封神榜" class="headerlink" title="1 封神榜"></a>1 封神榜</h2><blockquote>
+<p>不得不说各位O(nlogn)大佬都很厉害的，1000w级别随机数的排序时间没有超过2.5s（在我这台i7-4600U的弱机上）。而其中，归并排序以其独到的技法成为了最大黑马，一举战胜了堆排序和快排，勇夺第二届排序世锦赛冠军。此次测试的结果见下面的图表。<br><img src="/2018/04/08/java-sort-algrithm2/sort_result_nlogn_web.png" alt="sort_result_nlogn"></p>
+</blockquote>
+<h2 id="2-堆排思想"><a href="#2-堆排思想" class="headerlink" title="2 堆排思想"></a>2 堆排思想</h2><blockquote>
+<p>首先来一张堆排序动画演示图片。<br><img src="/2018/04/08/java-sort-algrithm2/Sorting_heapsort_anim.gif" alt="图片来自Wiki"></p>
+</blockquote>
+<h2 id="3-归排思想"><a href="#3-归排思想" class="headerlink" title="3 归排思想"></a>3 归排思想</h2>
+      
 
-        <div class="article-info info-on-right">
-          
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechatpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -186,160 +226,119 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/08/java-sort-algrithm2/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/07/java-sort-algrithm/" class="archive-article-date">
-  	<time datetime="2018-04-07T15:35:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-07</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/07/java-sort-algrithm/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java排序算法的实现及比美</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/07/java-sort-algrithm/">Java排序算法的实现及比美</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-封神榜"><span class="toc-number">1.</span> <span class="toc-text">1 封神榜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-堆排思想"><span class="toc-number">2.</span> <span class="toc-text">2 堆排思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-归排思想"><span class="toc-number">3.</span> <span class="toc-text">3 归排思想</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/java-oop/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:37:25.725Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/java-oop/">Java面向对象编程知识点总结</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/linear-list-java/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:29:58.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/linear-list-java/">线性表顺序映像的Java实现</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/hello-world/" class="archive-article-date">
-  	<time datetime="2018-04-05T13:24:21.872Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/hello-world/">Hello World</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -362,8 +361,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
