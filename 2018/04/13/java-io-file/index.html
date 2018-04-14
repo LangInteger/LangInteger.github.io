@@ -6,16 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>LangInteger</title>
+  <title>Java IO-文件及其操作 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LangInteger">
-<meta property="og:url" content="http://LangInteger.github.io/index.html">
+  <meta name="description" content="I/O是一个庞大复杂的系统，既要考虑到各种I/O源端和各种想要与之通信的接收端（文件、控制台、网络链接等），而且还要考虑和他们通信的不同方式（顺序、随机存取、缓冲、二进制、按字符、按行、按字等）。下面的内容记录了Java IO中对文件的典型操作。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java IO-文件及其操作">
+<meta property="og:url" content="http://LangInteger.github.io/2018/04/13/java-io-file/index.html">
 <meta property="og:site_name" content="LangInteger">
+<meta property="og:description" content="I/O是一个庞大复杂的系统，既要考虑到各种I/O源端和各种想要与之通信的接收端（文件、控制台、网络链接等），而且还要考虑和他们通信的不同方式（顺序、随机存取、缓冲、二进制、按字符、按行、按字等）。下面的内容记录了Java IO中对文件的典型操作。">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://langinteger.github.io/2018/04/13/java-io-file/File_IO_Time.png">
+<meta property="og:updated_time" content="2018-04-14T14:43:34.046Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LangInteger">
+<meta name="twitter:title" content="Java IO-文件及其操作">
+<meta name="twitter:description" content="I/O是一个庞大复杂的系统，既要考虑到各种I/O源端和各种想要与之通信的接收端（文件、控制台、网络链接等），而且还要考虑和他们通信的不同方式（顺序、随机存取、缓冲、二进制、按字符、按行、按字等）。下面的内容记录了Java IO中对文件的典型操作。">
+<meta name="twitter:image" content="http://langinteger.github.io/2018/04/13/java-io-file/File_IO_Time.png">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -151,16 +157,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-java-io-file" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-java-io-file" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/13/java-io-file/">Java IO-文件及其操作</a>
+    <h1 class="article-title" itemprop="name">
+      Java IO-文件及其操作
     </h1>
   
 
@@ -173,12 +177,103 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>I/O是一个庞大复杂的系统，既要考虑到各种I/O源端和各种想要与之通信的接收端（文件、控制台、网络链接等），而且还要考虑和他们通信的不同方式（顺序、随机存取、缓冲、二进制、按字符、按行、按字等）。<br>下面的内容记录了Java IO中对文件的典型操作。<br></p>
-        
-          <a class="article-more-a" href="/2018/04/13/java-io-file/#more">more >></a>
-        
+        <p>I/O是一个庞大复杂的系统，既要考虑到各种I/O源端和各种想要与之通信的接收端（文件、控制台、网络链接等），而且还要考虑和他们通信的不同方式（顺序、随机存取、缓冲、二进制、按字符、按行、按字等）。<br>下面的内容记录了Java IO中对文件的典型操作。<br><a id="more"></a></p>
+<h2 id="1-文件的查找-FilenameFilter过滤器"><a href="#1-文件的查找-FilenameFilter过滤器" class="headerlink" title="1. 文件的查找-FilenameFilter过滤器"></a>1. 文件的查找-FilenameFilter过滤器</h2><p>当使用FIle对象的list方法或者listFiles方法时，我们往往希望能够通过某种过滤器使得展示的列表符合我们的某种期望。FilenameFilter正是基于这种需求而产生。</p>
+<p>下面的这段代码将E盘根目录下以.mkv结尾的文件在控制台打印出。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File file1 = <span class="keyword">new</span> File(<span class="string">"E:\\"</span>);</span><br><span class="line"></span><br><span class="line">        System.out.println(Arrays.toString(file1.list(<span class="keyword">new</span> FilenameFilter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File dir, String name)</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> name.endsWith(<span class="string">".mkv"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)));</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>创建FilenameFilter子类对象的意义在于将accept()方法提供给list()使用，使得list()可以回调accept()，进而以决定哪些文件可以包含在列表中。list()方法会为此目录下的每个文件名调用accept()，来判断该文件是否包含在内。</p>
+<h2 id="2-文件目录的删除"><a href="#2-文件目录的删除" class="headerlink" title="2. 文件目录的删除"></a>2. 文件目录的删除</h2><p>当文件为多层目录结构时，其删除需要递归进行，见如下代码（方法一保留最上层文件夹，方法二则完全删除）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">deleteDeepFileWithOrigin</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    File[] menu = file.listFiles();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(File f : menu) &#123;</span><br><span class="line">        <span class="keyword">if</span> (f.isFile())&#123;</span><br><span class="line">            f.delete();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.isDirectory()) &#123;</span><br><span class="line">            deleteDeepFile(f);</span><br><span class="line">            f.delete();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> file.delete();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">deleteDeepFile</span><span class="params">(File file)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    File[] menu = file.listFiles();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(File f : menu) &#123;</span><br><span class="line">        <span class="keyword">if</span> (f.isFile())&#123;</span><br><span class="line">            f.delete();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (f.isDirectory()) &#123;</span><br><span class="line">            deleteDeepFile(f);</span><br><span class="line">            f.delete();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-文件的复制"><a href="#3-文件的复制" class="headerlink" title="3. 文件的复制"></a>3. 文件的复制</h2><p>文件复制涉及将文件以流的方式从外设读入内存，再输出到外设的过程。</p>
+<h3 id="3-1-按字节流的方式复制"><a href="#3-1-按字节流的方式复制" class="headerlink" title="3.1 按字节流的方式复制"></a>3.1 按字节流的方式复制</h3><p>Java IO类（字节处理）可以做如下划分（部分）：</p>
+<ul>
+<li>InputStream<ul>
+<li>FileInputStream：从文件读取信息</li>
+<li>FilterInputStream：输入装饰器类接口<ul>
+<li>BufferedInpuStream：带缓冲区的写入流</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OutputStream<ul>
+<li>FileOutputStream：将信息写至文件</li>
+<li>FilterOutputStream：输出装饰器类接口<ul>
+<li>BufferedOutputStream：带缓冲区的输出流</li>
+<li>PrintStream：用于产生格式化输出，代表为System.out</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>按字节流操作，所有与输入有关的类都从InputStream继承，所有与输出有关的类都从OutputStream继承，故它们都分别包含read()和write()基本方法，用来处理单个字节或字节数组。处理字节流的类方法参数一般关联int(取低8位)和byte[]。</p>
+<p>FileI/OStream初始化参数为文件，而BufferedI/OStream则是在FileI/OStream基础上的包装，最大程度实现了代码复用，是包装设计模式的代表，故BufferedI/OStream对象的初始化参数为InputStream(一般代指FileI/OStream)。需要注意的是，Buffer类含有缓冲区，需要合理搭配flush方法实现及时的I/O操作。</p>
+<p>同等条件下，对字节数组进行处理比挨个处理字节要快，而使用BufferdI/OStream比FileI/OStream要快，其中的原因在于快的方法都通过缓存减少了和OS直接打交道的次数，则文件复制中最快的方式是采用BufferedI/OStream操作字节数组，下面的图表展示了在windows环境下采用不同方法进行文件复制花费的时间情况。</p>
+<p><img src="/2018/04/13/java-io-file/File_IO_Time.png" alt="File_IO_Time"></p>
+<p>下面的代码段采用FileI/OStream操作Byte[]对磁盘中的文件进行复制，需要注意：</p>
+<ul>
+<li>当初始化输出流的参数文件不存在时，JVM会主动创建该文件（如果缺失目录则会返回异常）；</li>
+<li>read(byte[] bytes)方法会返回读取到的字节数，当读完时会返回-1，故配合write(byte[], off, len)能够做到读多少写多少；</li>
+<li>流资源的回收用close()方法，但是流可能本身为空，故需要先判空，不然可能会产生NullPointerException；</li>
+<li>回收资源的时候，由于BufferedI/OStream是对FileI/OStream的包装，故只需在Buffer层次上关闭一次即可。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    String startFile = <span class="string">"E:\\[84].天堂电影院.Cinema.Paradiso.1989.BDRip.x264.2Audio.AAC.miniSD-TLF.mkv"</span>;</span><br><span class="line">    String desFile = <span class="string">"C:\\movie\\[84].天堂电影院.Cinema.Paradiso.1989.BDRip.x264.2Audio.AAC.miniSD-TLF.mkv"</span>;</span><br><span class="line"></span><br><span class="line">    File star = <span class="keyword">new</span> File(startFile);</span><br><span class="line">    File des = <span class="keyword">new</span> File(desFile);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        copyFile(star, des);</span><br><span class="line">    &#125; <span class="keyword">catch</span> (FileNotFoundException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">copyFile</span><span class="params">(File start, File des)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line"></span><br><span class="line">    BufferInputStream fis = <span class="keyword">new</span> BufferInputStream(<span class="keyword">new</span> FileInputStream(start));</span><br><span class="line">    BufferOutputStream fos = <span class="keyword">new</span> BufferOutputStream(<span class="keyword">new</span> FileOutputStream(des));</span><br><span class="line">    <span class="keyword">byte</span>[] buff = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">1024</span>];</span><br><span class="line">    <span class="keyword">int</span> len = -<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>((len = fis.read(buff)) != -<span class="number">1</span>) &#123;</span><br><span class="line">        fos.write(buff, <span class="number">0</span>, len);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    closeQuietly(fis);</span><br><span class="line">    closeQuietly(fos);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">closeQuietly</span><span class="params">(Closeable stream)</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (stream != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stream.close(); </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace(); </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-字符流的方式复制"><a href="#3-2-字符流的方式复制" class="headerlink" title="3.2 字符流的方式复制"></a>3.2 字符流的方式复制</h3><p>Java IO类（字符处理）可以做如下划分：</p>
+<ul>
+<li>Reader<ul>
+<li>InputStreamReader：adapter类，输入转换流<ul>
+<li>FileReader：父类的简化</li>
+</ul>
+</li>
+<li>BufferedReader：带缓冲区</li>
+</ul>
+</li>
+<li>Writer<ul>
+<li>OutputStreamWriter：adapter类，输出转换流<ul>
+<li>FileWriter：父类的简化</li>
+</ul>
+</li>
+<li>BufferedWriter：带缓冲区</li>
+<li>PrintWriter：产生格式化输出</li>
+</ul>
+</li>
+</ul>
+<p>Reader/Writer是JDK1.1引入的，但是并不是用于代替InputStream/OutputStream，这两个新类是为Java提供兼容Unicldee的面向字符I/O功能，以方便国际化，而老的I/O流仅支持8位字节流。</p>
+<p>字符流在底层也是基于字节流的，InputStreamReader和OutputStreamWriter分别用InputStream和OutputStream初始化。</p>
+<p>采用字符流对文件进行复制的方式与采用字节流方式的代码基本无异，但是需要注意的是：</p>
+<ul>
+<li>字符流方式不能用来传输多媒体文件。</li>
+<li>字符流自带缓冲区。OutputStreamWriter的功能是以<strong>组合</strong>的代码复用方式通过其所含的StreamEncoder变量实现的，而StreamEncoder类中含有一个int类型的DEFAULT_BYTE_BUFFER_SIZE变量用来标记缓冲区大小。</li>
+<li>OutputStreamWriter(也即StreamEncoder)的缓冲区大小为8k大小的byte[]，而BufferedWriter的缓冲区大小为8k的char[]。</li>
+</ul>
+
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechatpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -198,16 +293,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/13/java-io-file/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/13/java-io-file/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/11/movie-cinema-paradiso/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">天堂电影院-Cinema Paradiso</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -222,478 +376,32 @@
         </div>
         
         
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-movie-cinema-paradiso" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/11/movie-cinema-paradiso/">天堂电影院-Cinema Paradiso</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/11/movie-cinema-paradiso/" class="archive-article-date">
-  	<time datetime="2018-04-11T07:36:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="/2018/04/11/movie-cinema-paradiso/paradiso.jpg" alt="paradiso"><br></p>
-        
-          <a class="article-more-a" href="/2018/04/11/movie-cinema-paradiso/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Movie</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/11/movie-cinema-paradiso/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-文件的查找-FilenameFilter过滤器"><span class="toc-number">1.</span> <span class="toc-text">1. 文件的查找-FilenameFilter过滤器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-文件目录的删除"><span class="toc-number">2.</span> <span class="toc-text">2. 文件目录的删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-文件的复制"><span class="toc-number">3.</span> <span class="toc-text">3. 文件的复制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-按字节流的方式复制"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 按字节流的方式复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-字符流的方式复制"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 字符流的方式复制</span></a></li></ol></li></ol>
+                    </div>
+                </span>
             </div>
         </div>
         
-        
     </div>
 </aside>
 
 
 
-
   
-    <article id="post-java-sort-algrithm2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/08/java-sort-algrithm2/">Java排序算法的实现及比美-进阶篇</a>
-    </h1>
   
 
-        
-        <a href="/2018/04/08/java-sort-algrithm2/" class="archive-article-date">
-  	<time datetime="2018-04-08T05:03:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。<br></p></blockquote>
-        
-          <a class="article-more-a" href="/2018/04/08/java-sort-algrithm2/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/08/java-sort-algrithm2/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-sort-algrithm" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/07/java-sort-algrithm/">Java排序算法的实现及比美</a>
-    </h1>
   
 
-        
-        <a href="/2018/04/07/java-sort-algrithm/" class="archive-article-date">
-  	<time datetime="2018-04-07T15:35:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了10万~100万数据量之间排序性能的测试，<del>由于归并排序比较扯淡，不在次次测试之列</del>（事实是它并不扯淡）。<br></p></blockquote>
-        
-          <a class="article-more-a" href="/2018/04/07/java-sort-algrithm/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/07/java-sort-algrithm/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-oop" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/05/java-oop/">Java面向对象编程知识点总结</a>
-    </h1>
   
 
-        
-        <a href="/2018/04/05/java-oop/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:37:25.725Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>主要是针对Java面向对象部分知识点的梳理，方便日后查找。<br></p></blockquote>
-        
-          <a class="article-more-a" href="/2018/04/05/java-oop/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/05/java-oop/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linear-list-java" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/05/linear-list-java/">线性表顺序映像的Java实现</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/05/linear-list-java/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:29:58.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>本例中线性表顺序映像实现难点主要在于实现线性表的add函数，借鉴JDK源码中的空间扩增方式，每次增加原有容量的一半。由于标记线性表大小的size变量为int类型，故需要考虑size值溢出的情况。<br></p></blockquote>
-        
-          <a class="article-more-a" href="/2018/04/05/linear-list-java/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/05/linear-list-java/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/05/hello-world/" class="archive-article-date">
-  	<time datetime="2018-04-05T13:24:21.872Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.<br></p>
-        
-          <a class="article-more-a" href="/2018/04/05/hello-world/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/05/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
 
 
@@ -716,8 +424,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
