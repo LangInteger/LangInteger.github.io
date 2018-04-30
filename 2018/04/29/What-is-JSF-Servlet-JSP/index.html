@@ -6,20 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>基于TCP的局域网文件复制 | LangInteger</title>
+  <title>JSF、Servlet和JSP的前世今生 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="依稀记得以前有个软件叫做“茄子快传”，是一款基于局域网进行文件传输的工具，但是APP开发商使劲儿往自己的应用里塞进了一堆累赘的功能，让我逐渐失去了对它的爱。借着Java的东风，俺自己也来实现一个局域网文件传输工具。">
-<meta name="keywords" content="Java">
+  <meta name="description" content="JSP 和 Servlet 之间是何种关系？ JSP 本身是不是就是一种 Servlet ？ JSP 和 JSF 的联系间又蕴藏何种玄机？ JSF 是否如 ASP.NET-MVC 一样，是某种形式的 prebuild UI ？答案尽在译者新番。">
+<meta name="keywords" content="Java,Translation">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于TCP的局域网文件复制">
-<meta property="og:url" content="http://LangInteger.github.io/2018/04/17/java-file-copy/index.html">
+<meta property="og:title" content="JSF、Servlet和JSP的前世今生">
+<meta property="og:url" content="http://LangInteger.github.io/2018/04/29/What-is-JSF-Servlet-JSP/index.html">
 <meta property="og:site_name" content="LangInteger">
-<meta property="og:description" content="依稀记得以前有个软件叫做“茄子快传”，是一款基于局域网进行文件传输的工具，但是APP开发商使劲儿往自己的应用里塞进了一堆累赘的功能，让我逐渐失去了对它的爱。借着Java的东风，俺自己也来实现一个局域网文件传输工具。">
+<meta property="og:description" content="JSP 和 Servlet 之间是何种关系？ JSP 本身是不是就是一种 Servlet ？ JSP 和 JSF 的联系间又蕴藏何种玄机？ JSF 是否如 ASP.NET-MVC 一样，是某种形式的 prebuild UI ？答案尽在译者新番。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-20T09:27:02.669Z">
+<meta property="og:updated_time" content="2018-04-29T12:32:43.962Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="基于TCP的局域网文件复制">
-<meta name="twitter:description" content="依稀记得以前有个软件叫做“茄子快传”，是一款基于局域网进行文件传输的工具，但是APP开发商使劲儿往自己的应用里塞进了一堆累赘的功能，让我逐渐失去了对它的爱。借着Java的东风，俺自己也来实现一个局域网文件传输工具。">
+<meta name="twitter:title" content="JSF、Servlet和JSP的前世今生">
+<meta name="twitter:description" content="JSP 和 Servlet 之间是何种关系？ JSP 本身是不是就是一种 Servlet ？ JSP 和 JSF 的联系间又蕴藏何种玄机？ JSF 是否如 ASP.NET-MVC 一样，是某种形式的 prebuild UI ？答案尽在译者新番。">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -155,61 +155,39 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java-file-copy" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-What-is-JSF-Servlet-JSP" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      基于TCP的局域网文件复制
+      JSF、Servlet和JSP的前世今生
     </h1>
   
 
         
-        <a href="/2018/04/17/java-file-copy/" class="archive-article-date">
-  	<time datetime="2018-04-17T13:53:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-17</time>
+        <a href="/2018/04/29/What-is-JSF-Servlet-JSP/" class="archive-article-date">
+  	<time datetime="2018-04-29T07:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-29</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>依稀记得以前有个软件叫做“茄子快传”，是一款基于局域网进行文件传输的工具，但是APP开发商使劲儿往自己的应用里塞进了一堆累赘的功能，让我逐渐失去了对它的爱。借着Java的东风，俺自己也来实现一个局域网文件传输工具。<br><a id="more"></a><br>由于我想实现的是自己电脑和手机之间的文件传输（手机端用Java N-IDE运行接收程序），于是采用更为可靠的TCP来实现。又由于传输的文件可能是多媒体文件，所以不采用字符流传输，而采用字节流。根据上一篇博文《Java IO-文件及其操作》的测试结果，采用最快的BufferedI/OStream with byte[]，</p>
-<p>发送端代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Send</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//计算机名、局域网中IP都可以</span></span><br><span class="line">        System.out.print(<span class="string">"请输入对方的计算机名："</span>);</span><br><span class="line">        String des = scanner.nextLine();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//要传输的文件路径，如果是win段要用\\分隔，android端用/分隔</span></span><br><span class="line">        System.out.print(<span class="string">"请输入文件路径："</span>);</span><br><span class="line">        String file = scanner.nextLine();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> FileSender(des, file)).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.Inet4Address;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"><span class="keyword">import</span> java.net.UnknownHostException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileSender</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    String des;</span><br><span class="line">    String file;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileSender</span><span class="params">(String des, String file)</span></span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.des = des;</span><br><span class="line">        <span class="keyword">this</span>.file = file;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (Socket socket = <span class="keyword">new</span> Socket(Inet4Address.getByName(des), <span class="number">4399</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"TCP连接成功...."</span>);</span><br><span class="line">            BufferedInputStream in = <span class="keyword">new</span> BufferedInputStream(<span class="keyword">new</span> FileInputStream(file));</span><br><span class="line"></span><br><span class="line">            OutputStream outputStream = socket.getOutputStream();</span><br><span class="line">            BufferedOutputStream out = <span class="keyword">new</span> BufferedOutputStream(outputStream);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">byte</span>[] buff = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2048</span>];</span><br><span class="line"></span><br><span class="line">            <span class="keyword">int</span> len;</span><br><span class="line">			<span class="keyword">int</span> mBytes = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> bytes = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>((len = in.read(buff)) != -<span class="number">1</span>)&#123;</span><br><span class="line">                out.write(buff, <span class="number">0</span>, len);</span><br><span class="line">                bytes = bytes + len;</span><br><span class="line">				mBytes = bytes / <span class="number">1048576</span>;</span><br><span class="line">				<span class="keyword">if</span> (bytes % <span class="number">1048576</span> == <span class="number">0</span>)</span><br><span class="line">					System.out.println(<span class="string">"已发送"</span> + mBytes + <span class="string">"MB"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">			out.close();</span><br><span class="line">            in.close();</span><br><span class="line">			System.out.println(<span class="string">"发送完成...."</span>);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (UnknownHostException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>接收端代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Receive</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        System.out.print(<span class="string">"请输入文件保存路径："</span>);</span><br><span class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line"></span><br><span class="line">        String file = scanner.nextLine();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> FileReceiver(file)).start();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.*;</span><br><span class="line"><span class="keyword">import</span> java.net.ServerSocket;</span><br><span class="line"><span class="keyword">import</span> java.net.Socket;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileReceiver</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    String file;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FileReceiver</span><span class="params">(String file)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.file = file;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> (ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<span class="number">4399</span>)) &#123;</span><br><span class="line"></span><br><span class="line">            System.out.println(<span class="string">"TCP正在连接...."</span>);</span><br><span class="line">            Socket socket = serverSocket.accept();</span><br><span class="line">            System.out.println(<span class="string">"TCP连接成功...."</span>);</span><br><span class="line"></span><br><span class="line">            InputStream inputStream = socket.getInputStream();</span><br><span class="line">            BufferedInputStream in = <span class="keyword">new</span> BufferedInputStream(inputStream);</span><br><span class="line"></span><br><span class="line">            BufferedOutputStream out = <span class="keyword">new</span> BufferedOutputStream(<span class="keyword">new</span> FileOutputStream(file));</span><br><span class="line"></span><br><span class="line">            <span class="keyword">byte</span>[] buff = <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">8192</span>];</span><br><span class="line">            <span class="keyword">int</span> len = -<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">int</span> mBytes = <span class="number">0</span>;</span><br><span class="line">			<span class="keyword">int</span> bytes = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>((len = in.read(buff)) != -<span class="number">1</span>) &#123;</span><br><span class="line">                out.write(buff, <span class="number">0</span>, len);</span><br><span class="line"></span><br><span class="line">				bytes = bytes + len;</span><br><span class="line">				mBytes = bytes / <span class="number">1048576</span>;</span><br><span class="line">				<span class="keyword">if</span> (bytes % <span class="number">1048576</span> == <span class="number">0</span>)</span><br><span class="line">					System.out.println(<span class="string">"已接收"</span> + mBytes + <span class="string">"MB"</span>);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">			out.close();</span><br><span class="line">			in.close();</span><br><span class="line">            socket.close();</span><br><span class="line"></span><br><span class="line">			System.out.println(<span class="string">"文件接收完成"</span>);</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
+        <p>JSP 和 Servlet 之间是何种关系？ JSP 本身是不是就是一种 Servlet ？ JSP 和 JSF 的联系间又蕴藏何种玄机？ JSF 是否如 ASP.NET-MVC 一样，是某种形式的 prebuild UI ？答案尽在译者<a href="https://stackoverflow.com/questions/2095397/what-is-the-difference-between-jsf-servlet-and-jsp" target="_blank" rel="noopener">新番</a>。<br><a id="more"></a></p>
+<h2 id="JSP-JavaServer-Pages"><a href="#JSP-JavaServer-Pages" class="headerlink" title="JSP(JavaServer Pages)"></a>JSP(JavaServer Pages)</h2><p>JSP 运行在服务器端，是一种 Java view technology ，允许程序员采用客户端语言（如 HTML, CSS, JavaScript 等）来编写模版文档。JSP 支持<a href="http://docs.oracle.com/javaee/5/tutorial/doc/bnann.html" target="_blank" rel="noopener"> taglibs </a>，taglibs 由很多 Java 代码段组成，允许程序员动态控制网页流，如 <a href="https://stackoverflow.com/tags/jstl/info" target="_blank" rel="noopener">JSTL</a> 就是一种著名的 taglibs。 JSP 也支持 <a href="https://stackoverflow.com/tags/el/info" target="_blank" rel="noopener">Expression Language</a>，可搭配 taglibs 用于获取后端数据（通过页面、请求、session 和 application scops 的属性）。</p>
+<p>当 JSP 第一次被请求或者当 web app 启动的时候， servlet 容器会把它编译成 <a href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServlet.html" target="_blank" rel="noopener">HttpServlet</a> 的扩展类并在 web app 的生命周期中使用它。生成的源代码可以在服务器的工作目录下找到，如 Tomcat 的 /work 目录。在一次 JSP 请求中， servlet 容器会执行编译好的 JSP 类文件并将生成的输出文件（通常仅仅是 HTML/CSS/JS ）通过 web 服务器穿过整个网络发送到客户端并依次展示在网页浏览器中。</p>
+<h2 id="Servlets"><a href="#Servlets" class="headerlink" title="Servlets"></a>Servlets</h2><p>Servlet 是一个运行在服务器的 Java 应用程序编程接口 (API) ，它能够侦听 (intercept) 客户端发出的请求并回复。 HttpServlet 是其中一个著名的例子，它使用流行的 <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html" target="_blank" rel="noopener">HTTP methods</a> （如 GET 和 POST ）来提供获取 HTTP 请求报文的方法。 HttpServlet 可在 web.xml 中进行配置，用来侦听某种特定的 HTTP URL ，在 Java EE 6 中可还通过 @webServlet 注解来配置。</p>
+<p>当 Serlet 被首次请求或者在 web app 的启动过程中， servlet 容器实例会生成一个 servlet 实例并在 web app 的整个生命周期中存活于内存。同一个 servlet 实例被用来处理匹配此 servlet URL pattern 的一切请求。可通过 <a href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletRequest.html" target="_blank" rel="noopener">HttpServletRequest</a> 来获得请求数据并可通过 <a href="https://docs.oracle.com/javaee/6/api/javax/servlet/http/HttpServletResponse.html" target="_blank" rel="noopener">HttpServletResponse</a> 来处理。</p>
+<h2 id="JSF-JavaServer-Faces"><a href="#JSF-JavaServer-Faces" class="headerlink" title="JSF(JavaServer Faces)"></a>JSF(JavaServer Faces)</h2><p>JSF 是一个基于组件的模型-视图-控制器框架 (component based MVC framework) ，构建在 Servlet API 的顶层，可通过 taglibs 提供 <a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnarf.html" target="_blank" rel="noopener">components</a> ，应用于 JSP 或其它基于 Java 的 view technology ，如 <a href="http://docs.oracle.com/javaee/6/tutorial/doc/giepx.html" target="_blank" rel="noopener">Facelets</a> 。 相比于 JSP ，Facelets 更适合 JSF。 Facelets 提供了更大容量的模版库 <a href="https://docs.oracle.com/javaee/6/tutorial/doc/giqxp.html" target="_blank" rel="noopener">templating capabilities</a> 如 <a href="https://docs.oracle.com/javaee/6/tutorial/doc/giqzr.html" target="_blank" rel="noopener">composite components</a> ,而 JSP 仅仅提供了 <a href="http://java.sun.com/products/jsp/syntax/2.0/syntaxref2020.html#8828" target="_blank" rel="noopener"><a href="jsp:include" target="_blank" rel="noopener">jsp:include</a></a> ，导致当想要用单个组件替换一组重复组件的时候，程序员不得不用原生 Java 代码创建自定义组件（在 JSF 中这是一项不甚容易且无聊的工作）。从 JSF2.0 开始，为支持 Facelets ， JSP 被视为 (deprecated) 一种 view technology 。 </p>
+<p>作为一种 MVC(<a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller" target="_blank" rel="noopener">Model-View-Controller</a>) 框架， JSF提供 <a href="http://docs.oracle.com/javaee/6/api/javax/faces/webapp/FacesServlet.html" target="_blank" rel="noopener">FacesServlet</a> 作为 sole-request-response 的 Controller。它将处理用户输入等所有模式化且乏味的 HTTP 请求/回应 工作从程序员手中拿走，并放到模型对象中，由模型对象调用方法并给予回复。最终，以一个 JSP 或者 Facelets(XHTML) 页面作为 View 和一个 JavaBean 类作为 Model 来结束。 JSF 组件用来将 view 和 model 捆绑在一起（就如 ASP.NET web control 所做的一样），而 FacesServlet 使用 JFS-component-tree 来完成所有工作。</p>
+<h2 id="Reference-参考资料"><a href="#Reference-参考资料" class="headerlink" title="Reference/参考资料"></a>Reference/参考资料</h2><ul>
+<li><a href="https://stackoverflow.com/questions/1958808/java-ee-web-development-where-do-i-start-and-what-skills-do-i-need" target="_blank" rel="noopener">Java EE web development, what skills do I need?</a></li>
+</ul>
 
       
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechatpay.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
+
       
     </div>
     <div class="article-info article-info-index">
@@ -221,6 +199,10 @@
 			 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Translation</a>
         		</li>
       		
 		</ul>
@@ -276,7 +258,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/17/java-file-copy/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/29/What-is-JSF-Servlet-JSP/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -290,18 +272,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/19/java-String-pool/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/04/30/Set-with-repeat-elements/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          String和它的常量池朋友以及intern()方法在JDK1.7中的变化
+          震惊！ Set 家族中出了一个元素重复的叛徒
         
       </div>
     </a>
   
   
-    <a href="/2018/04/13/java-io-file/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java IO-文件及其操作</div>
+    <a href="/2018/04/27/CSS-Style-Examples/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CSS-你必须要知道的小技巧-长期更新</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -328,7 +310,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JSP-JavaServer-Pages"><span class="toc-number">1.</span> <span class="toc-text">JSP(JavaServer Pages)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Servlets"><span class="toc-number">2.</span> <span class="toc-text">Servlets</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSF-JavaServer-Faces"><span class="toc-number">3.</span> <span class="toc-text">JSF(JavaServer Faces)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Reference-参考资料"><span class="toc-number">4.</span> <span class="toc-text">Reference/参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
