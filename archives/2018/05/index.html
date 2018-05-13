@@ -6,24 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>Java排序算法的实现及比美-进阶篇 | LangInteger</title>
+  <title>Archives: 2018/5 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。">
-<meta name="keywords" content="Java,DS,Algrithm">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Java排序算法的实现及比美-进阶篇">
-<meta property="og:url" content="http://LangInteger.github.io/2018/04/08/java-sort-algrithm2/index.html">
+  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LangInteger">
+<meta property="og:url" content="http://LangInteger.github.io/archives/2018/05/index.html">
 <meta property="og:site_name" content="LangInteger">
-<meta property="og:description" content="继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://langinteger.github.io/2018/04/08/java-sort-algrithm2/sort_result_nlogn_web.png">
-<meta property="og:image" content="http://langinteger.github.io/2018/04/08/java-sort-algrithm2/Sorting_heapsort_anim.gif">
-<meta property="og:image" content="http://langinteger.github.io/2018/04/08/java-sort-algrithm2/Merge-sort-example.gif">
-<meta property="og:updated_time" content="2018-04-08T15:40:48.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java排序算法的实现及比美-进阶篇">
-<meta name="twitter:description" content="继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。">
-<meta name="twitter:image" content="http://langinteger.github.io/2018/04/08/java-sort-algrithm2/sort_result_nlogn_web.png">
+<meta name="twitter:title" content="LangInteger">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -159,81 +151,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java-sort-algrithm2" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Java排序算法的实现及比美-进阶篇
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/05/12/java-webcrawler-jobhunter/" class="archive-article-date">
+  	<time datetime="2018-05-12T05:05:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-12</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/05/12/java-webcrawler-jobhunter/">Java 爬虫： 8021 招聘网站漫游指南</a>
     </h1>
   
 
-        
-        <a href="/2018/04/08/java-sort-algrithm2/" class="archive-article-date">
-  	<time datetime="2018-04-08T05:03:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>继昨天快排吊打一干O(n^2)的排序算法之后，新的风暴已经出现。堆排序、快速排序、归并排序三个大手子开始决战紫禁之巅，在10w-1000w数据排序的比拼中一探高下。<br><a id="more"></a></p>
-</blockquote>
-<h2 id="1-封神榜"><a href="#1-封神榜" class="headerlink" title="1 封神榜"></a>1 封神榜</h2><p>不得不说各位O(nlogn)大佬都很厉害的，1000w级别随机数（随机数范围[0, 10000)）的排序时间没有超过3.5s（在这台i7-4600U的弱机上）。而其中，归并排序以其独特的技法成为了最大黑马，一举战胜了堆排序和快排，勇夺第二届排序世锦赛冠军。此次测试的结果见下面的图表。<br><img src="/2018/04/08/java-sort-algrithm2/sort_result_nlogn_web.png" alt="sort_result_nlogn"></p>
-<h2 id="2-堆排思想"><a href="#2-堆排思想" class="headerlink" title="2 堆排思想"></a>2 堆排思想</h2><p>首先来一张堆排序动画演示图片。<br><img src="/2018/04/08/java-sort-algrithm2/Sorting_heapsort_anim.gif" alt="图片来自Wiki"><br>堆排序是指利用<strong>堆</strong>这种数据结构所设计的一种排序算法。<strong>堆积</strong>是一个近似完全二叉树的结构，并同时满足堆积的性质：即子结点的键值或索引总是小于（或者大于）它的父结点。堆一般通过一维数组来实现,在数组起始位置为1的情形中，结点间有如下关系：</p>
-<ul>
-<li>父结点i的左子结点在位置(2i);</li>
-<li>父结点i的右子结点在位置(2i + 1);</li>
-<li>子结点的父结点在位置floor((i - 1) / 2)。</li>
-</ul>
-<p>堆排序原理就是把最大堆堆顶的最大数取出（放到堆所在的数组尾部），将剩余的堆继续调整为最大堆，如此反复，当堆中只剩一个数的时候结束。堆排序中定义的操作主要有：</p>
-<ul>
-<li>下沉（Fixdown）：即根据堆的定义，对不符合条件的结点中的元素进行换位，由于是父结点元素可能被换到子结点，因此形象的称为下沉。</li>
-<li>建堆（Heapify）:即从倒数第一个不是终端叶结点的结点开始，挨个进行下沉操作，注意当父结点的子结点不是终端结点的时候，可能会进行多次下沉操作，此时要用循环或者递归控制。</li>
-<li>堆排序（Heap_Sort）：一般的做法是，将堆顶元素和堆底元素对换，然后对新的堆顶元素执行下沉操作，此时堆的size也随之减1。如此循环，最后将承载堆的一维数组变为一个有序的序列。</li>
-</ul>
-<p>为了节约篇幅，下面的代码只给出了下沉和堆排序的操作，但是在这之前必须要先完成建堆的过程（其实他也是依赖于下沉操作）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">heapSort</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = size; i &gt; <span class="number">1</span>;) &#123;</span><br><span class="line">            swap(elements, i, <span class="number">1</span>);</span><br><span class="line">            i--;</span><br><span class="line">            fixDownWithRecursion(<span class="number">1</span> ,i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//采用非递归方法对index = i处的元素进行下沉操作</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">fixDown</span><span class="params">(<span class="keyword">int</span> index)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = index * <span class="number">2</span>; i &lt; size; i *= <span class="number">2</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> child = i;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(child + <span class="number">1</span> &lt;= size) &#123;</span><br><span class="line">                <span class="keyword">if</span> (elements[child + <span class="number">1</span>] &gt; elements[child])</span><br><span class="line">                    child = child + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (elements[child] &gt; elements[index]) &#123;</span><br><span class="line">                swap(elements, child, index);</span><br><span class="line">                index = i;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-归排思想"><a href="#3-归排思想" class="headerlink" title="3 归排思想"></a>3 归排思想</h2><p>首先还是以Wiki上的一幅图片作为说明。<br><img src="/2018/04/08/java-sort-algrithm2/Merge-sort-example.gif" alt="图片来自Wiki"></p>
-<p>归并排序是诺依曼冯大大1945年提出的，该算法是采用分治法的一个非常典型的应用。从这次测试的结果可以看出，当数据量较小的时候，快排和归并排序不相伯仲，但是当数据量超过某个限值后，归并排序的优势就逐渐显现出来了。而且归并排序思想朴素，和二分查找一样是一个绝佳的用来锻炼分治思维的模版。</p>
-<p>算法中最重要也是最细节的部分是merg方法，就是把两个未知长度的有序数列合并成一个有序数列的过程，要注意边界的处理，至于递归部分则是很自然的想法。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergSort</span><span class="params">(<span class="keyword">int</span>[] arr)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span>[] temp = <span class="keyword">new</span> <span class="keyword">int</span>[arr.length];</span><br><span class="line">	mergSort(arr, <span class="number">0</span>, arr.length - <span class="number">1</span>, temp);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergSort</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> start, <span class="keyword">int</span> end, <span class="keyword">int</span>[] temp)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (start &lt; end) &#123;</span><br><span class="line">		<span class="keyword">int</span> mid = (start + end) / <span class="number">2</span>;</span><br><span class="line">		mergSort(arr, start, mid, temp);</span><br><span class="line">		mergSort(arr, mid + <span class="number">1</span>, end, temp);</span><br><span class="line"></span><br><span class="line">		merg(arr, start, mid, end, temp);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merg</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> start, <span class="keyword">int</span> mid, <span class="keyword">int</span> end, <span class="keyword">int</span>[] temp)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">int</span> lStart = start;</span><br><span class="line">	<span class="keyword">int</span> lEnd = mid;</span><br><span class="line">	<span class="keyword">int</span> rStart = mid + <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> rEnd = end;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">int</span> k = start;</span><br><span class="line">	<span class="keyword">while</span>(lStart &lt;= lEnd &amp;&amp; rStart &lt;= rEnd) &#123;</span><br><span class="line">		<span class="keyword">if</span> (arr[lStart] &lt;= arr[rStart])</span><br><span class="line">			temp[k++] = arr[lStart++];</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">			temp[k++] = arr[rStart++];</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">while</span>(lStart &lt;= lEnd)</span><br><span class="line">		temp[k++] = arr[lStart++];</span><br><span class="line">	<span class="keyword">while</span>(rStart &lt;= rEnd)</span><br><span class="line">		temp[k++] = arr[rStart++];</span><br><span class="line"></span><br><span class="line">	System.arraycopy(temp, start, arr, start, end - start + <span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechatpay.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -243,138 +190,25 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">WebCrawler</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/08/java-sort-algrithm2/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/04/11/movie-cinema-paradiso/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          天堂电影院-Cinema Paradiso
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/04/07/java-sort-algrithm/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java排序算法的实现及比美</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-封神榜"><span class="toc-number">1.</span> <span class="toc-text">1 封神榜</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-堆排思想"><span class="toc-number">2.</span> <span class="toc-text">2 堆排思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-归排思想"><span class="toc-number">3.</span> <span class="toc-text">3 归排思想</span></a></li></ol>
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -397,8 +231,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
