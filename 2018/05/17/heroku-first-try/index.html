@@ -6,23 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>Java排序算法的实现及比美 | LangInteger</title>
+  <title>天下还有免费的午餐--Heroku初体验 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了10万~100万数据量之间排序性能的测试，由于归并排序比较扯淡，不在次次测试之列（事实是它并不扯淡）。">
-<meta name="keywords" content="Java,Algrithm">
+  <meta name="description" content="作为最早的云服务平台之一，经过十年的努力，Heroku 终于在 2018 年引起了我的注意（做不要脸状）。本文主要介绍在 Heroku 平台上部署运行在 Jetty 容器中的 Java Web 应用的过程以及踩的那些坑。最终的成果见 langexample。">
+<meta name="keywords" content="Java,Heroku,Server,WebCrawler">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java排序算法的实现及比美">
-<meta property="og:url" content="http://LangInteger.github.io/2018/04/07/java-sort-algrithm/index.html">
+<meta property="og:title" content="天下还有免费的午餐--Heroku初体验">
+<meta property="og:url" content="http://LangInteger.github.io/2018/05/17/heroku-first-try/index.html">
 <meta property="og:site_name" content="LangInteger">
-<meta property="og:description" content="今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了10万~100万数据量之间排序性能的测试，由于归并排序比较扯淡，不在次次测试之列（事实是它并不扯淡）。">
+<meta property="og:description" content="作为最早的云服务平台之一，经过十年的努力，Heroku 终于在 2018 年引起了我的注意（做不要脸状）。本文主要介绍在 Heroku 平台上部署运行在 Jetty 容器中的 Java Web 应用的过程以及踩的那些坑。最终的成果见 langexample。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://langinteger.github.io/2018/04/07/java-sort-algrithm/sort_result_table.png">
-<meta property="og:image" content="http://langinteger.github.io/2018/04/07/java-sort-algrithm/sort_result_chart.png">
-<meta property="og:updated_time" content="2018-04-08T15:41:08.389Z">
+<meta property="og:updated_time" content="2018-05-17T15:05:25.036Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java排序算法的实现及比美">
-<meta name="twitter:description" content="今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了10万~100万数据量之间排序性能的测试，由于归并排序比较扯淡，不在次次测试之列（事实是它并不扯淡）。">
-<meta name="twitter:image" content="http://langinteger.github.io/2018/04/07/java-sort-algrithm/sort_result_table.png">
+<meta name="twitter:title" content="天下还有免费的午餐--Heroku初体验">
+<meta name="twitter:description" content="作为最早的云服务平台之一，经过十年的努力，Heroku 终于在 2018 年引起了我的注意（做不要脸状）。本文主要介绍在 Heroku 平台上部署运行在 Jetty 容器中的 Java Web 应用的过程以及踩的那些坑。最终的成果见 langexample。">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -158,42 +155,121 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-java-sort-algrithm" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-heroku-first-try" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Java排序算法的实现及比美
+      天下还有免费的午餐--Heroku初体验
     </h1>
   
 
         
-        <a href="/2018/04/07/java-sort-algrithm/" class="archive-article-date">
-  	<time datetime="2018-04-07T15:35:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-07</time>
+        <a href="/2018/05/17/heroku-first-try/" class="archive-article-date">
+  	<time datetime="2018-05-17T11:41:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>今日用Java实现了几种排序算法，包括冒泡排序、简单选择排序、插入排序、归并排序和快速排序。前三种是我以前眼中比较low的时间复杂度为O(n^2)的算法，后面两种则是感觉各种高大上的时间复杂度为O(nlogn)的排序。写完之后手痒痒，对这几种排序进行了10万~100万数据量之间排序性能的测试，<del>由于归并排序比较扯淡，不在次次测试之列</del>（事实是它并不扯淡）。<br><a id="more"></a></p>
-</blockquote>
-<ul>
-<li>本文分三个章节：<ul>
-<li>排序算法测试分析</li>
-<li>O(n^2)算法和它们的亲戚一览</li>
-<li>政治正确的快排</li>
+        <p>作为最早的云服务平台之一，经过十年的努力，Heroku 终于在 2018 年引起了我的注意（做不要脸状）。本文主要介绍在 Heroku 平台上部署运行在 Jetty 容器中的 Java Web 应用的过程以及踩的那些坑。最终的成果见 <a href="http://langexample.herokuapp.com/" target="_blank" rel="noopener">langexample</a>。</p>
+<a id="more"></a>
+<h2 id="1-工具的安装"><a href="#1-工具的安装" class="headerlink" title="1. 工具的安装"></a>1. 工具的安装</h2><ul>
+<li>The Heroku CLI<ul>
+<li>Heroku 命令行接口工具用于在 terminal 中管理 Heroku 应用</li>
+<li>通过 <strong>heroku login</strong> 来登录到 Heroku</li>
 </ul>
 </li>
 </ul>
-<h2 id="1-排序测试结果分析"><a href="#1-排序测试结果分析" class="headerlink" title="1 排序测试结果分析"></a>1 排序测试结果分析</h2><p>这次测试中有三种O(n^2)的算法，分别为冒泡排序、简单选择排序、插入排序，和一种O(nlogn)的快排算法。四种算法在10万至100万数据量之间奋力一搏，其中尤以冒泡排序欲仙欲死（反正等得我花儿都谢了的），具体的测试数据见下表。<br><img src="/2018/04/07/java-sort-algrithm/sort_result_table.png" alt="sort-result-table"></p>
-<p>为了让结果更加直观，又绘了一张图（见下）。可以看到，冒泡排序扶摇直上，不坠青云之志，简单选择和插入则你追我赶，情意绵绵，只有快速排序仰望星空，却又不忘脚踏实地，<br><img src="/2018/04/07/java-sort-algrithm/sort_result_chart.png" alt="sort-result-chart"></p>
-<h2 id="2-O-n-2-算法和它们的亲戚一览"><a href="#2-O-n-2-算法和它们的亲戚一览" class="headerlink" title="2 O(n^2)算法和它们的亲戚一览"></a>2 O(n^2)算法和它们的亲戚一览</h2><p><code>冒泡排序</code>是依次将相邻的两个数进行比较，经过<strong>一趟</strong>比较会把一个数（无序序列中的最大值或者最小值）放到序列的最终位置。冒泡排序是<code>稳定</code>的。冒泡排序的亲戚是<code>快速排序</code>，这是一种经典的基于<code>分治法</code>的算法，<code>快速排序</code>是<code>不稳定</code>的。<br><code>简单选择排序</code>：对线性表L[1..n]，第i趟排序即从L[i…n]中选择关键字最小的元素与L(i)交换，每一趟排序可以确定一个元素的最终位置。<code>简单选择排序</code>是<code>不稳定</code>的，因为它很跳。简单选择排序的亲戚是<code>堆排序</code>，它将顺序表看成是完全二叉树的顺序存储结构，借用完全二叉树中父节点和子节点的关系，在无序区中找到关键字最大（或最小）的元素。<code>堆排序</code>也是<code>不稳定</code>的。<br><code>直接插入排序</code>：每次将一个待排序的元素，按其关键字大小插入前面已经有序的子序列中，<code>直接插入</code>排序是稳定的，其插入的过程可以通过<code>二分查找</code>进行优化。直接插入排序的亲戚是<code>希尔排序</code>，又称为缩小增量排序，它先对原序列的子序列进行直接插入排序，完成后整个序列基本有序，再对全体记录进行一次直接插入排序。<code>希尔排序</code>时间复杂度不确定且<code>不稳定</code>。</p>
-<h2 id="3-政治正确的快排"><a href="#3-政治正确的快排" class="headerlink" title="3 政治正确的快排"></a>3 政治正确的快排</h2><p>经过本次测试，让我更加坚定了快速排序一百年不动摇的大政方针，坚决拥护以快排为中心的排序中央，胸前的红领巾更加鲜艳了。<br>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qSort</span><span class="params">(<span class="keyword">int</span>[] target)</span> </span>&#123;</span><br><span class="line">    qSort(target, <span class="number">0</span>, target.length - <span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qSort</span><span class="params">(<span class="keyword">int</span>[] target, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (start &lt; end) &#123;</span><br><span class="line">        <span class="keyword">int</span> pivotPositon = partion(target, start, end);</span><br><span class="line">        qSort(target, start, pivotPositon - <span class="number">1</span>);</span><br><span class="line">        qSort(target, pivotPositon + <span class="number">1</span>, end);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partion</span><span class="params">(<span class="keyword">int</span>[] target, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> pivot = target[start];</span><br><span class="line">    <span class="keyword">while</span>(start &lt; end) &#123;</span><br><span class="line">        <span class="keyword">while</span> (start &lt; end &amp;&amp; target[end] &gt;= pivot)</span><br><span class="line">            end--;</span><br><span class="line">        target[start] = target[end];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (start &lt; end &amp;&amp; target[start] &lt;= pivot)</span><br><span class="line">            start++;</span><br><span class="line">        target[end] = target[start];</span><br><span class="line">    &#125;</span><br><span class="line">    target[start] = pivot;</span><br><span class="line">    <span class="keyword">return</span> start;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-程序的部署"><a href="#2-程序的部署" class="headerlink" title="2. 程序的部署"></a>2. 程序的部署</h2><ul>
+<li>创建项目<ul>
+<li>在本地通过 maven 创建 Java Web 项目</li>
+<li>命令行：$ mvn archetype:generate -DarchetypeArtifactId=maven-archetype-webapp</li>
+<li>为提升速度，使用本地原型信息创建，加上参数： -DarchetypeCatalog=internal</li>
+</ul>
+</li>
+<li><p>添加 Web 容器插件</p>
+<ul>
+<li>Jetty 是一种轻量级的 Java 应用容器</li>
+<li>执行 java 代码即可启动 Jetty 服务器<blockquote>
+<p>$ java -jar jetty-runner.jar application.war</p>
+</blockquote>
+</li>
+<li>在 pom.xml 中添加 Jetty 服务器插件的代码如下<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-dependency-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">goals</span>&gt;</span><span class="tag">&lt;<span class="name">goal</span>&gt;</span>copy<span class="tag">&lt;/<span class="name">goal</span>&gt;</span><span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactItems</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.eclipse.jetty<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jetty-runner<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">version</span>&gt;</span>9.4.9.v20180320<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">destFileName</span>&gt;</span>jetty-runner.jar<span class="tag">&lt;/<span class="name">destFileName</span>&gt;</span></span><br><span class="line">              <span class="tag">&lt;/<span class="name">artifactItem</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">artifactItems</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">       <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>指定 程序运行方式</p>
+<ul>
+<li>创建 Procfile 文件</li>
+<li>procfile 声明了程序运行的方式</li>
+<li>添加如下代码，表示启动 Jetty 服务器运行 Java 程序<blockquote>
+<p>web: java $JAVA_OPTS -jar target/dependency/jetty-runner.jar –port $PORT target*.war</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>指定 Java 版本</p>
+<ul>
+<li>创建 system.properties 文件</li>
+<li>通过 <strong>java.runtime.version=8</strong>的形式指定 Java 版本</li>
+<li>默认采用 Java 8，但是鉴于将来可能会变，还是手动指定一下吧</li>
+</ul>
+</li>
+<li><p>添加 git 忽略</p>
+<ul>
+<li>创建 .gitignore 文件</li>
+<li>由于 target 目录的文件由 mvn 编译打包产生用于本地运行，并不需要推送到 Heroku ，故将 target 写入 .gitignore 文件，在 deploy 时忽略此文件夹中的文件</li>
+<li>win 下直接新建 .gitignore 是不行的，在文本编辑器中选择保存或者另存为则可以</li>
+</ul>
+</li>
+<li><p>注册 Servlet</p>
+<ul>
+<li>Jetty 某个版本以后貌似就支持 @WebServlet 注解了，但还是记录在这儿吧</li>
+<li>在 WEB-INF 文件夹下的 web.xml 中添加以下代码注册 Servlet<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Servlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.lebecca.exchangerate.Servlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>Servlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>exchangerateservlet<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>添加本地 git 仓库</p>
+<ul>
+<li>git init</li>
+<li>git add .</li>
+<li>git commit -m “Ready to deploy”</li>
+</ul>
+</li>
+<li><p>部署到 Heroku</p>
+<ul>
+<li>创建应用 <strong>$ heroku create [appname]</strong><ul>
+<li>应用创建时，一个远程git（heroku）也会同时创建并与本地库关联</li>
+</ul>
+</li>
+<li>本地推送 <strong>$ git push heroku master</strong></li>
+<li>添加资源 <strong>$ heroku ps:scale web=1</strong></li>
+<li>打开应用 <strong>$ heroku open</strong></li>
+<li>本地运行 <strong>$ foreman start web -f Profile.windows</strong><ul>
+<li>localhost:500，linux系统可以省略 -f</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-功能的实现"><a href="#3-功能的实现" class="headerlink" title="3. 功能的实现"></a>3. 功能的实现</h2><ul>
+<li>一个底层得不能再底层的爬虫，不添加任何框架的成分<ul>
+<li>从<a href="http://www.boc.cn/sourcedb/whpj/" target="_blank" rel="noopener">中国银行官网</a>获得每日更新的外汇牌价</li>
+<li>使用 iframe 实现了前端页面和服务器的交互</li>
+<li>实现了常用及不常用的 12 种货币之间的汇率兑换</li>
+</ul>
+</li>
+</ul>
+<h2 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4. 参考资料"></a>4. 参考资料</h2><ul>
+<li><a href="https://devcenter.heroku.com/articles/deploy-a-java-web-application-that-launches-with-jetty-runner" target="_blank" rel="noopener">Deploy a Java Web Application That Launches with Jetty Runner</a></li>
+<li><a href="https://blog.csdn.net/helloxiaoyueyue/article/details/45507329" target="_blank" rel="noopener">heroku 部署 java web 项目 —— Vino007 的 CSDN 博客</a></li>
+<li><a href="https://www.jianshu.com/p/638e0f6f1d2a" target="_blank" rel="noopener">Heroku 简明教程 —— hoptop 的简书</a></li>
+</ul>
+
       
 
       
@@ -236,7 +312,15 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Heroku</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">WebCrawler</a>
         		</li>
       		
 		</ul>
@@ -292,7 +376,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/04/07/java-sort-algrithm/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/05/17/heroku-first-try/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -306,18 +390,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/04/08/java-sort-algrithm2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Java排序算法的实现及比美-进阶篇
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/04/05/java-oop/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Java面向对象编程知识点总结</div>
+    <a href="/2018/05/12/java-webcrawler-jobhunter/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java 爬虫： 8021 招聘网站漫游指南</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -344,7 +419,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-排序测试结果分析"><span class="toc-number">1.</span> <span class="toc-text">1 排序测试结果分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-O-n-2-算法和它们的亲戚一览"><span class="toc-number">2.</span> <span class="toc-text">2 O(n^2)算法和它们的亲戚一览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-政治正确的快排"><span class="toc-number">3.</span> <span class="toc-text">3 政治正确的快排</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-工具的安装"><span class="toc-number">1.</span> <span class="toc-text">1. 工具的安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-程序的部署"><span class="toc-number">2.</span> <span class="toc-text">2. 程序的部署</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-功能的实现"><span class="toc-number">3.</span> <span class="toc-text">3. 功能的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-参考资料"><span class="toc-number">4.</span> <span class="toc-text">4. 参考资料</span></a></li></ol>
                     </div>
                 </span>
             </div>
