@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>Tag: Java | LangInteger</title>
+  <title>条条大路通罗马 —— Java 路径漫谈 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LangInteger">
-<meta property="og:url" content="http://LangInteger.github.io/tags/Java/page/2/index.html">
+  <meta name="description" content="编写 Java 程序，无论是 Java EE 还是 SE ，和文件打交道都蛮多的。本文对 Java 程序的路径进行一定探索，帮助 Javaer 正确找到文件路径。">
+<meta name="keywords" content="Java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="条条大路通罗马 —— Java 路径漫谈">
+<meta property="og:url" content="http://LangInteger.github.io/2018/05/20/java-path/index.html">
 <meta property="og:site_name" content="LangInteger">
+<meta property="og:description" content="编写 Java 程序，无论是 Java EE 还是 SE ，和文件打交道都蛮多的。本文对 Java 程序的路径进行一定探索，帮助 Javaer 正确找到文件路径。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-20T15:58:56.534Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LangInteger">
+<meta name="twitter:title" content="条条大路通罗马 —— Java 路径漫谈">
+<meta name="twitter:description" content="编写 Java 程序，无论是 Java EE 还是 SE ，和文件打交道都蛮多的。本文对 Java 程序的路径进行一定探索，帮助 Javaer 正确找到文件路径。">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -151,124 +155,103 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-java-path" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      条条大路通罗马 —— Java 路径漫谈
+    </h1>
+  
+
+        
+        <a href="/2018/05/20/java-path/" class="archive-article-date">
+  	<time datetime="2018-05-20T13:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-20</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>编写 Java 程序，无论是 Java EE 还是 SE ，和文件打交道都蛮多的。本文对 Java 程序的路径进行一定探索，帮助 Javaer 正确找到文件路径。</p>
+<a id="more"></a>
+<h2 id="1-Java-SE-中的文件路径"><a href="#1-Java-SE-中的文件路径" class="headerlink" title="1. Java SE 中的文件路径"></a>1. Java SE 中的文件路径</h2><blockquote>
+<p>System.getProperty(“user.dir”) = E:\CodeRepository\java\PathTest<br>file.getAbsolutePath() = E:\CodeRepository\java\PathTest\target.txt</p>
+</blockquote>
+<p>以上输出结果在 IDEA 中得到，容易让我们误以为当前 Module 的路径就是默认的 user.dir。实际上，这个系统属性在 IDEA 中可以设置，如我的电脑中设置为 $MODULE_DIR$，所以以上结果就很正常了。为了进一步说明，我在 Desktop 下放置了一个拥有相同代码段的 Java 文件并编译运行，得到如下结果：</p>
+<blockquote>
+<p>file.getAbsolutePath() = C:\Users\Rebecca\Desktop\target.txt<br>System.getProperty(“user.dir”) = C:\Users\Rebecca\Desktop</p>
+</blockquote>
+<p>可以看到，这时候工作目录直接变成了桌面。<br>也就是说，我们常说的相对路径所指的就是 user.dir 所代表的路径，我们的程序中所有的相对路径即是相对于这个路径的。这点在 Java web 项目中仍然是适用的。</p>
+<h2 id="2-Java-web-中的相对路径和绝对路径"><a href="#2-Java-web-中的相对路径和绝对路径" class="headerlink" title="2. Java web 中的相对路径和绝对路径"></a>2. Java web 中的相对路径和绝对路径</h2><p>由于 web 项目被部署在服务器上（如 Tomcat ），我们很多时候会被相对路径和绝对路径搅糊。事实上，程序运行本质上永远是使用绝对路径来寻找资源，所谓的相对路径，都要经过 API 在底层帮助我们构建绝对路径。</p>
+<p>要使用相对路径，需要搞明白web 程序中默认的相对路径到底是哪儿？如上文所言，所谓的相对路径相对的即是 user.dir 这个路径。在 Servlet 中输出 user.dir 可以得到</p>
+<blockquote>
+<p>System.getProperty(“user.dir”) = E:\CodeRepository\apache-tomcat-8.5.24\bin</p>
+</blockquote>
+<p>即 Tomcat 的启动文件所在目录成为了我们的默认相对路径的根目录。这是因为我们的 web 程序实际上运行在 Tomcat 下。一般情况下，Tomcat 文件夹下的 webapps 文件夹是我们的 web 应用放置的地方（这里的 war 包也会在服务器启动时自动解压），但是我们一般会通过修改配置文件进行虚拟目录映射使得另外的物理路径下的 web 应用也能运行。</p>
+<p>在这种虚拟目录映射的情况下，通过默认的 Tomcat 的 bin 目录再去修修补补拿到 webapps 目录就不太能够应付实际情况了，所以服务器上很多时候需要采用绝对路径来获取资源，主要有以下两种方法：</p>
+<ul>
+<li>采用 Servlet 相关类的 API 来获得</li>
+</ul>
+<blockquote>
+<p>getServletContext().getRealPath(url)</p>
+</blockquote>
+<p>以上方法返回任意 url 相对当前应用在服务器上位置的地址。 getServletContext() 方法在 HttpServlet 的父抽象类 GenericServlet 类中，而它又通过 ServletConfig 对象拿到 ServletContex 对象，再由 getRealPath() 方法拿到给定的参数虚拟路径的真实路径。这个路径会与运行此 Servelt 的不同硬件、操作系统自适应。</p>
+<ul>
+<li>根据类的加载机制<br>当在非类 Servlet对象中，拿不到 ServletContext对象，要获得真实路径，可以通过如下方法：</li>
+</ul>
+<blockquote>
+<p>XX类.class.geiClassLoader().getResource(“”);</p>
+</blockquote>
+<p>这样就拿到了 WEB-INF 下的 classes 文件夹的真实路径，经过适当处理，就可以拿到 web 应用的路径。比如：</p>
+<blockquote>
+<p>XX类.class.getClassLoader().getResource(“../../a.txt”).getPath();</p>
+</blockquote>
+<p>就拿到了 classes 的父目录的父目录中（即 web 目录）的 a.txt 这个文件。</p>
+<h2 id="3-Java-web-不同-web-资源间跳转的路径设置"><a href="#3-Java-web-不同-web-资源间跳转的路径设置" class="headerlink" title="3. Java web 不同 web 资源间跳转的路径设置"></a>3. Java web 不同 web 资源间跳转的路径设置</h2><p>上面针对 web 主要讨论了使用绝对路径的情况，那么相对路径毫无用于之地吗？显然不是的，当 API 在底层能够帮助我们自动补全绝对路径的时候，相对路径也就有了用武之地。不过这时候的相对路径和上面的 user.dir 代表的相对路径已经发生了变化，由于 API 在底层的帮助，下面我们谈论的相对路径变成了真正相对于服务器、web 应用的相对路径。</p>
+<p>例如当请求转发 getRequestDispather 或者 重定向 sendRedirect 时：</p>
+<pre><code>- 以 &quot;/&quot; 开头的路径表示相对于当前 web 应用的根目录，通常用于重定向中，因为客户端需要再次访问服务器
+- 以非 &quot;/&quot; 开头的路径表示相对于当前 Servlet 的父目录，通常用于请求转发，因为其他的处理器基本上和当前处理器都在一个目录下
+</code></pre><p>另外，html 页面中的表单提交也涉及 action 属性中的路径问题：</p>
+<pre><code>- 以 &quot;/&quot; 开头的路径表示相对于当前服务器的根目录，即为当前 web 应用根目录的父目录
+- 以非 &quot;/&quot; 开头的路径表示相对于当前 web 应用的根目录
+</code></pre><p>以上。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechatpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/08/java-sort-algrithm2/" class="archive-article-date">
-  	<time datetime="2018-04-08T05:03:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/08/java-sort-algrithm2/">Java排序算法的实现及比美-进阶篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/07/java-sort-algrithm/" class="archive-article-date">
-  	<time datetime="2018-04-07T15:35:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/07/java-sort-algrithm/">Java排序算法的实现及比美</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/java-oop/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:37:25.725Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/java-oop/">Java面向对象编程知识点总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -280,64 +263,118 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/05/20/java-path/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/linear-list-java/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:29:58.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/17/heroku-first-try/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">天下还有免费的午餐--Heroku初体验</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/linear-list-java/">线性表顺序映像的Java实现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Java-SE-中的文件路径"><span class="toc-number">1.</span> <span class="toc-text">1. Java SE 中的文件路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Java-web-中的相对路径和绝对路径"><span class="toc-number">2.</span> <span class="toc-text">2. Java web 中的相对路径和绝对路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Java-web-不同-web-资源间跳转的路径设置"><span class="toc-number">3.</span> <span class="toc-text">3. Java web 不同 web 资源间跳转的路径设置</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/tags/Java/">&laquo; Prev</a><a class="page-number" href="/tags/Java/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
   
 
 
@@ -361,9 +398,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
