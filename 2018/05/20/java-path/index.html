@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="LangInteger">
 <meta property="og:description" content="编写 Java 程序，无论是 Java EE 还是 SE ，和各种程序外资源打交道都蛮多的。本文对 Java 程序中的路径问题进行一定探索，帮助 Javaer 不迷路。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-21T00:37:28.184Z">
+<meta property="og:updated_time" content="2018-05-21T06:27:57.527Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="条条大路通罗马 —— Java 路径漫谈">
 <meta name="twitter:description" content="编写 Java 程序，无论是 Java EE 还是 SE ，和各种程序外资源打交道都蛮多的。本文对 Java 程序中的路径问题进行一定探索，帮助 Javaer 不迷路。">
@@ -210,7 +210,7 @@
 <p>XX类.class.getClassLoader().getResource(“../../a.txt”).getPath();</p>
 </blockquote>
 <p>就拿到了 classes 的父目录的父目录中（即 web 目录）的 a.txt 这个文件。</p>
-<h2 id="3-Java-web-不同-web-资源间跳转的路径设置"><a href="#3-Java-web-不同-web-资源间跳转的路径设置" class="headerlink" title="3. Java web 不同 web 资源间跳转的路径设置"></a>3. Java web 不同 web 资源间跳转的路径设置</h2><p>上文所述部署在服务器上的 web 应用相对路径功能如此孱弱，那么相对路径毫无用于之地吗？显然不是的，当 API 在底层能够帮助我们自动补全绝对路径的时候，相对路径也就有了用武之地。不过这时候的相对路径和上面的 user.dir 代表的相对路径已经发生了变化，由于 API 在底层的帮助，下面我们谈论的相对路径变成了真正相对于服务器、web 应用的相对路径。</p>
+<h2 id="3-Java-web-不同-web-资源间跳转的路径设置"><a href="#3-Java-web-不同-web-资源间跳转的路径设置" class="headerlink" title="3. Java web 不同 web 资源间跳转的路径设置"></a>3. Java web 不同 web 资源间跳转的路径设置</h2><p>上文所述部署在服务器上的 web 应用相对路径功能如此孱弱，那么相对路径毫就没点用吗？显然不是的，当底层 API 能够帮助我们自动补全绝对路径的时候，相对路径也就有了用武之地。不过这时候的相对路径和上面的 user.dir 代表的相对路径已经发生了变化，下面我们谈论的相对路径变成了真正相对于服务器、web 应用的相对路径。</p>
 <p>例如当请求转发 getRequestDispather 或者 重定向 sendRedirect 时：</p>
 <pre><code>- 以 &quot;/&quot; 开头的路径表示相对于当前 web 应用的根目录，通常用于重定向中，因为此时需要浏览器再次访问服务器资源
 - 以非 &quot;/&quot; 开头的路径表示相对于当前 Servlet 的父目录，通常用于请求转发，因为其他的处理器基本上和当前处理器都在一个目录下
@@ -476,6 +476,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Translation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Heroku</a>
               </li>
              
@@ -485,10 +489,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">WebCrawler</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Translation</a>
               </li>
              
               <li class="article-tag-list-item">
