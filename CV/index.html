@@ -17,7 +17,7 @@
 <meta property="og:description" content=".container {         /*margin: 50px auto;*/         /*border: #408bff 1px solid;*/     }      }     #fake {         margin-left: 40px;         position: absolute;         color: #eee;         f">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://langinteger.github.io/CV/index/Lang.jpg">
-<meta property="og:updated_time" content="2018-05-22T16:37:53.701Z">
+<meta property="og:updated_time" content="2018-05-23T03:07:05.224Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Curriculum Vitae">
 <meta name="twitter:description" content=".container {         /*margin: 50px auto;*/         /*border: #408bff 1px solid;*/     }      }     #fake {         margin-left: 40px;         position: absolute;         color: #eee;         f">
@@ -198,19 +198,23 @@
 </style>
 
 <script>
+    content = "送你一朵很小支的花<br>因为它也曾开过半夏<br>不怕风吹雨也打长沙<br>看层林尽染等到朝霞";
+    str = "送你一朵很小支的花<br>因为它也曾开过半夏<br>不怕风吹雨也打长沙<br>看层林尽染等到朝霞";
     function check() {
         var pwd = document.getElementById("pwd").value;
         if (pwd == '42') {
+            document.getElementById("pwd").value = "";
+            document.getElementById("pwd").placeholder = "Congratulations";
             var mainDiv = document.getElementById("main");
             mainDiv.style.display = "";
         } else {
+            document.getElementById("pwd").value = "";
+            document.getElementById("pwd").placeholder = "Wrong, Try Again";
             var fakeDiv = document.getElementById("fake");
-            fakeDiv.style.display = "";
             setTimeout("p1()", 200);
         }
     }
 
-    content = "送你一朵很小支的花<br>因为它也曾开过半夏<br>不怕风吹雨也打长沙<br>看层林尽染等到朝霞";
     var i = 0;
     function p1() {
         var str = content.substr(0, i);
@@ -223,7 +227,6 @@
         setTimeout("p1()", 100);
     }
 
-    str = "送你一朵很小支的花<br>因为它也曾开过半夏<br>不怕风吹雨也打长沙<br>看层林尽染等到朝霞";
     function p2() {
         document.getElementById("fake").innerHTML = str + "\\";
         setTimeout("p3()", 50)
@@ -243,7 +246,7 @@
 
 </script>
 
-<div style="width: 100%; text-align: center"><br>    输入访问密码：<input type="password" id="pwd" placeholder=" Just Guess " style="border: 1px solid #ccc;
+<div style="width: 100%; text-align: center"><br>    <input type="password" id="pwd" placeholder=" 输入密码 " style="border: 1px solid #ccc;
                 padding: 7px 0px;
                 border-radius: 3px;
                 padding-left:5px;
@@ -251,17 +254,17 @@
                 box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
                 -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
                 -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s"><br>    <input type="submit" value="走近 Lang" onclick="check()" style="background: repeat 0px 0px; width:200px; height: 44px; margin: 20px 0px 0px 0px;"><br></div>
+                transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s"><br>    <input type="submit" value="GO" onclick="check()" style="background: repeat 0px 0px; width:100px; height: 44px; margin: 20px 0px 20px 0px;"><br>    <div id="fake" style="height: 5em ; 
+            margin-left: 40px;
+            position: relative;
+            color: #aaa;
+            font-family: 楷体;
+            font-size: 1.5em;
+            letter-spacing: 0.2em;"><br>    </div><br></div>
 
-<div id="fake" style="display: none; 
-        margin-left: 40px;
-        position: absolute;
-        color: #aaa;
-        font-family: 楷体;
-        font-size: 1.5em;
-        letter-spacing: 0.2em;"><br></div>
 
-<div id="main" style="display: none"><br><br># 刘郎<br># 联系方式<br><br>- 手机：17608387765<br>- QQ/微信：709091988<br>- Email：<a href="mailto:LangInteger@outlook.com" target="_blank" rel="noopener">LangInteger@outlook.com</a><br>—<br><br># 个人信息<br><br> - 男/1995年生人<br> - 本科/中南大学土木工程 2013级/加权成绩：86.89/排名：前15%<br> - 四六级：优秀（565/526）/计算机等考二三级：合格<br> - 技术博客：<a href="http://LangInteger.github.io">LangInteger.github.io</a><br> - 期望职位/城市：Java后台开发工程师/北京、上海、深圳<br> - 期望薪资：萌新害怕，不敢说话<br>—<br><br># 所获荣誉<br> - <a href="http://www.myjks.com/zhengcewenjian/suoneiwenjian/jianbao/2010-12-28/1852.html" target="_blank" rel="noopener">四川省NOIP2010 信息学奥林匹克联赛三等奖</a><br> - <a href="http://tz.its.csu.edu.cn/Home/Release_TZTG_zd/415EAACD037445198C981C041613D4FA" target="_blank" rel="noopener">中南大学第十届大学生程序设计竞赛三等奖</a><br><br># 技术/影评文章<br><br>- <a href="https://langinteger.github.io/2018/04/19/java-String-pool/">String和它的常量池朋友以及intern()方法在JDK1.7中的变化</a><br>- <a href="https://langinteger.github.io/2018/04/08/java-sort-algrithm2/">Java排序算法的实现及比美-进阶篇</a><br>- <a href="https://langinteger.github.io/2018/04/11/movie-cinema-paradiso/">天堂电影院-Cinema Paradiso</a><br><br># 项目经历<br><br>## DEF项目<br>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。<br><br><br>## GHI项目<br>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。<br><br># 技能清单<br><br>以下均为我熟练使用的技能<br><br>- Web开发：PHP/Hack/Node<br>- Web框架：ThinkPHP/Yaf/Yii/Lavaral/LazyPHP<br>- 前端框架：Bootstrap/AngularJS/EmberJS/HTML5/Cocos2dJS/ionic<br>- 前端工具：Bower/Gulp/SaSS/LeSS/PhoneGap<br>- 数据库相关：MySQL/PgSQL/PDO/SQLite<br>- 版本管理、文档和自动化部署工具：Svn/Git/PHPDoc/Phing/Composer<br>- 单元测试：PHPUnit/SimpleTest/Qunit<br>- 云和开放平台：SAE/BAE/AWS/微博开放平台/微信应用开发<br>—<br><br># 中意书籍<br><br>- 《CSS世界》            张鑫旭<br>- 《图解HTTP》            上野宣<br>- <em>Pointers on C</em>    Kenneth·Reek<br><br><br># 致谢<br>感谢您花时间阅读我的简历，您的意见和反馈是我前进路上的最大动力。<br><br></div>
+
+<div id="main" style="display: none"><br><br># 刘郎<br># 联系方式<br><br>- 手机：17608387765<br>- QQ/微信：709091988<br>- Email：<a href="mailto:LangInteger@outlook.com" target="_blank" rel="noopener">LangInteger@outlook.com</a><br>—<br><br># 个人信息<br><br> - 男/1995年生人<br> - 本科/中南大学土木工程 2013级/加权成绩：86.89/排名：前15%<br> - 四六级：优秀（565/526）/计算机等考二三级：合格<br> - 技术博客：<a href="http://LangInteger.github.io">LangInteger.github.io</a><br> - 期望职位/城市：Java后台开发工程师/北京、上海、深圳<br> - 期望薪资：萌新害怕，不敢说话<br><br>—<br><br># 所获荣誉<br> - <a href="http://www.myjks.com/zhengcewenjian/suoneiwenjian/jianbao/2010-12-28/1852.html" target="_blank" rel="noopener">四川省NOIP2010 信息学奥林匹克联赛三等奖</a><br> - <a href="http://tz.its.csu.edu.cn/Home/Release_TZTG_zd/415EAACD037445198C981C041613D4FA" target="_blank" rel="noopener">中南大学第十届大学生程序设计竞赛三等奖</a><br><br># 技术/影评文章<br><br>- <a href="https://langinteger.github.io/2018/04/19/java-String-pool/">String和它的常量池朋友以及intern()方法在JDK1.7中的变化</a><br>- <a href="https://langinteger.github.io/2018/04/08/java-sort-algrithm2/">Java排序算法的实现及比美-进阶篇</a><br>- <a href="https://langinteger.github.io/2018/04/11/movie-cinema-paradiso/">天堂电影院-Cinema Paradiso</a><br><br># 项目经历<br><br>## DEF项目<br>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。<br><br><br>## GHI项目<br>我在此项目负责了哪些工作，分别在哪些地方做得出色/和别人不一样/成长快，这个项目中，我最困难的问题是什么，我采取了什么措施，最后结果如何。这个项目中，我最自豪的技术细节是什么，为什么，实施前和实施后的数据对比如何，同事和领导对此的反应如何。<br><br># 技能清单<br><br>以下均为我熟练使用的技能<br><br>- Web开发：PHP/Hack/Node<br>- Web框架：ThinkPHP/Yaf/Yii/Lavaral/LazyPHP<br>- 前端框架：Bootstrap/AngularJS/EmberJS/HTML5/Cocos2dJS/ionic<br>- 前端工具：Bower/Gulp/SaSS/LeSS/PhoneGap<br>- 数据库相关：MySQL/PgSQL/PDO/SQLite<br>- 版本管理、文档和自动化部署工具：Svn/Git/PHPDoc/Phing/Composer<br>- 单元测试：PHPUnit/SimpleTest/Qunit<br>- 云和开放平台：SAE/BAE/AWS/微博开放平台/微信应用开发<br>—<br><br># 中意书籍<br><br>- 《CSS世界》            张鑫旭<br>- 《图解HTTP》            上野宣<br>- <em>Pointers on C</em>    Kenneth·Reek<br><br><br># 致谢<br>感谢您花时间阅读我的简历，您的意见和反馈是我前进路上的最大动力。<br><br></div>
 
 
       
@@ -449,15 +452,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
