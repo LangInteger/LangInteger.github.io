@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="LangInteger">
 <meta property="og:description" content="编写 Java 程序，无论是 Java EE 还是 SE ，和各种程序外资源打交道都蛮多的。本文对 Java 程序中的路径问题进行一定探索，帮助 Javaer 不迷路。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-22T05:48:06.914Z">
+<meta property="og:updated_time" content="2018-05-29T01:20:01.624Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="条条大路通罗马 —— Java 路径漫谈">
 <meta name="twitter:description" content="编写 Java 程序，无论是 Java EE 还是 SE ，和各种程序外资源打交道都蛮多的。本文对 Java 程序中的路径问题进行一定探索，帮助 Javaer 不迷路。">
@@ -213,13 +213,31 @@
 <h2 id="3-Java-web-不同-web-资源间跳转的路径设置"><a href="#3-Java-web-不同-web-资源间跳转的路径设置" class="headerlink" title="3. Java web 不同 web 资源间跳转的路径设置"></a>3. Java web 不同 web 资源间跳转的路径设置</h2><p>上文所述部署在服务器上的 web 应用相对路径功能如此孱弱，那么相对路径毫就没点用吗？显然不是的，当底层 API 能够帮助我们自动补全绝对路径的时候，相对路径也就有了用武之地。不过这时候的相对路径和上面的 user.dir 代表的相对路径已经发生了变化，下面我们谈论的相对路径变成了真正相对于服务器、web 应用的相对路径。</p>
 <p>例如当请求转发 getRequestDispather 或者 重定向 sendRedirect 时：</p>
 <blockquote>
-<p>以 “/“ 开头的路径表示相对于当前 web 应用的根目录，通常用于重定向中，因为此时需要浏览器再次访问服务器资源<br>以非 “/“ 开头的路径表示相对于当前 Servlet 的父目录，通常用于请求转发，因为其他的处理器基本上和当前处理器都在一个目录下</p>
+<p>以 “/“ 开头的路径表示相对于当前 web 应用的根目录，通常用于重定向中，因为此时需要浏览器再次访问服务器资源<br>以非 “/“ 开头的路径表示相对于当前访问的url资源的同级目录（如 Servlet 的父目录），通常用于请求转发，因为其他的处理器基本上和当前处理器都在一个目录下</p>
 </blockquote>
 <p>另外，html 页面中的表单提交也涉及 action 属性中的路径问题：</p>
 <blockquote>
-<p>以 “/“ 开头的路径表示相对于当前服务器的根目录，即为当前 web 应用根目录的父目录<br>以非 “/“ 开头的路径表示相对于当前 web 应用的根目录</p>
+<p>以 “/“ 开头的路径表示相对于当前服务器的根目录，即为当前 web 应用根目录的父目录<br>以非 “/“ 开头的路径表示相对于当前访问的url资源的同级目录</p>
 </blockquote>
-<p>以上。</p>
+<h2 id="4-推荐写法"><a href="#4-推荐写法" class="headerlink" title="4. 推荐写法"></a>4. 推荐写法</h2><h3 id="4-1-表单提交、前端资源请求地址"><a href="#4-1-表单提交、前端资源请求地址" class="headerlink" title="4.1 表单提交、前端资源请求地址"></a>4.1 表单提交、前端资源请求地址</h3><blockquote>
+<p>由于是浏览器使用的地址，所以加上应用名</p>
+<form action="${pageContext.request.contextPath}/pages/login.html" method="”get”">
+</form></blockquote>
+<h3 id="4-2-请求转发、请求包含"><a href="#4-2-请求转发、请求包含" class="headerlink" title="4.2 请求转发、请求包含"></a>4.2 请求转发、请求包含</h3><blockquote>
+<p>由于在 Tomcat 容器的 web 应用内部，所以不用写应用名。<br>request.getRequestDispatcher(“/servlet/ServletA”);<br>request.getRequestDispatcher(“/myapp/index.jsp”);</p>
+</blockquote>
+<blockquote>
+<p>前端转发包含标签也同理：<br>&lt;jsp:forward page=”/servlet/servletB”&gt;&lt;/jsp:forward&gt;</p>
+</blockquote>
+<h3 id="4-3-response-报文中的刷新字段"><a href="#4-3-response-报文中的刷新字段" class="headerlink" title="4.3 response 报文中的刷新字段"></a>4.3 response 报文中的刷新字段</h3><blockquote>
+<p>由于是浏览器使用的地址，所以加上应用名<br>response.setHeader(“refresh”, “2;url=’/myapp/index.html’”);</p>
+</blockquote>
+<h3 id="4-3-response-报文中的重定向字段"><a href="#4-3-response-报文中的重定向字段" class="headerlink" title="4.3 response 报文中的重定向字段"></a>4.3 response 报文中的重定向字段</h3><blockquote>
+<p>由于是浏览器使用的地址，所以加上应用名<br>response.sendRedirect(“/myapp/indexl.jsp”);</p>
+</blockquote>
+<blockquote>
+<p>response.setStatus(307);<br>respongse.setHeader(“Location”, “/myapp/index.jsp”);</p>
+</blockquote>
 
       
 
@@ -358,7 +376,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Java-SE-中的文件路径"><span class="toc-number">1.</span> <span class="toc-text">1. Java SE 中的文件路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Java-web-中的相对路径和绝对路径"><span class="toc-number">2.</span> <span class="toc-text">2. Java web 中的相对路径和绝对路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Java-web-不同-web-资源间跳转的路径设置"><span class="toc-number">3.</span> <span class="toc-text">3. Java web 不同 web 资源间跳转的路径设置</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Java-SE-中的文件路径"><span class="toc-number">1.</span> <span class="toc-text">1. Java SE 中的文件路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Java-web-中的相对路径和绝对路径"><span class="toc-number">2.</span> <span class="toc-text">2. Java web 中的相对路径和绝对路径</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Java-web-不同-web-资源间跳转的路径设置"><span class="toc-number">3.</span> <span class="toc-text">3. Java web 不同 web 资源间跳转的路径设置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-推荐写法"><span class="toc-number">4.</span> <span class="toc-text">4. 推荐写法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-表单提交、前端资源请求地址"><span class="toc-number">4.1.</span> <span class="toc-text">4.1 表单提交、前端资源请求地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-请求转发、请求包含"><span class="toc-number">4.2.</span> <span class="toc-text">4.2 请求转发、请求包含</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-response-报文中的刷新字段"><span class="toc-number">4.3.</span> <span class="toc-text">4.3 response 报文中的刷新字段</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-response-报文中的重定向字段"><span class="toc-number">4.4.</span> <span class="toc-text">4.3 response 报文中的重定向字段</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
