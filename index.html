@@ -153,6 +153,183 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-spring-data-jpa-simplified-specification" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/28/spring-data-jpa-simplified-specification/">Spring Data JPA 简明教程</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/28/spring-data-jpa-simplified-specification/" class="archive-article-date">
+  	<time datetime="2018-07-28T15:55:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>JPA 是为了整合第三方 ORM 框架建立的一套标准接口，统一了数据持久化存储的相关操作。程序员只需学习一套统一的 JPA api，而不必关心底层去做事情的 ORM 框架到底是谁。<br>Hibernate 等 ORM 框架是 JPA 的底层实现，本身提供了一些 CRUD 功能，但是包含业务逻辑的数据库访问操作仍然需要手写 sql 语句来实现，而 Spring-data-jpa 则提供了进行了更强大的功能，封装了一定的业务逻辑功能，最大程度上减少了手写 sql。</p>
+        
+          <a class="article-more-a" href="/2018/07/28/spring-data-jpa-simplified-specification/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring Data</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JPA</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/28/spring-data-jpa-simplified-specification/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-spring-transactionalal" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/13/spring-transactionalal/">Spring @Transactional两三事</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/13/spring-transactionalal/" class="archive-article-date">
+  	<time datetime="2018-07-13T15:14:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>事务是指访问并可能更新数据库中各种数据项的一系列操作，这些操作要么全部成功，要么全部失败。如果说一个数据库支持事务，那么该数据库必须要具备ACID四个特性。亦即：</p>
+<ul>
+<li>原子性（Atomicity）：事务包含的操作要么全部成功，要么全部失败</li>
+<li>一致性（Consistency）：事务操作使数据库从一个一致性状态变换到另一个一致性状态</li>
+<li>隔离性（Isolation）：多个用户并发访问数据库时，每个并发事务之间会互相隔离，不会互相干扰。</li>
+<li>持久性（Durability）：事务操作对数据库中数据的改变是永久性的。<br>由此又引出事务的隔离级别、不同隔离级别会产生的不同毛病等问题。<br>在Spring中使用这些概念的时候，可能会和Spring中的一些具体的定义产生混淆，在此记录。</li></ul>
+        
+          <a class="article-more-a" href="/2018/07/13/spring-transactionalal/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Transaction</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/13/spring-transactionalal/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java-path" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -634,161 +811,9 @@
 
 
   
-    <article id="post-java-String-pool" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/19/java-String-pool/">String和它的常量池朋友以及intern()方法在JDK1.7中的变化</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/19/java-String-pool/" class="archive-article-date">
-  	<time datetime="2018-04-19T01:21:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-19</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Java语言中有8种基本数据类型和一种比较特殊的数据类型String。为了使用起来更加高效（时间上和空间上），JVM为这些类型的数据分别维护了系统级别的常量池。本文主要叙述String类型的常量池以及向常量池中添加对象的intern()方法在JDK1.7以后版本中的变化。<br></p>
-        
-          <a class="article-more-a" href="/2018/04/19/java-String-pool/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/19/java-String-pool/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-java-file-copy" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/17/java-file-copy/">基于TCP的局域网文件复制</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/17/java-file-copy/" class="archive-article-date">
-  	<time datetime="2018-04-17T13:53:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>依稀记得以前有个软件叫做“茄子快传”，是一款基于局域网进行文件传输的工具，但是APP开发商使劲儿往自己的应用里塞进了一堆累赘的功能，让我逐渐失去了对它的爱。借着Java的东风，俺自己也来实现一个局域网文件传输工具。<br></p>
-        
-          <a class="article-more-a" href="/2018/04/17/java-file-copy/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/17/java-file-copy/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -879,15 +904,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">DS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -912,6 +937,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Movie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring Data</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">JPA</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Transaction</a>
               </li>
             
             <div class="clearfix"></div>
