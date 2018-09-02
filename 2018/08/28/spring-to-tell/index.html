@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>Archives: 2018 | LangInteger</title>
+  <title>spring-to-tell | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LangInteger">
-<meta property="og:url" content="http://LangInteger.github.io/archives/2018/index.html">
+  <meta name="description" content="Spring 的两大特征 Spring 的两大特征是控制反转和依赖注入，IOC是指由 Spring 来控制对象的生命周期和对象之间的依赖关系，简单来讲就是消灭 new 关键字，在程序启动时或运行中的某个时刻，Spring 容器会加载其管理的所有组件，并在程序运行需要某个组件的时候，及时地注入到程序中。">
+<meta name="keywords" content="Java,Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="spring-to-tell">
+<meta property="og:url" content="http://LangInteger.github.io/2018/08/28/spring-to-tell/index.html">
 <meta property="og:site_name" content="LangInteger">
+<meta property="og:description" content="Spring 的两大特征 Spring 的两大特征是控制反转和依赖注入，IOC是指由 Spring 来控制对象的生命周期和对象之间的依赖关系，简单来讲就是消灭 new 关键字，在程序启动时或运行中的某个时刻，Spring 容器会加载其管理的所有组件，并在程序运行需要某个组件的时候，及时地注入到程序中。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-09-02T15:09:35.324Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LangInteger">
+<meta name="twitter:title" content="spring-to-tell">
+<meta name="twitter:description" content="Spring 的两大特征 Spring 的两大特征是控制反转和依赖注入，IOC是指由 Spring 来控制对象的生命周期和对象之间的依赖关系，简单来讲就是消灭 new 关键字，在程序启动时或运行中的某个时刻，Spring 容器会加载其管理的所有组件，并在程序运行需要某个组件的时候，及时地注入到程序中。">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -151,36 +155,62 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-spring-to-tell" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      spring-to-tell
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/08/28/spring-to-tell/" class="archive-article-date">
+
+        
+        <a href="/2018/08/28/spring-to-tell/" class="archive-article-date">
   	<time datetime="2018-08-27T17:01:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-08-28</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/08/28/spring-to-tell/">spring-to-tell</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring-的两大特征"><a href="#Spring-的两大特征" class="headerlink" title="Spring 的两大特征"></a>Spring 的两大特征</h1><ul>
+<li>Spring 的两大特征是控制反转和依赖注入，IOC是指由 Spring 来控制对象的生命周期和对象之间的依赖关系，简单来讲就是消灭 new 关键字，在程序启动时或运行中的某个时刻，Spring 容器会加载其管理的所有组件，并在程序运行需要某个组件的时候，及时地注入到程序中。</li>
+</ul>
+<a id="more"></a>
+<ul>
+<li>以下面这段代码作为切入点，对 Spring 控制反转和依赖注入的大致流程进行讲解。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> LangInteger@outlook.com</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/8/28 0:52</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Spring</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        FileSystemXmlApplicationContext appContext =</span><br><span class="line">                <span class="keyword">new</span> FileSystemXmlApplicationContext(<span class="string">"classpath:applicationContext.xml"</span>);</span><br><span class="line">        BeanDemo beanDemo = (BeanDemo) appContext.getBean(<span class="string">"beanDemo"</span>);</span><br><span class="line">        beanDemo.doSomething();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="IOC-控制反转"><a href="#IOC-控制反转" class="headerlink" title="IOC 控制反转"></a>IOC 控制反转</h2><ul>
+<li>代码段一：AbstractApplicationContext 的 refresh 方法，是启动整个 IOC 容器的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">refresh</span><span class="params">()</span> <span class="keyword">throws</span> BeansException, IllegalStateException </span>&#123;</span><br><span class="line">	<span class="keyword">synchronized</span> (<span class="keyword">this</span>.startupShutdownMonitor) &#123;</span><br><span class="line">		<span class="comment">// Prepare this context for refreshing.</span></span><br><span class="line">		prepareRefresh();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Tell the subclass to refresh the internal bean factory.</span></span><br><span class="line">		ConfigurableListableBeanFactory beanFactory = obtainFreshBeanFactory();</span><br><span class="line"></span><br><span class="line">		<span class="comment">// Prepare the bean factory for use in this context.</span></span><br><span class="line">		prepareBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			<span class="comment">// Allows post-processing of the bean factory in context subclasses.</span></span><br><span class="line">			postProcessBeanFactory(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Invoke factory processors registered as beans in the context.</span></span><br><span class="line">			invokeBeanFactoryPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Register bean processors that intercept bean creation.</span></span><br><span class="line">			registerBeanPostProcessors(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Initialize message source for this context.</span></span><br><span class="line">			initMessageSource();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Initialize event multicaster for this context.</span></span><br><span class="line">			initApplicationEventMulticaster();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Initialize other special beans in specific context subclasses.</span></span><br><span class="line">			onRefresh();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Check for listener beans and register them.</span></span><br><span class="line">			registerListeners();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Instantiate all remaining (non-lazy-init) singletons.</span></span><br><span class="line">			finishBeanFactoryInitialization(beanFactory);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Last step: publish corresponding event.</span></span><br><span class="line">			finishRefresh();</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">catch</span> (BeansException ex) &#123;</span><br><span class="line">			<span class="keyword">if</span> (logger.isWarnEnabled()) &#123;</span><br><span class="line">				logger.warn(<span class="string">"Exception encountered during context initialization - "</span> +</span><br><span class="line">						<span class="string">"cancelling refresh attempt: "</span> + ex);</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Destroy already created singletons to avoid dangling resources.</span></span><br><span class="line">			destroyBeans();</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Reset 'active' flag.</span></span><br><span class="line">			cancelRefresh(ex);</span><br><span class="line"></span><br><span class="line">			<span class="comment">// Propagate exception to caller.</span></span><br><span class="line">			<span class="keyword">throw</span> ex;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">finally</span> &#123;</span><br><span class="line">			<span class="comment">// Reset common introspection caches in Spring's core, since we</span></span><br><span class="line">			<span class="comment">// might not ever need metadata for singleton beans anymore...</span></span><br><span class="line">			resetCommonCaches();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>代码段二：DefaultListableBeanFactory 中注册 BeanDefinition 的方法</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//---------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">// Implementation of BeanDefinitionRegistry interface</span></span><br><span class="line"><span class="comment">//---------------------------------------------------------------------</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerBeanDefinition</span><span class="params">(String beanName, BeanDefinition beanDefinition)</span></span></span><br><span class="line"><span class="function">		<span class="keyword">throws</span> BeanDefinitionStoreException </span>&#123;</span><br><span class="line"></span><br><span class="line">	Assert.hasText(beanName, <span class="string">"Bean name must not be empty"</span>);</span><br><span class="line">	Assert.notNull(beanDefinition, <span class="string">"BeanDefinition must not be null"</span>);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (beanDefinition <span class="keyword">instanceof</span> AbstractBeanDefinition) &#123;</span><br><span class="line">		<span class="keyword">try</span> &#123;</span><br><span class="line">			((AbstractBeanDefinition) beanDefinition).validate();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">catch</span> (BeanDefinitionValidationException ex) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,</span><br><span class="line">					<span class="string">"Validation of bean definition failed"</span>, ex);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	BeanDefinition oldBeanDefinition;</span><br><span class="line"></span><br><span class="line">	oldBeanDefinition = <span class="keyword">this</span>.beanDefinitionMap.get(beanName);</span><br><span class="line">	<span class="keyword">if</span> (oldBeanDefinition != <span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (!isAllowBeanDefinitionOverriding()) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,</span><br><span class="line">					<span class="string">"Cannot register bean definition ["</span> + beanDefinition + <span class="string">"] for bean '"</span> + beanName +</span><br><span class="line">					<span class="string">"': There is already ["</span> + oldBeanDefinition + <span class="string">"] bound."</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (oldBeanDefinition.getRole() &lt; beanDefinition.getRole()) &#123;</span><br><span class="line">			<span class="comment">// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE</span></span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.logger.isWarnEnabled()) &#123;</span><br><span class="line">				<span class="keyword">this</span>.logger.warn(<span class="string">"Overriding user-defined bean definition for bean '"</span> + beanName +</span><br><span class="line">						<span class="string">"' with a framework-generated bean definition: replacing ["</span> +</span><br><span class="line">						oldBeanDefinition + <span class="string">"] with ["</span> + beanDefinition + <span class="string">"]"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span> (!beanDefinition.equals(oldBeanDefinition)) &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.logger.isInfoEnabled()) &#123;</span><br><span class="line">				<span class="keyword">this</span>.logger.info(<span class="string">"Overriding bean definition for bean '"</span> + beanName +</span><br><span class="line">						<span class="string">"' with a different definition: replacing ["</span> + oldBeanDefinition +</span><br><span class="line">						<span class="string">"] with ["</span> + beanDefinition + <span class="string">"]"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="keyword">if</span> (<span class="keyword">this</span>.logger.isDebugEnabled()) &#123;</span><br><span class="line">				<span class="keyword">this</span>.logger.debug(<span class="string">"Overriding bean definition for bean '"</span> + beanName +</span><br><span class="line">						<span class="string">"' with an equivalent definition: replacing ["</span> + oldBeanDefinition +</span><br><span class="line">						<span class="string">"] with ["</span> + beanDefinition + <span class="string">"]"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (hasBeanCreationStarted()) &#123;</span><br><span class="line">			<span class="comment">// Cannot modify startup-time collection elements anymore (for stable iteration)</span></span><br><span class="line">			<span class="keyword">synchronized</span> (<span class="keyword">this</span>.beanDefinitionMap) &#123;</span><br><span class="line">				<span class="keyword">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</span><br><span class="line">				List&lt;String&gt; updatedDefinitions = <span class="keyword">new</span> ArrayList&lt;&gt;(<span class="keyword">this</span>.beanDefinitionNames.size() + <span class="number">1</span>);</span><br><span class="line">				updatedDefinitions.addAll(<span class="keyword">this</span>.beanDefinitionNames);</span><br><span class="line">				updatedDefinitions.add(beanName);</span><br><span class="line">				<span class="keyword">this</span>.beanDefinitionNames = updatedDefinitions;</span><br><span class="line">				<span class="keyword">if</span> (<span class="keyword">this</span>.manualSingletonNames.contains(beanName)) &#123;</span><br><span class="line">					Set&lt;String&gt; updatedSingletons = <span class="keyword">new</span> LinkedHashSet&lt;&gt;(<span class="keyword">this</span>.manualSingletonNames);</span><br><span class="line">					updatedSingletons.remove(beanName);</span><br><span class="line">					<span class="keyword">this</span>.manualSingletonNames = updatedSingletons;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			<span class="comment">// Still in startup registration phase</span></span><br><span class="line">			<span class="keyword">this</span>.beanDefinitionMap.put(beanName, beanDefinition);</span><br><span class="line">			<span class="keyword">this</span>.beanDefinitionNames.add(beanName);</span><br><span class="line">			<span class="keyword">this</span>.manualSingletonNames.remove(beanName);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">this</span>.frozenBeanDefinitionNames = <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (oldBeanDefinition != <span class="keyword">null</span> || containsSingleton(beanName)) &#123;</span><br><span class="line">		resetBeanDefinition(beanName);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>什么是控制反转：</p>
+<ul>
+<li>什么是控制反转：在当前例子下<br>控制反转就是将 xml 文件中 <bean> 定义的 bean 加载到 DefaultListableBeanFactory 中的名为 beanDefinationMap的ConcurrentHashmap&lt;String, BeanDefinition&gt; 数据结构中去</bean></li>
+</ul>
+</li>
+<li><p>什么是 IOC 容器</p>
+<ul>
+<li>往大了说，是 FileSystemApplicationCOntext，往中了说，是 DefaultListableBeanFactory，往小了说，就是 ConcurrentHashmap&lt;String, BeanDefinition&gt;  beanDefinationMap。</li>
+</ul>
+</li>
+</ul>
+<h2 id="DI-依赖注入"><a href="#DI-依赖注入" class="headerlink" title="DI 依赖注入"></a>DI 依赖注入</h2>
+      
 
-        <div class="article-info info-on-right">
-          
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -196,714 +226,106 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2018/08/28/spring-to-tell/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/28/spring-data-jpa-simplified-specification/" class="archive-article-date">
-  	<time datetime="2018-07-28T15:55:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-28</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/28/spring-data-jpa-simplified-specification/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring Data JPA 简明教程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/28/spring-data-jpa-simplified-specification/">Spring Data JPA 简明教程</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring Data</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JPA</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/13/spring-transactionalal/" class="archive-article-date">
-  	<time datetime="2018-07-13T15:14:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/13/spring-transactionalal/">Spring @Transactional两三事</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Transaction</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/20/java-path/" class="archive-article-date">
-  	<time datetime="2018-05-20T13:54:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/20/java-path/">条条大路通罗马 —— Java 路径漫谈</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/17/heroku-first-try/" class="archive-article-date">
-  	<time datetime="2018-05-17T11:41:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/17/heroku-first-try/">天下还有免费的午餐--Heroku初体验</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Heroku</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Server</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">WebCrawler</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/05/12/java-webcrawler-jobhunter/" class="archive-article-date">
-  	<time datetime="2018-05-12T05:05:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-12</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/12/java-webcrawler-jobhunter/">Java 爬虫： 8021 招聘网站漫游指南</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">WebCrawler</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/30/Set-with-repeat-elements/" class="archive-article-date">
-  	<time datetime="2018-04-30T11:52:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-30</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/30/Set-with-repeat-elements/">震惊！ Set 家族中出了一个元素重复的叛徒</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/29/What-is-JSF-Servlet-JSP/" class="archive-article-date">
-  	<time datetime="2018-04-29T07:49:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-29</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/29/What-is-JSF-Servlet-JSP/">JSF、Servlet和JSP的前世今生</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Translation</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/27/CSS-Style-Examples/" class="archive-article-date">
-  	<time datetime="2018-04-27T15:56:18.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-27</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/27/CSS-Style-Examples/">CSS-你必须要知道的小技巧-长期更新</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CSS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/19/java-String-pool/" class="archive-article-date">
-  	<time datetime="2018-04-19T01:21:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/19/java-String-pool/">String和它的常量池朋友以及intern()方法在JDK1.7中的变化</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/17/java-file-copy/" class="archive-article-date">
-  	<time datetime="2018-04-17T13:53:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-17</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/17/java-file-copy/">基于TCP的局域网文件复制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/13/java-io-file/" class="archive-article-date">
-  	<time datetime="2018-04-13T13:35:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-13</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/13/java-io-file/">Java IO-文件及其操作</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/11/movie-cinema-paradiso/" class="archive-article-date">
-  	<time datetime="2018-04-11T07:36:50.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/11/movie-cinema-paradiso/">天堂电影院-Cinema Paradiso</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Movie</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/08/java-sort-algrithm2/" class="archive-article-date">
-  	<time datetime="2018-04-08T05:03:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/08/java-sort-algrithm2/">Java排序算法的实现及比美-进阶篇</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/07/java-sort-algrithm/" class="archive-article-date">
-  	<time datetime="2018-04-07T15:35:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/07/java-sort-algrithm/">Java排序算法的实现及比美</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Algrithm</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/java-oop/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:37:25.725Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/java-oop/">Java面向对象编程知识点总结</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/linear-list-java/" class="archive-article-date">
-  	<time datetime="2018-04-05T15:29:58.036Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/linear-list-java/">线性表顺序映像的Java实现</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">DS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/04/05/hello-world/" class="archive-article-date">
-  	<time datetime="2018-04-05T13:24:21.872Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/04/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -926,8 +348,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
