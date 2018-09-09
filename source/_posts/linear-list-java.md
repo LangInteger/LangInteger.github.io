@@ -1,0 +1,188 @@
+---
+title: 线性表顺序映像的Java实现
+reward: true
+tags: 
+    - Java
+    - DS
+---
+>本例中线性表顺序映像实现难点主要在于实现线性表的add函数，借鉴JDK源码中的空间扩增方式，每次增加原有容量的一半。由于标记线性表大小的size变量为int类型，故需要考虑size值溢出的情况。
+<!-- more -->
+
+* 定义接口`LinearList`，接口中的抽象方法主要涵盖增删查改。
+>* void add(String s, int index);            在线性表下标为index处插入s
+>* int indexOf(String s);                    查找s在线性表中的索引
+>* String remove(int index);                 从线性表下标为index处删除元素
+>* boolean remove(String s);                 删除线性表中第一个s
+>* String toString();                        将线性表中元素进行格式化输出
+
+```java
+import java.util.Arrays;
+import java.util.Objects;
+
+public class MyArrayList implements LinearList{
+
+    //数组作为基本存储结构
+    private String[] element;
+    
+    //size表示线性表已有元素的个数
+    private int size;
+    
+    //size类型为int，设置下面的常量作为size最大值
+    private final static int MAX_CAPACITY = Integer.MAX_VALUE;
+    
+    //当采用默认构造方法时，将线性表空间初始化为10（参考JDK源码）
+    private final static int DEFAULT_INITIAL_CAPACITY = 10;
+
+    //线性表的默认构造函数
+    public MyArrayList() {
+        element = new String[DEFAULT_INITIAL_CAPACITY];
+    }
+
+    //线性表指定初始大小的构造函数
+    public MyArrayList(int initialCapacity) {
+        if (initialCapacity > 0){
+            element = new String[initialCapacity];
+        } else {
+            throw new IllegalArgumentException("Illegal initial argument: " + initialCapacity);
+        }
+    }
+
+    @Override
+    public void add(String s, int index) {
+        //1.检查索引是否合法
+        rangeCheckForAdd(index);
+        
+        //2.保证当前线性表长度满足插入一个元素的要求
+        ensureCapacity(size);
+        
+        //3.插入元素
+        //(size-1) - (index-1) +1
+        //防止index + 1溢出
+        if (index + 1 < element.length){
+            System.arraycopy(element, index, element, index + 1, size - index + 1);
+        }
+        element[index] = s;
+        size++;
+    }
+
+    private void ensureCapacity(int size) {
+
+        //处理线性表容量不够，需要增加的情况
+        if (size + 1 - element.length > 0){
+            //参考JDK源码。每次增加原有长度的一半
+            int capacityAfterExpansion = size + (size >> 1);
+
+            //处理size = 1或者0时的特殊情况
+            if (capacityAfterExpansion < size + 1){
+                capacityAfterExpansion = size + 1;
+            }
+
+            //处理扩容之后size变量溢出的情况
+            if (capacityAfterExpansion < 0){
+                //如果没有剩余空间
+                if (size + 1 < 0)
+                    throw new OutOfMemoryError("Out of memory");
+                else    //还有一定的剩余空间
+                    CapacityAfterExpansion =  MAX_CAPACITY;
+            }
+            //将element数组扩展至新长度
+            element = Arrays.copyOf(element, capacityAfterExpansion);
+        }
+    }
+
+    private void rangeCheckForAdd(int index) {
+        if (index < 0 || index > size) {
+            throw new ArrayIndexOutOfBoundsException("Index out of bounds: " + index);
+        }
+    }
+
+    @Override
+    public void add(String s) {
+        ensureCapacity(size);
+        element[size] = s;
+        size++;
+
+    }
+
+    @Override
+    public int indexOf(String s) {
+
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(element[i], s))
+                return i;
+        }
+        return -1;
+    }
+
+    @Override
+    public String remove(int index) {
+        String toBeRemoved = element[index];
+
+        //rangeCheck
+        rangeCheck(index);
+
+        int numToMove = size - index - 1;
+        if (numToMove > 0){
+            System.arraycopy(element, index + 1, element, index, numToMove);
+        }
+
+        element[size - 1] = null;
+        size--;
+        return toBeRemoved;
+    }
+
+    @Override
+    public boolean remove(String s) {
+        for (int i = 0; i < size; i++) {
+            if (Objects.equals(s, element[i])){
+                remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean set(int index, String s) {
+
+        rangeCheck(index);
+
+        int loc = indexOf(s);
+        if (loc > -1){
+            element[loc] = s;
+            return true;
+        }
+        return false;
+    }
+
+    private void rangeCheck(int index) {
+        if (index < 0 || index > size - 1){
+            throw new ArrayIndexOutOfBoundsException("Illegal index" + index);
+        }
+    }
+
+
+    @Override
+    public String toString() {
+
+        if(size == 0){
+            return "[]";
+        }
+
+        StringBuffer stringBuffer = new StringBuffer("[");
+
+        for (int i = 0; i < size; i++) {
+            stringBuffer.append(element[i]);
+            if (i == size - 1){
+                stringBuffer.append("]");
+                break;
+            }
+            stringBuffer.append(", ");
+        }
+
+        return stringBuffer.toString();
+
+    }
+}
+
+```
