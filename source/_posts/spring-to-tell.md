@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Spring-to-tell 之基于 XML 配置文件的启动流程
+date: 2018-9-27 23:56:18
 subtitle: 不可描述
 gh-repo: cntehang/cntehang.github.io
 image: /img/spring-to-tell/inverse-of-control.png
