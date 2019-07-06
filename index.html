@@ -164,11 +164,24 @@
     <article id="post-2019-07-06-akka-http" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/06/2019-07-06-akka-http/">Building Web Server With Akka HTTP</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/06/2019-07-06-akka-http/" class="archive-article-date">
+  	<time datetime="2019-07-06T05:48:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-06</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Building-Web-Server-With-Akka-HTTP"><a href="#Building-Web-Server-With-Akka-HTTP" class="headerlink" title="Building Web Server With Akka HTTP"></a>Building Web Server With Akka HTTP</h1><hr>
-<p>layout: post<br>title: Building Web Server With Akka HTTP<br>date: 2019-07-06 13:48:43<br>tags: [Scala,Akka,Akka Http]</p>
-<h2 id="image-img-spring-to-tell-inverse-of-control-png"><a href="#image-img-spring-to-tell-inverse-of-control-png" class="headerlink" title="image: /img/spring-to-tell/inverse-of-control.png"></a>image: /img/spring-to-tell/inverse-of-control.png</h2><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Philosophy of <code>Akka HTTP</code> quoted from <a href="https://doc.akka.io/docs/akka-http/current/introduction.html" target="_blank" rel="noopener">their documentations</a>:</p>
+        <p>Philosophy of <code>Akka HTTP</code> quoted from <a href="https://doc.akka.io/docs/akka-http/current/introduction.html" target="_blank" rel="noopener">their documentations</a>:</p>
 <blockquote>
 <p>The Akka HTTP modules implement a full server and clientside HTTP stack on top of akka-actor and akka-stream. It’s not a web-framework but rather a more general toolkit for providing and consuming HTTP-based services. While interaction with a browser is of course also in scope it is not the primary focus of Akka HTTP.</p>
 </blockquote>
@@ -185,6 +198,25 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Scala</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Akka</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Akka Http</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -914,6 +946,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Scala</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Akka</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Akka Http</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">CSS</a>
               </li>
              
@@ -954,6 +998,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Movie</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring Data</a>
               </li>
              
@@ -966,7 +1014,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Movie</a>
+                <a href="javascript:void(0)" class="js-tag color2">Transaction</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -979,10 +1027,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Transaction</a>
               </li>
             
             <div class="clearfix"></div>
