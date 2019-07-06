@@ -2,9 +2,20 @@
 
 ## 使用步骤
 
-- hexo clean
-- hexo generate
-- hexo server
+### 1 推送博客内容更新
+
+- hexo clean 清理
+- hexo generate 生成
+- hexo server 本地部署
+- hexo deploy 远程部署
+
+### 2 保存源文件信息
+
+方便换电脑，所以在分支 source-file 保存源文件信息
+
+- git add .
+- git commit -m "xxx"
+- git push
 
 ## 常见问题
 
@@ -37,3 +48,5 @@ menu:
 ```
 
 对应的存放路径是 `themes/yilia/source/img`
+
+### 4 备份yilia配置文件
