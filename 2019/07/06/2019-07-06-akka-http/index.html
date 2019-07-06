@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>Archives: 2018/7 | LangInteger</title>
+  <title>LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
-<meta property="og:type" content="website">
+  <meta name="description" content="Building Web Server With Akka HTTP layout: posttitle: Building Web Server With Akka HTTPdate: 2019-07-06 13:48:43tags: [Scala,Akka,Akka Http] image: /img/spring-to-tell/inverse-of-control.pngPrefacePh">
+<meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
+<meta property="og:type" content="article">
 <meta property="og:title" content="LangInteger">
-<meta property="og:url" content="http://LangInteger.github.io/archives/2018/07/index.html">
+<meta property="og:url" content="http://LangInteger.github.io/2019/07/06/2019-07-06-akka-http/index.html">
 <meta property="og:site_name" content="LangInteger">
+<meta property="og:description" content="Building Web Server With Akka HTTP layout: posttitle: Building Web Server With Akka HTTPdate: 2019-07-06 13:48:43tags: [Scala,Akka,Akka Http] image: /img/spring-to-tell/inverse-of-control.pngPrefacePh">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-07-06T05:52:48.452Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LangInteger">
+<meta name="twitter:description" content="Building Web Server With Akka HTTP layout: posttitle: Building Web Server With Akka HTTPdate: 2019-07-06 13:48:43tags: [Scala,Akka,Akka Http] image: /img/spring-to-tell/inverse-of-control.pngPrefacePh">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -159,118 +163,225 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-2019-07-06-akka-http" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Building-Web-Server-With-Akka-HTTP"><a href="#Building-Web-Server-With-Akka-HTTP" class="headerlink" title="Building Web Server With Akka HTTP"></a>Building Web Server With Akka HTTP</h1><hr>
+<p>layout: post<br>title: Building Web Server With Akka HTTP<br>date: 2019-07-06 13:48:43<br>tags: [Scala,Akka,Akka Http]</p>
+<h2 id="image-img-spring-to-tell-inverse-of-control-png"><a href="#image-img-spring-to-tell-inverse-of-control-png" class="headerlink" title="image: /img/spring-to-tell/inverse-of-control.png"></a>image: /img/spring-to-tell/inverse-of-control.png</h2><h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>Philosophy of <code>Akka HTTP</code> quoted from <a href="https://doc.akka.io/docs/akka-http/current/introduction.html" target="_blank" rel="noopener">their documentations</a>:</p>
+<blockquote>
+<p>The Akka HTTP modules implement a full server and clientside HTTP stack on top of akka-actor and akka-stream. It’s not a web-framework but rather a more general toolkit for providing and consuming HTTP-based services. While interaction with a browser is of course also in scope it is not the primary focus of Akka HTTP.</p>
+</blockquote>
+<blockquote>
+<p>Akka HTTP was designed specifically as “not-a-framework”, not because we don’t like frameworks, but for use cases where a framework is not the right choice. Akka HTTP is made for building integration layers based on HTTP and as such tries to “stay on the sidelines”. Therefore you normally don’t build your application “on top of” Akka HTTP, but you build your application on top of whatever makes sense and use Akka HTTP merely for the HTTP integration needs.</p>
+</blockquote>
+<a id="more"></a>
+<p>Less is more, that’s why we choose <code>Akka HTTP</code>, the other functions that a framework provides like view templating, asset management, JavaScript and CSS generation/manipulation/minification, localization support, AJAX support, etc, are not necessary in our development.</p>
+<p>Some framework may be taken into consideration:</p>
+<ul>
+<li><a href="https://www.playframework.com/" target="_blank" rel="noopener">play framework</a></li>
+<li><a href="https://www.lagomframework.com/" target="_blank" rel="noopener">lagom</a></li>
+</ul>
+<h2 id="Simple-Case"><a href="#Simple-Case" class="headerlink" title="Simple Case"></a>Simple Case</h2><p>Handle http request synchronizely with pattern matching:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">import akka.actor.ActorSystem</span><br><span class="line">import akka.http.scaladsl.Http</span><br><span class="line">import akka.http.scaladsl.model.HttpMethods._</span><br><span class="line">import akka.http.scaladsl.model._</span><br><span class="line">import akka.stream.ActorMaterializer</span><br><span class="line">import scala.io.StdIn</span><br><span class="line"></span><br><span class="line">object WebServer &#123;</span><br><span class="line"></span><br><span class="line">  def main(args: Array[String]) &#123;</span><br><span class="line">    implicit val system = ActorSystem()</span><br><span class="line">    implicit val materializer = ActorMaterializer()</span><br><span class="line">    // needed for the future map/flatmap in the end</span><br><span class="line">    implicit val executionContext = system.dispatcher</span><br><span class="line"></span><br><span class="line">    val requestHandler: HttpRequest =&gt; HttpResponse = &#123;</span><br><span class="line">      case HttpRequest(GET, Uri.Path(&quot;/&quot;), _, _, _) =&gt;</span><br><span class="line">        HttpResponse(entity = HttpEntity(</span><br><span class="line">          ContentTypes.`text/html(UTF-8)`,</span><br><span class="line">          &quot;&lt;html&gt;&lt;body&gt;Hello world!&lt;/body&gt;&lt;/html&gt;&quot;))</span><br><span class="line"></span><br><span class="line">      case HttpRequest(GET, Uri.Path(&quot;/ping&quot;), _, _, _) =&gt;</span><br><span class="line">        HttpResponse(entity = &quot;PONG!&quot;)</span><br><span class="line"></span><br><span class="line">      case HttpRequest(GET, Uri.Path(&quot;/crash&quot;), _, _, _) =&gt;</span><br><span class="line">        sys.error(&quot;BOOM!&quot;)</span><br><span class="line"></span><br><span class="line">      case r: HttpRequest =&gt;</span><br><span class="line">        r.discardEntityBytes() // important to drain incoming HTTP Entity stream</span><br><span class="line">        HttpResponse(404, entity = &quot;Unknown resource!&quot;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    val bindingFuture = Http().bindAndHandleSync(requestHandler, &quot;localhost&quot;, 8080)</span><br><span class="line">    println(s&quot;Server online at http://localhost:8080/\nPress RETURN to stop...&quot;)</span><br><span class="line">    StdIn.readLine() // let it run until user presses return</span><br><span class="line">    bindingFuture</span><br><span class="line">      .flatMap(_.unbind()) // trigger unbinding from the port</span><br><span class="line">      .onComplete(_ =&gt; system.terminate()) // and shutdown when done</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Handle http request asynchronizely with flexible DSL:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import akka.http.scaladsl.model.&#123;ContentTypes, HttpEntity&#125;</span><br><span class="line">import akka.http.scaladsl.server.&#123;HttpApp, Route&#125;</span><br><span class="line"></span><br><span class="line">object Main1 extends HttpApp &#123;</span><br><span class="line">  </span><br><span class="line">  protected def routes: Route =</span><br><span class="line">    get &#123;</span><br><span class="line">      pathSingleSlash &#123;</span><br><span class="line">        complete(HttpEntity(ContentTypes.`text/html(UTF-8)`, &quot;&lt;html&gt;&lt;body&gt;Hello world!&lt;/body&gt;&lt;/html&gt;&quot;))</span><br><span class="line">      &#125; ~</span><br><span class="line">        path(&quot;ping&quot;) &#123;</span><br><span class="line">          complete(&quot;PONG!&quot;)</span><br><span class="line">        &#125; ~</span><br><span class="line">        path(&quot;crash&quot;) &#123;</span><br><span class="line">          sys.error(&quot;BOOM!&quot;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">  startServer(&quot;localhost&quot;, 8082)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="What’s-Route"><a href="#What’s-Route" class="headerlink" title="What’s Route"></a>What’s Route</h2><p>The “Route” is the central concept of Akka HTTP’s Routing DSL. Reading the definitation:</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">Route</span> </span>= <span class="type">RequestContext</span> =&gt; <span class="type">Future</span>[<span class="type">RouteResult</span>]</span><br></pre></td></tr></table></figure>
+<p>Route is a simple alias for a function turning a <code>RequestContext</code> into a <code>Future[RouteResult]</code>. When a route receives a requesr(or rather a <code>RequestContext</code> for it) it can do one of these things:</p>
+<ul>
+<li>Complete the request by returning the value of requestContext.complete(…)</li>
+<li>Reject the request by returning the value of `requestContext.reject(…)</li>
+<li>Fail the request by returning the value of `requestContext.fail(…) or by just throwing an exception</li>
+<li>Do any kind of asynchronous processing and instantly return a Future[RouteResult] to be eventually completed later</li>
+</ul>
+<h3 id="RouteResult"><a href="#RouteResult" class="headerlink" title="RouteResult"></a>RouteResult</h3><p><code>RouteResult</code> is a simple abstract data type(ADT) that models the possible non-error results of a Route. It is defined as such:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sealed trait RouteResult</span><br><span class="line"></span><br><span class="line">object RouteResult &#123;</span><br><span class="line">  final case class Complete(response: HttpResponse) extends RouteResult</span><br><span class="line">  final case class Rejected(rejections: immutable.Seq[Rejection]) extends RouteResult</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Composing-Routes"><a href="#Composing-Routes" class="headerlink" title="Composing Routes"></a>Composing Routes</h3><p>Three basic operations for building more complex routes for simpler ones:</p>
+<ul>
+<li>Route transformation: which delegates processing to another, ‘inner’ route but in procss changes some properties of either the incoming reqeust, the outgoing response or both</li>
+<li>Route filtering, which only lets requests satisfying a given filter condition pass and rejects all others</li>
+<li>Route chaining, which tries a second route if a given first one was rejected</li>
+</ul>
+<p>The last point is achieved with the concatenation operator <code>~</code>, which is an extension method that becomes available when you <code>import akka.http.scaladsl.server.Directives._</code>. The first two points are provided by so-called <code>Directives</code> of which a large number is already predefined by Akka HTTP and whic hyou can also easily create yourself. <code>Directives</code> deliver most of Akka HTTP’s power and flexibility.</p>
+<h3 id="Sealing-a-Route"><a href="#Sealing-a-Route" class="headerlink" title="Sealing a Route"></a>Sealing a Route</h3><p>Sealing means it will receive the default handler as a fallback for all cases your handler doesn’t handle itself and used for all rejections/exceptions that are not handled within the route structure itself, which can be done by:</p>
+<ul>
+<li>Bring rejection/exception handlers into implicit scope at the top-level</li>
+<li>Supply handlers as arguments to handleRejections and handleException directives</li>
+</ul>
+<h2 id="What’s-Directive"><a href="#What’s-Directive" class="headerlink" title="What’s Directive"></a>What’s Directive</h2><p>The <code>Directive</code> is a small building block used for creating arbitarily complete route structures. Diretives create Routes. Here is the primitive way of creating routes:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val helloWorldWithPrimitive: Route =</span><br><span class="line">  ctx =&gt; ctx.complete(&quot;42&quot;)</span><br><span class="line"></span><br><span class="line">val helloWorldWithPrimitive1: Route =</span><br><span class="line">  _.complete(&quot;42&quot;)</span><br></pre></td></tr></table></figure>
+<p>which can be replaced with complete directive(<code>import akka.http.scaladsl.server.Directives._</code> as a preRequisite):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">val helloWorldWithDirective: Route =</span><br><span class="line">  complete(&quot;42&quot;)</span><br></pre></td></tr></table></figure>
+<p>Let’s take things one step further with plain method:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">val route: Route = &#123; ctx =&gt;</span><br><span class="line">  if (ctx.request.method == HttpMethods.GET)</span><br><span class="line">    ctx.complete(&quot;Received GET&quot;)</span><br><span class="line">  else</span><br><span class="line">    ctx.complete(&quot;Received something else&quot;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>which can be replaced using directive:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">val route: Route =</span><br><span class="line">  get &#123;</span><br><span class="line">    complete(&quot;Received GET&quot;)</span><br><span class="line">  &#125; ~</span><br><span class="line">  complete(&quot;Received something else&quot;)</span><br></pre></td></tr></table></figure>
+<h3 id="What-directives-do"><a href="#What-directives-do" class="headerlink" title="What directives do"></a>What directives do</h3><ul>
+<li>Transform the incoming <code>RequestContext</code> before passing it onto its innner route (i.e. modify the requst)</li>
+<li>Filter the <code>RequestContext</code> according to some logic, i.e. only pass on certain requests and reject others</li>
+<li>Extract values from the <code>RequestContext</code> and make them available to its inner route as “extractions”</li>
+<li>Chain some logic into the <code>RouteResult</code> future transformation chain(i.e. modify the response or rejection)</li>
+<li>Complete the request</li>
+</ul>
+<p>This means a Directive completely wraps the functionality of its inner route and can apply arbitrarily complex  transformations, both (or either) on the request and on the response side.</p>
+<h3 id="Composing-Directives"><a href="#Composing-Directives" class="headerlink" title="Composing Directives"></a>Composing Directives</h3><p>Concat directives with <code>concat</code> combinator or using <code>~</code> operator:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">`concat(a, b, c)` is equals to `a ~ b ~ c`</span><br></pre></td></tr></table></figure>
+<h2 id="Rejections"><a href="#Rejections" class="headerlink" title="Rejections"></a>Rejections</h2><p>The concept of <code>rejecitons</code> is used by Akka HTTP for maintaining a more functional overall architecture and in order to be able to properly handle all kinds of error scenarios.</p>
+<p>A rejection encapsulates a specific reason why a route was not able to handle a request. It is modeled as an object of type <code>Rejection</code>. Akka HTTP comes with a set of predefined rejections, which are used by many predefined directives.</p>
+<p>These situations can be summarized to rejectons:</p>
+<ul>
+<li>AuthorizationFailedRejection</li>
+<li>ValidationRejection</li>
+<li>MethodRejection</li>
+<li>NotFound</li>
+</ul>
+<h2 id="Exception-Handling"><a href="#Exception-Handling" class="headerlink" title="Exception Handling"></a>Exception Handling</h2><p>Exceptions thrown during route execution bubble up through the route structure to the next exclosing <code>handleException</code> directive or the top of your route structure.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trait ExceptionHandler extends PartialFunction[Throwable, Route]</span><br></pre></td></tr></table></figure>
+<p><code>ExceptionHandler</code> is a partial function, it can choose which exceptions it would like to handle and which not. Unhandled exceptions will simply continue to  bubble up in the route structure. At the root of the route tree any still unhandled exception will be dealt with by the top-level handler which always handles all exceptions.</p>
+<h2 id="Case-Class-Extraction"><a href="#Case-Class-Extraction" class="headerlink" title="Case Class Extraction"></a>Case Class Extraction</h2><p>Json is used to transfer data between front-end and back-end, so the topic is about marshalling/unmarshalling json.</p>
+<h3 id="Spray-Json"><a href="#Spray-Json" class="headerlink" title="Spray Json"></a>Spray Json</h3><p>With dependency:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&quot;com.typesafe.akka&quot; %% &quot;akka-http-spray-json&quot; % httpVersion,</span><br></pre></td></tr></table></figure>
+<h2 id="Request-Parameter-Validation"><a href="#Request-Parameter-Validation" class="headerlink" title="Request Parameter Validation"></a>Request Parameter Validation</h2><ul>
+<li>todo</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://spray.io/blog/2012-12-13-the-magnet-pattern/" target="_blank" rel="noopener">Magnet Pattern</a><br><a href="https://www.reactivemanifesto.org/" target="_blank" rel="noopener">The Reactive Manifesto</a><br><a href="https://stackoverflow.com/questions/6726740/call-super-constructor" target="_blank" rel="noopener">Call super constructor in Java</a><br><a href="https://stackoverflow.com/questions/50357458/how-to-get-json-as-string-data-from-httpresponse-in-akka-http" target="_blank" rel="noopener">How to get JSON as string data from HttpResponse in Akka HTTP</a><br><a href="https://stackoverflow.com/questions/56630251/what-is-the-difference-between-rejection-and-exception-in-akka-http" target="_blank" rel="noopener">What is the difference between Rejection and Exception in akka-http</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wechatpay.png">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/28/spring-data-jpa-simplified-specification/" class="archive-article-date">
-  	<time datetime="2018-07-28T15:55:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-28</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/28/spring-data-jpa-simplified-specification/">Spring Data JPA 简明教程</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring Data</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">JPA</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
-          
-
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2019/07/06/2019-07-06-akka-http/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/07/13/spring-transactionalal/" class="archive-article-date">
-  	<time datetime="2018-07-13T15:14:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-13</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/09/27/spring-to-tell/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring-to-tell 之基于 XML 配置文件的启动流程</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/07/13/spring-transactionalal/">Spring @Transactional两三事</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Transaction</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -293,8 +404,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
