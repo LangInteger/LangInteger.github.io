@@ -50,3 +50,9 @@ menu:
 对应的存放路径是 `themes/yilia/source/img`
 
 ### 4 备份yilia配置文件
+
+由于对 git 有些理解还不不到位，本地使用的 `themes/yilia` 主题文件夹无法腿上来。故在 `yilia_backup` 文件夹备份 yilia 相关配置。
+
+- 切换新电脑时，需要将 `yilia_backup/yilia` 文件夹复制到 `themes/yilia` 文件夹
+- 更新 `themes/yilia` 文件夹时，需要同步更新 `yilia_backup/yilia` 文件夹
+- 实际生效的样式文件为 `themes/yilia` 文件夹中的主题
