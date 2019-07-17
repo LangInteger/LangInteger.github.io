@@ -61,8 +61,16 @@ menu:
 
 ### 2.4 备份 yilia 配置文件
 
-由于对 git 有些理解还不不到位，本地使用的 `themes/yilia` 主题文件夹无法腿上来。故在 `yilia_backup` 文件夹备份 yilia 相关配置。
+由于对 git 有些理解还不不到位，本地使用的 `themes/yilia` 主题文件夹无法推上来。故在 `yilia_backup` 文件夹备份 yilia 相关配置。
 
 - 切换新电脑时，需要将 `yilia_backup/yilia` 文件夹复制到 `themes/yilia` 文件夹
 - 更新 `themes/yilia` 文件夹时，需要同步更新 `yilia_backup/yilia` 文件夹
 - 实际生效的样式文件为 `themes/yilia` 文件夹中的主题
+
+### 2.4 新电脑切换到编辑分支时使用 hexo 命令报错
+
+报错内容为：
+
+- ERROR Local hexo not found in xxx
+
+在 hexo 添加到环境变量的前提下，在该路径执行 npm install 后即恢复正常。
