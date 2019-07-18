@@ -22,7 +22,7 @@ tags: [OOP,ORM,Dead-Lock]
 
 可以推断出，A 操作虽然只想更新 M 字段值，但是一定触碰到了 N 字段值，并对其进行更新。有经验的程序员可能会立马从脑海中蹦出“丢失更新” (Lost Updates) 这个词儿，并且浮现出下面这张传统的丢失更新复现图作为佐证：
 
-![Lost Updates](./oop-shortcomings/lost-update.jpeg)
+![Lost Updates](oop-shortcomings/lost-update.jpeg)
 
 但是知道了这个问题属于丢失更新范畴并没有让我们能够解决这个问题。针对此次丢失更新，有一些隐蔽的细节：
 
@@ -40,7 +40,7 @@ tags: [OOP,ORM,Dead-Lock]
 
 具体到代码中，Spring Data JPA XXRepository 的 save 方法被用来更新数据库字段，由于 save 方法针对的是一个实体（Entity）及其子对象（更严谨的说应该是当前 session 管理下的所有实体），这种机制下自动生成的 SQL update 语句也如实地更新了该实体类中的所有字段。具体流程见下图：
 
-![true-lost-update](./oop-shortcomings/true-lost-update.jpeg)
+![true-lost-update](oop-shortcomings/true-lost-update.jpeg)
 
 上图还原了此次事故发生的全过程。操作 A 所含事务跨度较大，包含了操作 B 所含事务，且操作 A 读取的数据是操作 B 更新前的旧数据，等到 A 操作真正去执行更新操作时，将旧值写入 update 语句覆盖了 B 操作的更新。为了解决这个问题，使得自动生成的更新语句仅包含当前操作中更新了的字段，我们找到了 Hibernate **dynamic-update** 属性。[官方文档](http://docs.jboss.org/hibernate/core/3.3/reference/en/html/mapping.html#mapping-declaration-class)中对这个参数的解释是：
 
@@ -48,7 +48,7 @@ tags: [OOP,ORM,Dead-Lock]
 
 但是很快开启 Dynamic Update 的问题也被揭示出来，考虑这么一种情况：
 
-![dynamic-update-mystery](./oop-shortcomings/dynamic-update-mystery.jpeg)
+![dynamic-update-mystery](oop-shortcomings/dynamic-update-mystery.jpeg)
 
 两个一前一后的相同操作，仅仅因为有部分时序上的重叠（相当于是用户短时内多次发起请求），就造成了结果错误，没有如实地记录第二次更新操作的结果，这也是在生产中不允许出现的。
 
