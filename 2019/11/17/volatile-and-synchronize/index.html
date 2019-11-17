@@ -6,24 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>OOP 之殇 —— 从一次事故说起 | LangInteger</title>
+  <title>Java 中的 volatile 和 synchronize 关键字解读 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。">
-<meta name="keywords" content="OOP,ORM,Dead-Lock">
+  <meta name="description" content="读 Concurrent Patterns and Best Practices，遇到两篇参考文章  写于 2001 年的 Double-checked locking: Clever, but broken，对 DCL 实现懒加载单例模式存在的问题进行了深刻的探讨，同时阐述了 synchronize 关键字的作用 写于 2018 年的博客 Java Volatile Keyword，详细阐述了">
+<meta name="keywords" content="Java,Volatile,Synchronize">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OOP 之殇 —— 从一次事故说起">
-<meta property="og:url" content="http://LangInteger.github.io/2019/02/04/oop-shortcomings/index.html">
+<meta property="og:title" content="Java 中的 volatile 和 synchronize 关键字解读">
+<meta property="og:url" content="http://LangInteger.github.io/2019/11/17/volatile-and-synchronize/index.html">
 <meta property="og:site_name" content="LangInteger">
-<meta property="og:description" content="不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。">
+<meta property="og:description" content="读 Concurrent Patterns and Best Practices，遇到两篇参考文章  写于 2001 年的 Double-checked locking: Clever, but broken，对 DCL 实现懒加载单例模式存在的问题进行了深刻的探讨，同时阐述了 synchronize 关键字的作用 写于 2018 年的博客 Java Volatile Keyword，详细阐述了">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/lost-update.jpeg">
-<meta property="og:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/true-lost-update.jpeg">
-<meta property="og:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/dynamic-update-mystery.jpeg">
-<meta property="og:updated_time" content="2019-10-19T07:58:55.283Z">
+<meta property="og:updated_time" content="2019-11-17T14:42:17.611Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OOP 之殇 —— 从一次事故说起">
-<meta name="twitter:description" content="不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。">
-<meta name="twitter:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/lost-update.jpeg">
+<meta name="twitter:title" content="Java 中的 volatile 和 synchronize 关键字解读">
+<meta name="twitter:description" content="读 Concurrent Patterns and Best Practices，遇到两篇参考文章  写于 2001 年的 Double-checked locking: Clever, but broken，对 DCL 实现懒加载单例模式存在的问题进行了深刻的探讨，同时阐述了 synchronize 关键字的作用 写于 2018 年的博客 Java Volatile Keyword，详细阐述了">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -167,82 +163,99 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-oop-shortcomings" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-volatile-and-synchronize" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      OOP 之殇 —— 从一次事故说起
+      Java 中的 volatile 和 synchronize 关键字解读
     </h1>
   
 
         
-        <a href="/2019/02/04/oop-shortcomings/" class="archive-article-date">
-  	<time datetime="2019-02-04T04:18:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-04</time>
+        <a href="/2019/11/17/volatile-and-synchronize/" class="archive-article-date">
+  	<time datetime="2019-11-17T14:36:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。</p>
+        <p>读 <strong>Concurrent Patterns and Best Practices</strong>，遇到两篇参考文章</p>
+<ul>
+<li>写于 2001 年的 <a href="https://www.javaworld.com/article/2074979/double-checked-locking--clever--but-broken.html?page=2" target="_blank" rel="noopener">Double-checked locking: Clever, but broken</a>，对 DCL 实现懒加载单例模式存在的问题进行了深刻的探讨，同时阐述了 synchronize 关键字的作用</li>
+<li>写于 2018 年的博客 <a href="http://tutorials.jenkov.com/java-concurrency/volatile.html" target="_blank" rel="noopener">Java Volatile Keyword</a>，详细阐述了 volatile 关键字的作用</li>
+</ul>
+<p>一番阅读之后，撰写此文备忘。</p>
 <a id="more"></a>
-<h2 id="一次事故"><a href="#一次事故" class="headerlink" title="一次事故"></a>一次事故</h2><p>远离代码细节，从表面上来看，引起这个 BUG 的操作是这样的：</p>
+<h2 id="1-Java-Volatile-Keyword"><a href="#1-Java-Volatile-Keyword" class="headerlink" title="1 Java Volatile Keyword"></a>1 Java Volatile Keyword</h2><h3 id="1-1-Volatile-主要作用"><a href="#1-1-Volatile-主要作用" class="headerlink" title="1.1 Volatile 主要作用"></a>1.1 Volatile 主要作用</h3><p>Volatile 关键字用于表明其修饰的变量存储在主存 (main memory) 中。</p>
 <ul>
-<li>用户进行 A 操作（后含异步操作），该操作会更新某表 M 字段的值 MValue0 为 MValue1</li>
-<li>用户进行 B 操作（简单同步操作），该操作会更新该表 N 字段的值 NValue0 为 NValue1</li>
+<li>每次读取 volatile 变量都会从主存 (main memory) 中去取其值，而不是从 CPU cache</li>
+<li>每次向 volatile 变量赋值都会直接将值写到主存 (main memory)，而不仅仅是 CPU cache</li>
 </ul>
-<p>流程设计中，A（含后续异步操作）、B 操作是可以并行或者不并行的，取决于用户在两个操作之间间隔的时间，而且他们之间并不会相互影响。但是在测试中，如果 B 操作 并行于 A，时常会出现一个奇怪的现象：</p>
+<h3 id="1-2-Volatile-解决的问题"><a href="#1-2-Volatile-解决的问题" class="headerlink" title="1.2 Volatile 解决的问题"></a>1.2 Volatile 解决的问题</h3><h4 id="1-2-1-可见性问题"><a href="#1-2-1-可见性问题" class="headerlink" title="1.2.1 可见性问题"></a>1.2.1 可见性问题</h4><p>考虑被多个线程共同访问的如下数据结构</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SharedObject</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">int</span> counter = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若线程 1 改变了 counter 的值，无法保证运行线程一的 CPU 的缓存中的 counter 变量值和主存中的 counter 变量值相等，其它线程也可能无法读取到被线程 1 改变后的 counter 变量值。由于变量值还未被写回主存造成的其它线程无法读取到某变量最新值的问题，被称作 <strong>Visibility Problem</strong>.</p>
+<p>Volatile 关键字则保证其所修饰的变量被修改后马上会写回主存，同时也保证读取其所修饰的变量时是从主存读取。</p>
+<h4 id="1-2-2-可见性问题-增强"><a href="#1-2-2-可见性问题-增强" class="headerlink" title="1.2.2 可见性问题-增强"></a>1.2.2 可见性问题-增强</h4><p>Java 中的 volatile 关键字除了提供可见性保障本身，还带来了如下特性</p>
 <ul>
-<li>A、B 操作结束后, N 字段的值仍然为 NValue0 ，仿佛没有受到操作 B 影响似的。</li>
+<li>若线程 A 修改了 volatile 变量的值，随后线程 B 读取该值，那么在线程 A 修改 volatile 变量前对它可见的那些值，也将在线程 B 读取该 volatile 变量后对 线程 B 可见</li>
+<li>若线程 A 读取了 volatile 变量的值，会触发线程 A 从主存重读当前线程 A 已经可见的值</li>
 </ul>
-<p>可以推断出，A 操作虽然只想更新 M 字段值，但是一定触碰到了 N 字段值，并对其进行更新。有经验的程序员可能会立马从脑海中蹦出“丢失更新” (Lost Updates) 这个词儿，并且浮现出下面这张传统的丢失更新复现图作为佐证：</p>
-<p><img src="/2019/02/04/oop-shortcomings/lost-update.jpeg" alt="Lost Updates"></p>
-<p>但是知道了这个问题属于丢失更新范畴并没有让我们能够解决这个问题。针对此次丢失更新，有一些隐蔽的细节：</p>
+<h4 id="1-2-3-指令重排优化带来的问题"><a href="#1-2-3-指令重排优化带来的问题" class="headerlink" title="1.2.3 指令重排优化带来的问题"></a>1.2.3 指令重排优化带来的问题</h4><p>Java 虚拟机和 CPU 等出于性能考虑，可能会对程序代码进行重新排序，如</p>
 <ul>
-<li><p>此类丢失更新不受隔离级别控制，是不可避免的 ：</p>
-<blockquote>
-<p>Another potential problem can occur when two processes read the same row and then update that data with different values. This might happen if a transaction first reads a value into a variable and then uses the variable in an update statement in a later step. When this update executes, another transaction updates the same data. Whichever of these transactions is committed first becomes a lost update because it was replaced by the update in the other transaction. You cannot use isolation levels to change this behavior, but you can write an application that specifically allows lost updates.<br>摘自 <a href="http://www.doc88.com/p-9092839996451.html" target="_blank" rel="noopener">Developing SQL Databases (p. 212)</a><br>参考 <a href="https://stackoverflow.com/questions/8201430/minimum-transaction-isolation-level-to-avoid-lost-updates" target="_blank" rel="noopener">Minimum transaction isolation level to avoid “Lost Updates”</a></p>
-</blockquote>
-</li>
-<li><p>此次丢失更新并不是系统代码有意为之。A 操作的目的只是更新 M 字段的值，但是却莫名触发了 N 字段值的还原。</p>
-</li>
-<li>简单的 select 语句不会给所读取的数据行上锁。</li>
+<li>编译器可以不按照代码书写的顺序生成指令</li>
+<li>编译器可以选择将变量存储在寄存器中而非主存中</li>
+<li>处理器可以乱序执行指令</li>
+<li>缓存可以变更提交最新变量值到主存的顺序</li>
 </ul>
-<h2 id="两轮辗转"><a href="#两轮辗转" class="headerlink" title="两轮辗转"></a>两轮辗转</h2><p>问题最终回到了系统使用的技术架构上。搭乘 Spring Boot 的春风，Spring Data JPA 被用来作为数据库访问的框架，就底层来说，其实使用的是 Hibernate。使用过程中，我们享受了其带来的查找、更新、保存等各个方面的便利，但是这次它却带来了一些意料之外的“惊喜”。</p>
-<p>具体到代码中，Spring Data JPA XXRepository 的 save 方法被用来更新数据库字段，由于 save 方法针对的是一个实体（Entity）及其子对象（更严谨的说应该是当前 session 管理下的所有实体），这种机制下自动生成的 SQL update 语句也如实地更新了该实体类中的所有字段。具体流程见下图：</p>
-<p><img src="/2019/02/04/oop-shortcomings/true-lost-update.jpeg" alt="true-lost-update"></p>
-<p>上图还原了此次事故发生的全过程。操作 A 所含事务跨度较大，包含了操作 B 所含事务，且操作 A 读取的数据是操作 B 更新前的旧数据，等到 A 操作真正去执行更新操作时，将旧值写入 update 语句覆盖了 B 操作的更新。为了解决这个问题，使得自动生成的更新语句仅包含当前操作中更新了的字段，我们找到了 Hibernate <strong>dynamic-update</strong> 属性。<a href="http://docs.jboss.org/hibernate/core/3.3/reference/en/html/mapping.html#mapping-declaration-class" target="_blank" rel="noopener">官方文档</a>中对这个参数的解释是：</p>
-<blockquote>
-<p>dynamic-update (optional - defaults to false): specifies that UPDATE SQL should be generated at runtime and can contain only those columns whose values have changed.</p>
-</blockquote>
-<p>但是很快开启 Dynamic Update 的问题也被揭示出来，考虑这么一种情况：</p>
-<p><img src="/2019/02/04/oop-shortcomings/dynamic-update-mystery.jpeg" alt="dynamic-update-mystery"></p>
-<p>两个一前一后的相同操作，仅仅因为有部分时序上的重叠（相当于是用户短时内多次发起请求），就造成了结果错误，没有如实地记录第二次更新操作的结果，这也是在生产中不允许出现的。</p>
-<h2 id="三点想法"><a href="#三点想法" class="headerlink" title="三点想法"></a>三点想法</h2><p>至此，使用 ORM 框架来进行数据库字段更新的道路似乎已经走到了尽头，无论是使用默认的字段全量更新，还是开启动态更新，都会在某些情况下出现意料之外的事情，造成难以排查的 BUG。我们应该看到，ORM(Object Relational Mapping) 框架及其所属的 OOP(Object Oriented Programming) 体系存在一些固有的缺陷，并不值得我们在系统建设中视其为金科铁律，一以贯之。</p>
-<p>1.<a href="http://blogs.tedneward.com/post/the-vietnam-of-computer-science/?from=timeline" target="_blank" rel="noopener">ORM 是软件工程界的“越战”</a> By Ted Neward</p>
+<p>JMM (Java Memory Model) 中指出: so long as the environment maintains as-if-serial semantics – that is, so long as you achieve the same result as you would have if the instructions were executed in a strictly sequential environment，就可以对代码执行的顺序进行为所欲为的改变。这种改变在单线程运行程序的情况下不会出现任何问题，但是在多线程情况下</p>
 <ul>
-<li>越战给美国带来的最大的教训是：To know when to “cut bait and run”；亦即中国古语所云：识时务者为俊杰；亦如股市圣经：及时止损。</li>
-<li>软件工程师们在 ORM 道路上犯的最大错误和美国在越战上犯的错误一样：这一领域实在是太吸引人，大家都笃定认为这条道路没有错，花费巨大的精力在这一领域攻克难关。最终的结果是巨大的投入，却得到了不甚完美的 ORM 解决方案。</li>
+<li>一个线程可以读取另一个线程写入了的内存空间</li>
+<li>一个线程以某种顺序对一些变量进行了修改，另一个线程观察到这些值的改变顺序却并非如此</li>
+<li>一个线程修改了某个变量的值，但是选择先放在寄存器中，另一个线程则无法看到这个更改</li>
 </ul>
-<p>2.<a href="https://www.johndcook.com/blog/2011/07/19/you-wanted-banana/" target="_blank" rel="noopener">OOP 是拿着香蕉的大猩猩</a> By Joe Armstrong</p>
+<p>会导致程序运行结果不可预测。为了（部分）解决指令重排 (instruction reordering) 带来的这一问题，volatile 关键字提供了 <strong>happens-before</strong> 保证。博客中对这种保证的描述如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- Reads from and writes to other variables cannot be reordered to occur after a write to a volatile variable, if the reads / writes originally occurred before the write to the volatile variable.The reads / writes before a write to a volatile variable are guaranteed to &quot;happen before&quot; the write to the volatile variable. Notice that it is still possible for e.g. reads / writes of other variables located after a write to a volatile to be reordered to occur before that write to the volatile. Just not the other way around. From after to before is allowed, but from before to after is not allowed.</span><br><span class="line">- Reads from and writes to other variables cannot be reordered to occur before a read of a volatile variable, if the reads / writes originally occurred after the read of the volatile variable. Notice that it is possible for reads of other variables that occur before the read of a volatile variable can be reordered to occur after the read of the volatile. Just not the other way around. From before to after is allowed, but from after to before is not allowed.</span><br></pre></td></tr></table></figure>
+<p>像绕口令一样，在下读了两遍，翻译为</p>
 <ul>
-<li>在这次事故的例子中，“大猩猩”如影随形。</li>
-<li>当未使用动态更新时，我们面对的是一个傻乎乎的“大猩猩”，它盲目、笨拙地去更新了数据库表的所有字段，在某些情形下，费力不讨好，由于更新了本不应该更新的字段，导致出现错误；</li>
-<li>当配置了动态更新之后，我们面对的是一个无比强悍的大猩猩，它能精确识别字段的更改，动态地去生成仅包含需要更新字段的 SQL update 语句，但是它的这种能力来自于设计师的某种假设——字段变更的判断是根据与 ORM 缓存比较得来的结果，具有先天的局限性，很容易被缓存欺骗。同时，这样的比较也给系统带来了额外的负担，动态生成的 SQL 语句也不如事先编译好的语句用起来简单和方便。</li>
-<li>大猩猩的存在一定程度上方便了香蕉获取，但是既给系统运行带来额外负担，又留下了可能产生 BUG 的坑。在有一定能力的情况下，拒绝大猩猩是一个明智、经济之选择。</li>
+<li>若代码中对其它变量的读写在对 volatile 变量的写入之前，则这些语句不能被重排到 volatile 变量的写入之后。而在 volatile 变量写入后写入其它变量的语句则可能被重排到写入 volatile 变量的语句之前。即只能从后向前重排，不能从前向后重排。</li>
+<li>若代码中对其它变量的读写在对 volatile 变量对读取之后，则这些语句不能被重排到 volatile 变量的读取之前。而在 volatile 变量读取前读取其它变量的语句则可能被重排到读取 volatile 变量的语句后面。即只能从前向后重排，不能从后向前重排。</li>
 </ul>
-<p>3.想你所想，做你应做 By me</p>
-<ul>
-<li>完成一项任务，应该准确地完成该项任务描述中的内容，干净利落，不依赖任何其它机制的副作用来完成这件事，也不能因为完成这件事给系统带去任何副作用。恰如时节好雨，春日发生，随风潜入夜，润物细无声。OOP 的思想显然与这样的要求南辕北辙，它在实现某项功能的过程中，管理了过多当前功能要求之外的实体，依赖了过多当前功能要求之外的状态，隐藏了过多实现上的细节。</li>
+<p>之所以说 volatile 部分解决了指令重排带来的问题，是因为如上翻译所言，volatile 并不能保证某个代码块区域内的代码完全不会被重排。</p>
+<h3 id="1-2-4-volatile-的局限性"><a href="#1-2-4-volatile-的局限性" class="headerlink" title="1.2.4 volatile 的局限性"></a>1.2.4 volatile 的局限性</h3><p>volatile 无法提供原子性 (atomicity) 保证。当为 volatile 变量的赋值计算依赖于此变量之前的值时，由于读取变量值、计算变量值、写回变量值并非为一个原子操作，在多线程情况下，<strong>race conditon</strong> 产生在这三个环节，程序可能会得到错误的执行结果。</p>
+<h2 id="2-Synchorize"><a href="#2-Synchorize" class="headerlink" title="2 Synchorize"></a>2 Synchorize</h2><p>从懒加载单例模式的实现说开去，首先给出不考虑多线程的版本：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Resource resource = <span class="keyword">null</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Resource <span class="title">getResource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (resource == <span class="keyword">null</span>)</span><br><span class="line">      resource = <span class="keyword">new</span> Resource();</span><br><span class="line">    <span class="keyword">return</span> resource;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码在多线程下会在 resource 是否为 null 的条件判断处产生 race condition，为了解决这个问题，可以直接使用 synchronise 关键字同步整个方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Resource resource = <span class="keyword">null</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> synchronize Resource <span class="title">getResource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (resource == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (resource == <span class="keyword">null</span>)</span><br><span class="line">        resource = <span class="keyword">new</span> Resource();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resource;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>但是这种做法会造成 getResource 方法的运行速度变得缓慢（时间花费可达未加锁版本的 100 倍）。懒加载本来就是为了追求效率，如此使用 synchronize 关键字的做法严重拖慢了程序运行效率，是不可取的。于是有人提出了 DCL (Double-Check Locking) 方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> Resource resource = <span class="keyword">null</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Resource <span class="title">getResource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (resource == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (resource == <span class="keyword">null</span>)</span><br><span class="line">          resource = <span class="keyword">new</span> Resource();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resource;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>按照预想，上面写法的第一重检查让大多数的 getResource 调用不会到达 synchronize 行，同时又通过 synchronize 和第二重检查避免了 race condition，但是事实没有想象的这般美好。</p>
+<p>考虑以下情况，线程 A 正在同步块中执行 new 语句，与此同时线程 B 刚进入 getResource 方法。new 语句将会 1) 为 Resource 对象在内存中分配空间，2) 调用 Resource 的构造方法，3)初始化 Resource 的各字段，4) 赋值 SomeClass 的 resource 字段一个指向该新创建的 Resource 对象的指针。由于线程 B 本身未在同步块中，它看见的以上操作的顺序和线程 A 实际的操作顺序可能会有差别。比如线程 B 看见的步骤可能为 1-4-2-3，那么线程 B 进行第一重判断的时候可能会判定 resource 已经存在，但是实际上该对象可能还未被初始化完成。</p>
+<p>无数编程高手前赴后继想要修复 DCL 存在的问题，比如使用 volatile 关键字来保证 Resource 的创建过程中不会出现指令重排：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">volatile</span> Resource resource = <span class="keyword">null</span>;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> Resource <span class="title">getResource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (resource == <span class="keyword">null</span>) &#123;</span><br><span class="line">      <span class="keyword">synchronized</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (resource == <span class="keyword">null</span>)</span><br><span class="line">          resource = <span class="keyword">new</span> Resource();</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> resource;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种目前被广为接受的 DCL 实现单例的写法也是存在风险的（讽刺的是这个风险十几年前就被指出来了但是现在却仍然被大多数人所不知）。</p>
+<p>volatile 既保证了 Resource 对象的创建顺序，又保证了 resource 字段创建后马上被刷新到主存，还保证了其它线程在读取 resource 字段时候是从主存中读取，但是值得注意的是 Resource 对象中的字段读取的正确性往往被忽略掉了。</p>
+<p>其它线程在读取 Resource 对象字段的时候，拿到的 Resource 对象内部的字段可能是其它线程的 CPU 缓存中的脏值，因为这些字段在上述描述下未加 volatile 修饰，不会在读取之前执行所谓的 Read Barrier 指令，无法保证其正确性。</p>
+<p>如果要一条道走到黑，使用 DCL 来创建懒加载单例对象，那么除了上面的代码块，还需要保证 Resource 中的字段及这些字段的所有子字段都是 volatile 修饰的。</p>
+<h2 id="3-理解-volatile-和-synchronize"><a href="#3-理解-volatile-和-synchronize" class="headerlink" title="3 理解 volatile 和 synchronize"></a>3 理解 volatile 和 synchronize</h2><h3 id="3-1-基础解读"><a href="#3-1-基础解读" class="headerlink" title="3.1 基础解读"></a>3.1 基础解读</h3><ul>
+<li>volatile 修饰的变量的更新会立刻写到缓存，并保证其它线程对这一改变的可见性</li>
+<li>synchronize 如其名，用于保证其修饰的代码块同一时刻只能被一个线程执行</li>
 </ul>
-<p>PS:</p>
-<ul>
-<li>Ted Neward: auther of Effective Enterprise Java, C# In a Nutshell</li>
-<li>Joe Armstrong: creator of Erlang</li>
-<li>Me: no one</li>
+<h3 id="3-2-从-JMM-角度解读"><a href="#3-2-从-JMM-角度解读" class="headerlink" title="3.2 从 JMM 角度解读"></a>3.2 从 JMM 角度解读</h3><p>volatile 和 synchronize 都是为了解决 Java 内存模型的既有设计在多线程世界下可能带来的问题的关键字。</p>
+<p>volatile 用于保证单个变量的值在 CPU 缓存和主存之间的一致性，保证多线程同一时刻读取其修饰字段值结果的可见性。可用于解决单线程写，多线程读情况下某字段值的可见性问题。</p>
+<p>线程运行到 synchronize 代码块，获取锁和释放锁都会触发当前线程的 CPU 缓存和主存之间的数据同步。当获取锁时，当前线程会从主存同步数据到 CPU 缓存的变量中；当释放锁时，当前线程会将 CPU 缓存的数据同步到主存中。</p>
+<h2 id="4-再议懒加载单例模式的实现"><a href="#4-再议懒加载单例模式的实现" class="headerlink" title="4 再议懒加载单例模式的实现"></a>4 再议懒加载单例模式的实现</h2><p>上面的最后一种实现懒加载单例的方法已经使用了 synchronize 关键字，为什么不用 volatile 关键字特殊处理还是不能解决线程间的并发访问问题并留下隐患呢？这是因为第一重判断在同步代码块之外，只有多个线程都 synchronize 在同一个对象上时，才能保证代码执行如同单线程那般无误，而 DCL 显然没有做到这样。</p>
+<p>完全摒弃 DCL 的思路，可以考虑如下实现方式懒加载的单例模式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MySingleton</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> Resource resource = <span class="keyword">new</span> Resource();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时 DCL 对 32 位长原始数字类型的懒加载初始化也是可以的，其原因在此不表。</p>
+<h2 id="5-Dictionary"><a href="#5-Dictionary" class="headerlink" title="5 Dictionary"></a>5 Dictionary</h2><h3 id="5-1-Critical-Section"><a href="#5-1-Critical-Section" class="headerlink" title="5.1 Critical Section"></a>5.1 Critical Section</h3><p>The critical section is a code segment where the shared variables can be accessed.</p>
+<h3 id="5-2-Race-Condition"><a href="#5-2-Race-Condition" class="headerlink" title="5.2 Race Condition"></a>5.2 Race Condition</h3><p>A race condition is a situation that may occur insude a critical section. This happens when the result of multiple thread execution in critical section differs according to the order in which the threads execut.</p>
+<p>Race conditions in cridical sections can be avoided if the critical section is treated as an atomic instruction. Also, proper thread synchronization using locks or atomic variables can prevent race conditions.</p>
+<h2 id="6-Reference"><a href="#6-Reference" class="headerlink" title="6. Reference"></a>6. Reference</h2><ul>
+<li><a href="https://www.tutorialspoint.com/race-condition-critical-section-and-semaphore" target="_blank" rel="noopener">Race Condition, Critical Section and Semaphore</a></li>
 </ul>
 
       
@@ -283,15 +296,15 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">OOP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ORM</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Volatile</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Dead-Lock</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Synchronize</a>
         		</li>
       		
 		</ul>
@@ -347,7 +360,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2019/02/04/oop-shortcomings/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2019/11/17/volatile-and-synchronize/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -361,18 +374,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/05/30/centralized-configuration/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          centralized-configuration
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/09/27/spring-to-tell/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spring-to-tell 之基于 XML 配置文件的启动流程</div>
+    <a href="/2019/10/19/2019-10-19-java-html-to-pdf/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Java Html to PDF</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -391,6 +395,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Java-Volatile-Keyword"><span class="toc-number">1.</span> <span class="toc-text">1 Java Volatile Keyword</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-Volatile-主要作用"><span class="toc-number">1.1.</span> <span class="toc-text">1.1 Volatile 主要作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-Volatile-解决的问题"><span class="toc-number">1.2.</span> <span class="toc-text">1.2 Volatile 解决的问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-1-可见性问题"><span class="toc-number">1.2.1.</span> <span class="toc-text">1.2.1 可见性问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-2-可见性问题-增强"><span class="toc-number">1.2.2.</span> <span class="toc-text">1.2.2 可见性问题-增强</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-3-指令重排优化带来的问题"><span class="toc-number">1.2.3.</span> <span class="toc-text">1.2.3 指令重排优化带来的问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-4-volatile-的局限性"><span class="toc-number">1.3.</span> <span class="toc-text">1.2.4 volatile 的局限性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Synchorize"><span class="toc-number">2.</span> <span class="toc-text">2 Synchorize</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-理解-volatile-和-synchronize"><span class="toc-number">3.</span> <span class="toc-text">3 理解 volatile 和 synchronize</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-基础解读"><span class="toc-number">3.1.</span> <span class="toc-text">3.1 基础解读</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-从-JMM-角度解读"><span class="toc-number">3.2.</span> <span class="toc-text">3.2 从 JMM 角度解读</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-再议懒加载单例模式的实现"><span class="toc-number">4.</span> <span class="toc-text">4 再议懒加载单例模式的实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Dictionary"><span class="toc-number">5.</span> <span class="toc-text">5 Dictionary</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-Critical-Section"><span class="toc-number">5.1.</span> <span class="toc-text">5.1 Critical Section</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-Race-Condition"><span class="toc-number">5.2.</span> <span class="toc-text">5.2 Race Condition</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Reference"><span class="toc-number">6.</span> <span class="toc-text">6. Reference</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>

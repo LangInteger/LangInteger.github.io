@@ -6,24 +6,16 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://LangInteger.github.io">
-  <title>OOP 之殇 —— 从一次事故说起 | LangInteger</title>
+  <title>Archives: 2019/11 | LangInteger</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。">
-<meta name="keywords" content="OOP,ORM,Dead-Lock">
-<meta property="og:type" content="article">
-<meta property="og:title" content="OOP 之殇 —— 从一次事故说起">
-<meta property="og:url" content="http://LangInteger.github.io/2019/02/04/oop-shortcomings/index.html">
+  <meta name="keywords" content="前端,js,jquery,javascript,html5,开发者,程序猿,程序媛,极客,编程,代码,开源,IT网站,Developer,Programmer,Coder,Geek,html,css,css3,用户体验">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LangInteger">
+<meta property="og:url" content="http://LangInteger.github.io/archives/2019/11/index.html">
 <meta property="og:site_name" content="LangInteger">
-<meta property="og:description" content="不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/lost-update.jpeg">
-<meta property="og:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/true-lost-update.jpeg">
-<meta property="og:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/dynamic-update-mystery.jpeg">
-<meta property="og:updated_time" content="2019-10-19T07:58:55.283Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OOP 之殇 —— 从一次事故说起">
-<meta name="twitter:description" content="不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。">
-<meta name="twitter:image" content="http://langinteger.github.io/2019/02/04/oop-shortcomings/lost-update.jpeg">
+<meta name="twitter:title" content="LangInteger">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -167,245 +159,68 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-oop-shortcomings" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      OOP 之殇 —— 从一次事故说起
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2019" class="archive-year">2019</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2019/11/17/volatile-and-synchronize/" class="archive-article-date">
+  	<time datetime="2019-11-17T14:36:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2019/11/17/volatile-and-synchronize/">Java 中的 volatile 和 synchronize 关键字解读</a>
     </h1>
   
 
-        
-        <a href="/2019/02/04/oop-shortcomings/" class="archive-article-date">
-  	<time datetime="2019-02-04T04:18:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>不久前，在编码系统某业务模块完毕，感觉万事大吉可以放飞自我的时候，测试出一个莫名其妙的 BUG。</p>
-<a id="more"></a>
-<h2 id="一次事故"><a href="#一次事故" class="headerlink" title="一次事故"></a>一次事故</h2><p>远离代码细节，从表面上来看，引起这个 BUG 的操作是这样的：</p>
-<ul>
-<li>用户进行 A 操作（后含异步操作），该操作会更新某表 M 字段的值 MValue0 为 MValue1</li>
-<li>用户进行 B 操作（简单同步操作），该操作会更新该表 N 字段的值 NValue0 为 NValue1</li>
-</ul>
-<p>流程设计中，A（含后续异步操作）、B 操作是可以并行或者不并行的，取决于用户在两个操作之间间隔的时间，而且他们之间并不会相互影响。但是在测试中，如果 B 操作 并行于 A，时常会出现一个奇怪的现象：</p>
-<ul>
-<li>A、B 操作结束后, N 字段的值仍然为 NValue0 ，仿佛没有受到操作 B 影响似的。</li>
-</ul>
-<p>可以推断出，A 操作虽然只想更新 M 字段值，但是一定触碰到了 N 字段值，并对其进行更新。有经验的程序员可能会立马从脑海中蹦出“丢失更新” (Lost Updates) 这个词儿，并且浮现出下面这张传统的丢失更新复现图作为佐证：</p>
-<p><img src="/2019/02/04/oop-shortcomings/lost-update.jpeg" alt="Lost Updates"></p>
-<p>但是知道了这个问题属于丢失更新范畴并没有让我们能够解决这个问题。针对此次丢失更新，有一些隐蔽的细节：</p>
-<ul>
-<li><p>此类丢失更新不受隔离级别控制，是不可避免的 ：</p>
-<blockquote>
-<p>Another potential problem can occur when two processes read the same row and then update that data with different values. This might happen if a transaction first reads a value into a variable and then uses the variable in an update statement in a later step. When this update executes, another transaction updates the same data. Whichever of these transactions is committed first becomes a lost update because it was replaced by the update in the other transaction. You cannot use isolation levels to change this behavior, but you can write an application that specifically allows lost updates.<br>摘自 <a href="http://www.doc88.com/p-9092839996451.html" target="_blank" rel="noopener">Developing SQL Databases (p. 212)</a><br>参考 <a href="https://stackoverflow.com/questions/8201430/minimum-transaction-isolation-level-to-avoid-lost-updates" target="_blank" rel="noopener">Minimum transaction isolation level to avoid “Lost Updates”</a></p>
-</blockquote>
-</li>
-<li><p>此次丢失更新并不是系统代码有意为之。A 操作的目的只是更新 M 字段的值，但是却莫名触发了 N 字段值的还原。</p>
-</li>
-<li>简单的 select 语句不会给所读取的数据行上锁。</li>
-</ul>
-<h2 id="两轮辗转"><a href="#两轮辗转" class="headerlink" title="两轮辗转"></a>两轮辗转</h2><p>问题最终回到了系统使用的技术架构上。搭乘 Spring Boot 的春风，Spring Data JPA 被用来作为数据库访问的框架，就底层来说，其实使用的是 Hibernate。使用过程中，我们享受了其带来的查找、更新、保存等各个方面的便利，但是这次它却带来了一些意料之外的“惊喜”。</p>
-<p>具体到代码中，Spring Data JPA XXRepository 的 save 方法被用来更新数据库字段，由于 save 方法针对的是一个实体（Entity）及其子对象（更严谨的说应该是当前 session 管理下的所有实体），这种机制下自动生成的 SQL update 语句也如实地更新了该实体类中的所有字段。具体流程见下图：</p>
-<p><img src="/2019/02/04/oop-shortcomings/true-lost-update.jpeg" alt="true-lost-update"></p>
-<p>上图还原了此次事故发生的全过程。操作 A 所含事务跨度较大，包含了操作 B 所含事务，且操作 A 读取的数据是操作 B 更新前的旧数据，等到 A 操作真正去执行更新操作时，将旧值写入 update 语句覆盖了 B 操作的更新。为了解决这个问题，使得自动生成的更新语句仅包含当前操作中更新了的字段，我们找到了 Hibernate <strong>dynamic-update</strong> 属性。<a href="http://docs.jboss.org/hibernate/core/3.3/reference/en/html/mapping.html#mapping-declaration-class" target="_blank" rel="noopener">官方文档</a>中对这个参数的解释是：</p>
-<blockquote>
-<p>dynamic-update (optional - defaults to false): specifies that UPDATE SQL should be generated at runtime and can contain only those columns whose values have changed.</p>
-</blockquote>
-<p>但是很快开启 Dynamic Update 的问题也被揭示出来，考虑这么一种情况：</p>
-<p><img src="/2019/02/04/oop-shortcomings/dynamic-update-mystery.jpeg" alt="dynamic-update-mystery"></p>
-<p>两个一前一后的相同操作，仅仅因为有部分时序上的重叠（相当于是用户短时内多次发起请求），就造成了结果错误，没有如实地记录第二次更新操作的结果，这也是在生产中不允许出现的。</p>
-<h2 id="三点想法"><a href="#三点想法" class="headerlink" title="三点想法"></a>三点想法</h2><p>至此，使用 ORM 框架来进行数据库字段更新的道路似乎已经走到了尽头，无论是使用默认的字段全量更新，还是开启动态更新，都会在某些情况下出现意料之外的事情，造成难以排查的 BUG。我们应该看到，ORM(Object Relational Mapping) 框架及其所属的 OOP(Object Oriented Programming) 体系存在一些固有的缺陷，并不值得我们在系统建设中视其为金科铁律，一以贯之。</p>
-<p>1.<a href="http://blogs.tedneward.com/post/the-vietnam-of-computer-science/?from=timeline" target="_blank" rel="noopener">ORM 是软件工程界的“越战”</a> By Ted Neward</p>
-<ul>
-<li>越战给美国带来的最大的教训是：To know when to “cut bait and run”；亦即中国古语所云：识时务者为俊杰；亦如股市圣经：及时止损。</li>
-<li>软件工程师们在 ORM 道路上犯的最大错误和美国在越战上犯的错误一样：这一领域实在是太吸引人，大家都笃定认为这条道路没有错，花费巨大的精力在这一领域攻克难关。最终的结果是巨大的投入，却得到了不甚完美的 ORM 解决方案。</li>
-</ul>
-<p>2.<a href="https://www.johndcook.com/blog/2011/07/19/you-wanted-banana/" target="_blank" rel="noopener">OOP 是拿着香蕉的大猩猩</a> By Joe Armstrong</p>
-<ul>
-<li>在这次事故的例子中，“大猩猩”如影随形。</li>
-<li>当未使用动态更新时，我们面对的是一个傻乎乎的“大猩猩”，它盲目、笨拙地去更新了数据库表的所有字段，在某些情形下，费力不讨好，由于更新了本不应该更新的字段，导致出现错误；</li>
-<li>当配置了动态更新之后，我们面对的是一个无比强悍的大猩猩，它能精确识别字段的更改，动态地去生成仅包含需要更新字段的 SQL update 语句，但是它的这种能力来自于设计师的某种假设——字段变更的判断是根据与 ORM 缓存比较得来的结果，具有先天的局限性，很容易被缓存欺骗。同时，这样的比较也给系统带来了额外的负担，动态生成的 SQL 语句也不如事先编译好的语句用起来简单和方便。</li>
-<li>大猩猩的存在一定程度上方便了香蕉获取，但是既给系统运行带来额外负担，又留下了可能产生 BUG 的坑。在有一定能力的情况下，拒绝大猩猩是一个明智、经济之选择。</li>
-</ul>
-<p>3.想你所想，做你应做 By me</p>
-<ul>
-<li>完成一项任务，应该准确地完成该项任务描述中的内容，干净利落，不依赖任何其它机制的副作用来完成这件事，也不能因为完成这件事给系统带去任何副作用。恰如时节好雨，春日发生，随风潜入夜，润物细无声。OOP 的思想显然与这样的要求南辕北辙，它在实现某项功能的过程中，管理了过多当前功能要求之外的实体，依赖了过多当前功能要求之外的状态，隐藏了过多实现上的细节。</li>
-</ul>
-<p>PS:</p>
-<ul>
-<li>Ted Neward: auther of Effective Enterprise Java, C# In a Nutshell</li>
-<li>Joe Armstrong: creator of Erlang</li>
-<li>Me: no one</li>
-</ul>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/wechatpay.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">OOP</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ORM</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Volatile</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Dead-Lock</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Synchronize</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://LangInteger.github.io/2019/02/04/oop-shortcomings/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/05/30/centralized-configuration/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          centralized-configuration
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/09/27/spring-to-tell/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Spring-to-tell 之基于 XML 配置文件的启动流程</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -428,8 +243,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
