@@ -1,79 +1,54 @@
 ---
 layout: post
 title: Curriculum Vitae
-date: 2018-04-19 22:57:12
+date: 2019-11-11 22:57:12
 ---
 
-# 刘郎
-# 联系方式
+# <center><font size=6>刘郎</font></center>
 
-- 手机：17608387765
-- QQ/微信：709091988
-- Email：LangInteger@outlook.com
----
+<center>邮箱: langinteger@outlook.com | 电话: 17608387765</center>
 
-# 个人信息
+## <font size=5>教育背景</font>
 
- - 男/1995年生人
- - 本科/中南大学土木工程 2013级/加权成绩：86.89/排名：前15%
- - 四六级：优秀（565/526）/计算机等考二三级：合格
- - 技术博客：[LangInteger.github.io](http://LangInteger.github.io )
- - 期望职位/城市：Java后台开发工程师/北京、上海、深圳
- - 期望薪资：萌新害怕，不敢说话
+- 2013.09-2017.06（本科）&nbsp;&nbsp;&nbsp;中南大学&nbsp;&nbsp;&nbsp;土木工程学院&nbsp;&nbsp;&nbsp;土木工程&nbsp;&nbsp;&nbsp;加权成绩：86.89（前15%）
 
----
+## <font size=5>所获荣誉</font>
 
-# 所获荣誉
- - [四川省NOIP2010 信息学奥林匹克联赛三等奖](http://www.myjks.com/zhengcewenjian/suoneiwenjian/jianbao/2010-12-28/1852.html)
- - [中南大学第十届大学生程序设计竞赛三等奖](http://tz.its.csu.edu.cn/Home/Release_TZTG_zd/415EAACD037445198C981C041613D4FA)
+- [四川省NOIP2010 信息学奥林匹克联赛三等奖](http://www.myjks.com/zhengcewenjian/suoneiwenjian/jianbao/2010-12-28/1852.html)
+- [中南大学第十届大学生程序设计竞赛三等奖](http://tz.its.csu.edu.cn/Home/Release_TZTG_zd/415EAACD037445198C981C041613D4FA)
+- 中南大学 2013/2014/2015 学年度二等奖学金（校级）
 
-# 技术/影评文章
+## <font size=5>工作经历</font>
 
-- [String和它的常量池朋友以及intern()方法在JDK1.7中的变化](https://langinteger.github.io/2018/04/19/java-String-pool/)
-- [Java排序算法的实现及比美-进阶篇](https://langinteger.github.io/2018/04/08/java-sort-algrithm2/)
+### <font size=4><div><div style="float:left">万国游（深圳）科技有限公司</div><div style="float:right">软件工程师 2018.07-至今</div></div></font></br>
+
+- 参与基于 Spring Boot 微服务架构的 Java 后端服务开发，贡献项目核心代码近 20 万行（增 18 万行，删 7 万行）
+- 实现业务逻辑若干
+  - 实现了国内机票预定流程，成功对接供应商四家：IBE、去哪儿网、南航 NDC、春秋航空
+  - 实现了国内火车票预定流程，成功对接供应商一家：同程艺龙
+  - 实现了国际酒店预定流程，成功对接供应商一家：道旅 didatravel
+- 解决技术问题若干
+  - 排查死锁问题一例：是由于使用的 Spring Data JPA 底层的 Hibernate 生成的 SQL 无序执行造成的
+  - 排查项目 N+1 问题：使用 JPA 2.1 规范中的 NamedEntityGraph，或者使用 Redis 缓存数据解决
+  - 实现分布式唯一 ID 生成：采用 Twitter SnowFlake 算法的 Java 实现来达到目的
+  - 梳理项目配置文件优先级：解决了多实例部署场景下由于配置优先级理解不当给两个实例配置了相同的 dataCenterId/machineId 造成 SnowFlake ID 生成重复的问题
+  - 梳理 Spring Boot 参数校验机制：对 @Valid 和 @Validated 注解各自的作用场景进行了深入梳理，并在团队做交流规范其使用
+
+##  <font size=5>开源贡献</font>
+
+- [MERGED] 解决 [Embedded-consul 项目 (74 Star)](https://github.com/pszymczyk/embedded-consul) 中由于依赖冲突导致的测试用例无法单独启动运行的问题：[To resolve the failure of running test singlely due to http client dependency conflict ](https://github.com/pszymczyk/embedded-consul/pull/93)
+- [UNMERGED] 解决 [Hikari CP 项目 (11.6k star)](https://github.com/brettwooldridge/HikariCP) 中 `blockUntilFilled` 模式的设计问题以及流程 BUG：[Change the thread pool size of AddConnectionExecutor to minimumIdle on hikari startup phase in blocked initialization](https://github.com/brettwooldridge/HikariCP/pull/1405)
+
+## <font size=5>公开文章</font>
+
+- [Spring Boot 项目配置文件详析](https://langinteger.github.io/2019/05/30/centralized-configuration/)
+- [Java Bean Validation 及其在 Spring Boot 参数校验中的应用](https://langinteger.github.io/2019/09/13/java-bean-validation/)
+- [String 和它的常量池朋友以及 intern() 方法在 JDK1.7 中的变化](https://langinteger.github.io/2018/04/19/java-String-pool/)
+- [Java 排序算法的实现及比美-进阶篇](https://langinteger.github.io/2018/04/08/java-sort-algrithm2/)
 - [天堂电影院-Cinema Paradiso](https://langinteger.github.io/2018/04/11/movie-cinema-paradiso/)
 
-# 项目经历
+## <font size=5>技能清单</font>
 
-## 在线汇率转换项目
-实施抓取中国银行汇率信息，实现十余种货币汇率的相互转换
-体验地址：http://langexample.herokuapp.com/exchangerate.html
-
-## web 商城项目
-一个完整的web商城项目，融入 MVC 架构思想，不添加任何框架的成分，原汁原味体验原生 Servlet
- 和 JSP。主要模块有：
- - 后台管理：实现商品库存、订单、管理员账户的增删改查
- - 前台展示：用户登录注册、商品搜索与显示、购物车与订单管理、支付模块（采用easypay api）
-主要痛点：
- - 文字编码问题：文件上传框架 uploadfile 对文件名采用 ISO8895-1 格式进行编码，需指定 utf-8 编码以兼容此应用
- - 日期格式转换问题：BeanUtils 可以使 Map 转成对应的 Bean 类，但是如果 bean 有个日期字段而Map中这个日期字段传过来是字符串，数据类型无法转换，会导致报错，可以为 BeanUtils 指定一个日期转换器来解决日期格式转换问题
- - 分页处理：构建辅助对象 PageHelper 封装所有与分页相关的信息，查询结果集也可封装在其中
- - 事务与数据库连接：使用 DButils框架时，其QueryRunner的query方法中，有一个类型为boolean的closeConn参数。当connection作为参数显式传递给query方法时（比如在事务中，我们不得不这么做），这个开关默认是关闭的，反之则是打开的。所以在使用事务时（以及一切将connection作为query方法参数的情况），我们必须要手动关闭connection。
-
-## 企业人力资源管理系统
-该管理系统基于Spring，Spring MVC和Mybatis构建。
-主要模块如下：
-1. 登录模块：登录、注销、错误信息回显等功能
-2. 部门、职位、员工、公告管理模块：实现相应实体的增删改查，分页显示，以及查询报表的生成。其中查询模块在mapper映射文件中使用resultmap实现多表查询
-3. 文件模块：文件的增删改查以及下载功能
-
-
-# 技能清单
-
-以下均为我熟练使用的技能
-
-- Web开发：Spring/Spring MVC/Mybatis
-- 数据库相关：MySQL/Mybatis/C3P0/DBCP
-- 版本管理、文档和自动化部署工具：Maven/Git
-- 单元测试：Junit4
----
-
-# 中意书籍
-
-- 《CSS世界》			张鑫旭
-- 《图解HTTP》			上野宣
-- *Pointers on C*	Kenneth·Reek
-
-
-# 致谢
-感谢您花时间阅读我的简历，您的意见和反馈是我前进路上的最大动力。
+- Web 开发：熟练掌握基于 Spring Boot/Spring Data JPA 的 Java 后端开发工作
+- 数据库相关：理解事务，熟悉 Mysql 及其锁机制，熟悉 Hikari CP
+- 版本管理、文档和自动化部署工具：深入理解 Git 工作流，熟练使用和配置 jenkins，熟练使用 Kubernetes
