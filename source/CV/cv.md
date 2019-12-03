@@ -10,7 +10,7 @@ date: 2019-11-11 22:57:12
 
 ## <font size=5>教育背景</font>
 
-- 2013.09-2017.06（本科）&nbsp;&nbsp;&nbsp;中南大学&nbsp;&nbsp;&nbsp;土木工程学院&nbsp;&nbsp;&nbsp;土木工程&nbsp;&nbsp;&nbsp;加权成绩：86.89（前15%）
+- 2013.09-2017.06（本科）&nbsp;&nbsp;&nbsp;中南大学&nbsp;&nbsp;&nbsp;加权成绩：86.89（前15%）
 
 ## <font size=5>所获荣誉</font>
 
@@ -24,14 +24,14 @@ date: 2019-11-11 22:57:12
 
 - 参与基于 Spring Boot 微服务架构的 Java 后端服务开发，贡献项目核心代码近 20 万行（增 18 万行，删 7 万行）
 - 实现业务逻辑若干
-  - 实现了国内机票预定流程，成功对接供应商四家：IBE、去哪儿网、南航 NDC、春秋航空
-  - 实现了国内火车票预定流程，成功对接供应商一家：同程艺龙
-  - 实现了国际酒店预定流程，成功对接供应商一家：道旅 didatravel
+  - 实现了国内机票预定流程，成功对接 OTA、航空公司四家
+  - 实现了国内火车票预定流程，成功对接供应商一家
+  - 实现了国际酒店预定流程，成功对接供应商一家
 - 解决技术问题若干
-  - 排查死锁问题一例：是由于使用的 Spring Data JPA 底层的 Hibernate 生成的 SQL 无序执行造成的
+  - 排查死锁问题：数据库结构中存在外键，新增从表记录时会获取指向主表记录的 S 锁，再结合主表记录的保存和另一张表记录的保存即会产生死锁
   - 排查项目 N+1 问题：使用 JPA 2.1 规范中的 NamedEntityGraph，或者使用 Redis 缓存数据解决
   - 实现分布式唯一 ID 生成：采用 Twitter SnowFlake 算法的 Java 实现来达到目的
-  - 梳理项目配置文件优先级：解决了多实例部署场景下由于配置优先级理解不当给两个实例配置了相同的 dataCenterId/machineId 造成 SnowFlake ID 生成重复的问题
+  - 梳理项目配置文件优先级：解决了多实例部署场景下由于配置优先级理解不当给两个实例配置了相同的 dataCenterId/machineId 造成 SnowFlake 生成 ID 重复的问题
   - 梳理 Spring Boot 参数校验机制：对 @Valid 和 @Validated 注解各自的作用场景进行了深入梳理，并在团队做交流规范其使用
 
 ##  <font size=5>开源贡献</font>
@@ -50,5 +50,5 @@ date: 2019-11-11 22:57:12
 ## <font size=5>技能清单</font>
 
 - Web 开发：熟练掌握基于 Spring Boot/Spring Data JPA 的 Java 后端开发工作
-- 数据库相关：理解事务，熟悉 Mysql 及其锁机制，熟悉 Hikari CP
+- 数据库：理解事务，熟悉 Mysql 及其锁机制，熟悉 Hikari CP
 - 版本管理、文档和自动化部署工具：深入理解 Git 工作流，熟练使用和配置 jenkins，熟练使用 Kubernetes
