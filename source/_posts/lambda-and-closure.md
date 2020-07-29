@@ -11,7 +11,9 @@ tags:
     - higher-order function
 ---
 
-<div style="height: 50%, width: 50%">![title](lambda-and-closure/title.jpg)</div>
+<div align=center>
+<img src="lambda-and-closure/title.jpg" width=70% align=center>
+</div>
 
 <!--more-->
 
