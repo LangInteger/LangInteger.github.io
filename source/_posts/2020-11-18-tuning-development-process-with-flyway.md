@@ -4,7 +4,7 @@ date: 2020-11-18 14:33:09
 tags: [Spring Boot,Flyway]
 ---
 
-There are embarassed situations when developing a mono project with multiple environments.
+There are embarassing situations when developing a mono project with multiple environments.
 
 ![process](http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/LangInteger/learning/master/draw/plantuml/20201117-flyway-why.puml)
 
