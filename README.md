@@ -67,10 +67,19 @@ menu:
 - 更新 `themes/yilia` 文件夹时，需要同步更新 `yilia_backup/yilia` 文件夹
 - 实际生效的样式文件为 `themes/yilia` 文件夹中的主题
 
-### 2.4 新电脑切换到编辑分支时使用 hexo 命令报错
+### 2.5 新电脑切换到编辑分支时使用 hexo 命令报错
 
 报错内容为：
 
 - ERROR Local hexo not found in xxx
 
 在 hexo 添加到环境变量的前提下，在该路径执行 npm install 后即恢复正常。
+
+### 2.6 hexo g 生成空白的 html 文档
+
+原因是 node --version 版本 >= 14。使用[nvm](https://github.com/nvm-sh/nvm)来控制使用的 node 版本。
+
+- 安装nvm：curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
+- nvm install 12.0.0
+- nvm use 12.0.0
+- nvm 使用 proxy：ALL_PROXY=socks5://127.0.0.1:7891 nvm install 12.0.0
