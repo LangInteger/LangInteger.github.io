@@ -43,7 +43,7 @@
 menu:
   主页: /
   BOOKS: /books
-  ENGLISH: /english
+  LANG: /english
   CV: /CV
 ```
 
