@@ -27,6 +27,11 @@
 - write article
 - with guide 1.1 to deploy new blog
 
+### 1.4 安装 hexo
+
+- npm install hexo-cli -g
+- npm install
+
 ## 2 常见问题
 
 ### 2.1 hexo No layout: index.html
@@ -80,6 +85,7 @@ menu:
 原因是 node --version 版本 >= 14。使用[nvm](https://github.com/nvm-sh/nvm)来控制使用的 node 版本。
 
 - 安装nvm：curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
+- restart terminal
 - nvm install 12.0.0
 - nvm use 12.0.0
 - nvm 使用 proxy：ALL_PROXY=socks5://127.0.0.1:7891 nvm install 12.0.0
