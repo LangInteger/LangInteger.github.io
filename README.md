@@ -47,8 +47,8 @@
 ```yml
 menu:
   主页: /
-  BOOKS: /books
-  LANG: /english
+  Slides: /slides
+  English: /english
   CV: /CV
 ```
 
@@ -82,10 +82,10 @@ menu:
 
 ### 2.6 hexo g 生成空白的 html 文档
 
-原因是 node --version 版本 >= 14。使用[nvm](https://github.com/nvm-sh/nvm)来控制使用的 node 版本。
+原因是 node --version 版本 >= 14。使用[nvm](https://github.com/nvm-sh/nvm)来控制使用的 node 版本 (12.0.0 支持 m1 有问题)。
 
 - 安装nvm：curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
 - restart terminal
-- nvm install 12.0.0
-- nvm use 12.0.0
+- nvm install 12.22.12
+- nvm use 12.22.12
 - nvm 使用 proxy：ALL_PROXY=socks5://127.0.0.1:7891 nvm install 12.0.0
