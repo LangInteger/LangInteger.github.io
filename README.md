@@ -29,8 +29,8 @@
 
 ### 1.4 安装 hexo
 
-- npm install hexo-cli -g
-- npm install
+- npm install hexo-cli -g --registry https://registry.npm.taobao.org/
+- npm install --registry https://registry.npm.taobao.org/
 
 ## 2 常见问题
 
