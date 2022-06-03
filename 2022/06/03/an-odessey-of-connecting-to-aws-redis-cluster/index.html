@@ -16,13 +16,13 @@
 <meta property="og:site_name" content="LangInteger">
 <meta property="og:description" content="Nowadays, Redis is an indispensable middleware in building the backend service of an app. As an ambitious team, we bought a Redis cluster under Amazon ElastiCache with the following features:  Cluster">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://langinteger.github.io/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/an-odessey-of-connecting-to-aws-redis-cluster/redis-cli-interaction.jpeg">
-<meta property="og:image" content="http://langinteger.github.io/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/an-odessey-of-connecting-to-aws-redis-cluster/smart-client-interaction.jpeg">
-<meta property="og:updated_time" content="2022-06-03T06:56:55.255Z">
+<meta property="og:image" content="http://langinteger.github.io/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/redis-cli-interaction.jpeg">
+<meta property="og:image" content="http://langinteger.github.io/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/smart-client-interaction.jpeg">
+<meta property="og:updated_time" content="2022-06-03T08:01:40.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="An Odessey of Connecting to Amazon Redis Cluster">
 <meta name="twitter:description" content="Nowadays, Redis is an indispensable middleware in building the backend service of an app. As an ambitious team, we bought a Redis cluster under Amazon ElastiCache with the following features:  Cluster">
-<meta name="twitter:image" content="http://langinteger.github.io/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/an-odessey-of-connecting-to-aws-redis-cluster/redis-cli-interaction.jpeg">
+<meta name="twitter:image" content="http://langinteger.github.io/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/redis-cli-interaction.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="LangInteger" type="application/atom+xml">
   
@@ -228,9 +228,9 @@
 </blockquote>
 <p>So what is the Configuration Endpoint? We cannot get a clear definition from AWS docs. StackOverflow threads like <a href="https://stackoverflow.com/questions/19194123/elasticcache-what-is-the-difference-between-the-configuration-and-node-endpoin" target="_blank" rel="noopener">ElasticCache - What is the difference between the configuration and node endpoint?</a> give us a feeling that it’s one of the nodes in the Redis cluster. As every node in the cluster is equal, we can query from any one of them to get the whole information of all nodes. It is a proper way for AWS to assign a special URL related to one of the nodes and let the developer take it as a connection string to the cluster, thus we are free from the problem of picking one URL from all the nodes.</p>
 <p>The real issue under the surface is ready to come out. We think the Redis Cluster is proxied with Nginx, but actually, there is only one node of it that got proxied. So redis-client on my local machine can connect to it, but failed when redirecting to others. To make the Redis Cluster fully work on local machines’ redis-cli, all the nodes’ URLs (or in other words, endpoint) should be proxied as the following picture demonstrates.</p>
-<p><img src="/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/./an-odessey-of-connecting-to-aws-redis-cluster/redis-cli-interaction.jpeg" alt="redis-cli interaction"></p>
+<p><img src="/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/redis-cli-interaction.jpeg" alt="redis-cli interaction"></p>
 <p>Case in <code>Vert.x-redis</code> is a little different from the redis-cli one as it is a so-called smart client with a cached internal routing table, as well as established connections to all the nodes at the very beginning. This picture illustrates a normal workflow for a smart client.</p>
-<p><img src="/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/./an-odessey-of-connecting-to-aws-redis-cluster/smart-client-interaction.jpeg" alt="smart client interaction"></p>
+<p><img src="/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/smart-client-interaction.jpeg" alt="smart client interaction"></p>
 <p>If we proxy all the connections towards different nodes via different Nginx ports and change DNS to make all the hostname lookup fixed to the EC2 IP (the port problem remains), it seems that we can achieve what we want. But again, this is really a bad idea since each member of our team has to set up their own machine, which we want to avoid.</p>
 <h2 id="Redis-Cluster-Proxy-Comes-to-Rescue"><a href="#Redis-Cluster-Proxy-Comes-to-Rescue" class="headerlink" title="Redis Cluster Proxy Comes to Rescue"></a>Redis Cluster Proxy Comes to Rescue</h2><p>My brilliant teammate proposes a concept called Redis Cluster Proxy that may save our life. It works like the above smart client interaction workflow. The key different thing is that the client can communicate with the proxy in standalone mode, and the proxy handles all the node cache and redirect things just like a smart client.</p>
 <p>AWS might have noticed the call from customers (especially from China), as they posted two blogs (written in Chinese) to introduce how to deploy Redis Cluster Proxy on EC2:</p>
@@ -522,7 +522,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Translation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -531,14 +539,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Configuration</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -563,14 +563,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Algrithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lambda</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Book</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -599,6 +591,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">higher-order function</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lambda</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Book</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -634,6 +634,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Transaction</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Validation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">IOC</a>
               </li>
              
@@ -646,19 +654,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Transaction</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Volatile</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Synchronize</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Validation</a>
               </li>
             
             <div class="clearfix"></div>
