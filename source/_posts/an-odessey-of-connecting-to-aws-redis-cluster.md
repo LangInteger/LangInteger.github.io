@@ -109,11 +109,11 @@ So what is the Configuration Endpoint? We cannot get a clear definition from AWS
 
 The real issue under the surface is ready to come out. We think the Redis Cluster is proxied with Nginx, but actually, there is only one node of it that got proxied. So redis-client on my local machine can connect to it, but failed when redirecting to others. To make the Redis Cluster fully work on local machines' redis-cli, all the nodes' URLs (or in other words, endpoint) should be proxied as the following picture demonstrates.
 
-![redis-cli interaction](./an-odessey-of-connecting-to-aws-redis-cluster/redis-cli-interaction.jpeg)
+![redis-cli interaction](redis-cli-interaction.jpeg)
 
 Case in `Vert.x-redis` is a little different from the redis-cli one as it is a so-called smart client with a cached internal routing table, as well as established connections to all the nodes at the very beginning. This picture illustrates a normal workflow for a smart client.
 
-![smart client interaction](./an-odessey-of-connecting-to-aws-redis-cluster/smart-client-interaction.jpeg)
+![smart client interaction](smart-client-interaction.jpeg)
 
 If we proxy all the connections towards different nodes via different Nginx ports and change DNS to make all the hostname lookup fixed to the EC2 IP (the port problem remains), it seems that we can achieve what we want. But again, this is really a bad idea since each member of our team has to set up their own machine, which we want to avoid.
 
