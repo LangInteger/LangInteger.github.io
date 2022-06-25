@@ -13,14 +13,14 @@ subnav:
   #weixin: "#"
   #jianshu: "#"
   #douban: "#"
-  #segmentfault: "#"
+  segmentfault: "https://stackoverflow.com/users/9304616/lebecca?tab=topactivity"
   #bilibili: "#"
   #acfun: "#"
   mail: "mailto:langinteger@outlook.com"
   #facebook: "#"
   #google: "#"
   #twitter: "#"
-  #linkedin: "#"
+  mail: "mailto:langinteger@outlook.com"
 
 rss: /atom.xml
 
