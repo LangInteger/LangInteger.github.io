@@ -131,3 +131,8 @@ jsonContent:
     excerpt: false
     categories: false
     tags: true
+
+skip_render: 
+  - animation/animation.html
+  - animation/js/**/*
+  - animation/models/**/*
