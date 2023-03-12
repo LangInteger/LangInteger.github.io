@@ -1,6 +1,5 @@
 ---
 title: Curriculum Vitae
-date: 2018-04-19 22:57:12
 ---
 
 <div style="padding: 2.5% 2.5% 2.5% 2.5%">![Lang](index/Lang.jpg)</div>

@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Curriculum Vitae
-date: 2019-11-11 22:57:12
 ---
 
 # <center><font size=6>刘郎</font></center>
