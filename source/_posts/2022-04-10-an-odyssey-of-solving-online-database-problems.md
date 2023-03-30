@@ -4,7 +4,7 @@ date: 2022-04-10 22:14:52
 tags: [SQL]
 ---
 
-It is my honor to work at one of the most famous technology companies since 2021, but soon I found that the honor comes with some price. The whole period is kind of an adventure (all the problems solved I mean), and in this article, I want to share my up and down in this journey with you.
+Since joining one of the most renowned technology companies in 2021, my journey has been a whirlwind of challenges and triumphs. While it's an honor to work for such a prestigious organization, I soon discovered that it came with a price. In this article, I want to share with you the up and downs of my adventure.
 
 <!--more-->
 
