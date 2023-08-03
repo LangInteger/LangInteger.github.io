@@ -1,0 +1,3 @@
+[submodule "blog_photos"]
+	path = blog_photos
+	url = git@github.com:LangInteger/blog_photos.git
