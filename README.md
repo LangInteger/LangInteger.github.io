@@ -32,17 +32,40 @@
 - npm install hexo-cli -g --registry https://registry.npm.taobao.org/
 - npm install --registry https://registry.npm.taobao.org/
 
+### 1.5 添加图片
+
+```shell
+# add photos to cd ./blog_photos/photos with naming convention:
+#   - yyyy-MM-dd_TOPIC_seq.png
+
+cd ./blog_photos/
+python3 ./tools.py
+git status
+git add .
+git commit -m "feat: new photos"
+git push
+cd -
+
+git status
+git add .
+git commit -m "feat: new photos"
+nvm use 12.22.12
+hexo clean
+hexo generate
+hexo deploy
+```
+
 ## 2 常见问题
 
 ### 2.1 hexo No layout: index.html
 
-一般是因为选用的主题没有拉取下来，主题文件夹(如themes/yilia)是空白的，重新拉取即可，如使用以下命令拉取yilia主题到主题文件夹
+一般是因为选用的主题没有拉取下来，主题文件夹(如 themes/yilia)是空白的，重新拉取即可，如使用以下命令拉取 yilia 主题到主题文件夹
 
 - git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia
 
 ### 2.2 原有目录消失
 
-由于使用yilia主题，目录也是在该主题的配置文件中配置的，即需要定位到themes/yilia/_config.yml文件。配置目录示范：
+由于使用 yilia 主题，目录也是在该主题的配置文件中配置的，即需要定位到 themes/yilia/\_config.yml 文件。配置目录示范：
 
 ```yml
 menu:
@@ -84,7 +107,7 @@ menu:
 
 原因是 node --version 版本 >= 14。使用[nvm](https://github.com/nvm-sh/nvm)来控制使用的 node 版本 (12.0.0 支持 m1 有问题)。
 
-- 安装nvm：curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
+- 安装 nvm：curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.0/install.sh | bash
 - restart terminal
 - nvm install 12.22.12
 - nvm use 12.22.12
