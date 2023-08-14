@@ -39,17 +39,21 @@
 #   - yyyy-MM-dd_TOPIC_seq.png
 
 cd ./blog_photos/
-python3 ./tools.py
+python3 ./tool.py
 git status
 git add .
 git commit -m "feat: new photos"
 git push
 cd -
 
+nvm use 12.22.12
+hexo server
+
 git status
 git add .
 git commit -m "feat: new photos"
-nvm use 12.22.12
+git push
+
 hexo clean
 hexo generate
 hexo deploy

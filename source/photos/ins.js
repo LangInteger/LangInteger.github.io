@@ -162,8 +162,8 @@
           </figure>';
         }
         
-        ulTmpl += '<section class="archives album"><h1 class="year">' + group.title + '</h1>\
-          <ul class="img-box-ul">' + liTmpl + '</ul>\
+        ulTmpl += '<section class="archives album"><h1 class="year"><span class="title">' + group.title + '</span></h1>\
+        <ul class="img-box-ul">' + liTmpl + '</ul>\
         </section>';
       }
       
