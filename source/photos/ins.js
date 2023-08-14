@@ -110,32 +110,93 @@
         addMask($videoImg[i]);
       }
     };
+
     var render = function render(res) {
-      var ulTmpl = "";
+      var groupedData = {}; // Object to store grouped data
+      
+      // Group items by text field
       for (var j = 0, len2 = res.list.length; j < len2; j++) {
         var data = res.list[j].arr;
-        var liTmpl = "";
         for (var i = 0, len = data.link.length; i < len; i++) {
+          var text = data.text[i];
+          var year = data.year;
+          var month = data.month < 10 ? '0' + data.month : data.month;
+          var key = year + '-' + month + '-' + text;
+    
+          if (!groupedData[key]) {
+            groupedData[key] = {
+              title: year + '-' + month + ' ' + text,
+              items: []
+            };
+          }
+          
           var minSrc = 'https://raw.githubusercontent.com/langinteger/blog_photos/main/min_photos/' + data.link[i];
           var src = 'https://raw.githubusercontent.com/langinteger/blog_photos/main/photos/' + data.link[i];
           var type = data.type[i];
           var target = src;
-
-          liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
-                <a href="' + src + '" itemprop="contentUrl" data-size="1280x1280" data-type="' + type + '" data-target="' + target + '">\
-                  <img class="reward-img" data-type="' + type + '" data-src="' + minSrc + '" src="/assets/img/empty.png" itemprop="thumbnail" onload="lzld(this)">\
-                </a>\
-                <figcaption style="display:none" itemprop="caption description">' + data.text[i] + '</figcaption>\
-            </figure>';
+    
+          groupedData[key].items.push({
+            minSrc: minSrc,
+            src: src,
+            type: type,
+            target: target
+          });
         }
-        ulTmpl = ulTmpl + '<section class="archives album"><h1 class="year">' + data.year + '<em>' + data.month + '月</em></h1>\
-        <ul class="img-box-ul">' + liTmpl + '</ul>\
+      }
+      
+      var ulTmpl = "";
+      
+      // Generate HTML for each group
+      for (var key in groupedData) {
+        var group = groupedData[key];
+        var liTmpl = "";
+        
+        for (var k = 0, len3 = group.items.length; k < len3; k++) {
+          var item = group.items[k];
+          
+          liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
+            <a href="' + item.src + '" itemprop="contentUrl" data-size="1280x1280" data-type="' + item.type + '" data-target="' + item.target + '">\
+              <img class="reward-img" data-type="' + item.type + '" data-src="' + item.minSrc + '" src="/assets/img/empty.png" itemprop="thumbnail" onload="lzld(this)">\
+            </a>\
+            <figcaption style="display:none" itemprop="caption description">' + group.title + '</figcaption>\
+          </figure>';
+        }
+        
+        ulTmpl += '<section class="archives album"><h1 class="year">' + group.title + '</h1>\
+          <ul class="img-box-ul">' + liTmpl + '</ul>\
         </section>';
       }
+      
       document.querySelector('.instagram').innerHTML = '<div class="photos" itemscope="" itemtype="http://schema.org/ImageGallery">' + ulTmpl + '</div>';
       createVideoIncon();
       _view2.default.init();
     };
+    // var render = function render(res) {
+    //   var ulTmpl = "";
+    //   for (var j = 0, len2 = res.list.length; j < len2; j++) {
+    //     var data = res.list[j].arr;
+    //     var liTmpl = "";
+    //     for (var i = 0, len = data.link.length; i < len; i++) {
+    //       var minSrc = 'https://raw.githubusercontent.com/langinteger/blog_photos/main/min_photos/' + data.link[i];
+    //       var src = 'https://raw.githubusercontent.com/langinteger/blog_photos/main/photos/' + data.link[i];
+    //       var type = data.type[i];
+    //       var target = src;
+
+    //       liTmpl += '<figure class="thumb" itemprop="associatedMedia" itemscope="" itemtype="http://schema.org/ImageObject">\
+    //             <a href="' + src + '" itemprop="contentUrl" data-size="1280x1280" data-type="' + type + '" data-target="' + target + '">\
+    //               <img class="reward-img" data-type="' + type + '" data-src="' + minSrc + '" src="/assets/img/empty.png" itemprop="thumbnail" onload="lzld(this)">\
+    //             </a>\
+    //             <figcaption style="display:none" itemprop="caption description">' + data.text[i] + '</figcaption>\
+    //         </figure>';
+    //     }
+    //     ulTmpl = ulTmpl + '<section class="archives album"><h1 class="year">' + data.year + '<em>' + data.month + '月</em></h1>\
+    //     <ul class="img-box-ul">' + liTmpl + '</ul>\
+    //     </section>';
+    //   }
+    //   document.querySelector('.instagram').innerHTML = '<div class="photos" itemscope="" itemtype="http://schema.org/ImageGallery">' + ulTmpl + '</div>';
+    //   createVideoIncon();
+    //   _view2.default.init();
+    // };
 
     var replacer = function replacer(str) {
       var arr = str.split("/");
