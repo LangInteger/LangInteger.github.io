@@ -229,7 +229,7 @@
     function loadData(success) {
       if (!searchData) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', './data.json?t=' + +new Date(), true);
+        xhr.open('GET', 'https://raw.githubusercontent.com/langinteger/blog_photos/main/data.json', true);
 
         xhr.onload = function() {
           if (this.status >= 200 && this.status < 300) {
