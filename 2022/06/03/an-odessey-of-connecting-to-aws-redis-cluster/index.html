@@ -177,7 +177,7 @@
 
         
         <a href="/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/" class="archive-article-date">
-  	<time datetime="2022-06-03T06:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-03</time>
+  	<time datetime="2022-06-03T19:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-03</time>
 </a>
         
       </header>
@@ -197,7 +197,7 @@
 <p>Now we can execute Redis commands like:</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET a b EX 60</span><br></pre></td></tr></table></figure>
 <p>The redis-cli worked smoothly with clustered Redis (-c option is added in the connect command), It redirected our command to the target node that owns the slot mapped to the key and told us what happened:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">-&gt;</span> Redirected to slot [15495] located at target-node-identifier.amazonaws.com:6379</span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">-&gt;</span><span class="bash"> Redirected to slot [15495] located at target-node-identifier.amazonaws.com:6379</span></span><br><span class="line">OK</span><br></pre></td></tr></table></figure>
 <p>But wait, we have much development work to do on our local machine before deploying our code to the EC2 server. If we try to connect to Redis with earlier command, the following error will emerge:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not connect to Redis at your-cluster-identifier.amazonaws.com:your-port: Operation timed out</span><br></pre></td></tr></table></figure>
 <p>To solve the problem, <a href="https://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/accessing-elasticache.html#access-from-outside-aws" target="_blank" rel="noopener">Aws docs - Accessing ElastiCache resources from outside AWS</a> suggests using AWS Client VPN. But the setup is a little complicated and in this way, anyone in our team has to make settings in their own machine, which will take much time and we want to find a more efficient way.</p>
@@ -209,7 +209,7 @@
 <p>We connected to the cluster successfully, but when we execute commands like</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET a b EX 60</span><br></pre></td></tr></table></figure>
 <p>The similar words appeared on the screen again</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">-&gt;</span> Redirected to slot [15495] located at target-node-identifier.amazonaws.com:6379</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">-&gt;</span><span class="bash"> Redirected to slot [15495] located at target-node-identifier.amazonaws.com:6379</span></span><br></pre></td></tr></table></figure>
 <p>But the line with the words <code>OK</code> never showed up. It was just stuck there and after a period of time, it alerted</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not connect to Redis at target-node-identifier.amazonaws.com:6379: Operation timed out</span><br></pre></td></tr></table></figure>
 <p>At the same time, we tried to use our java code to connect to the Redis cluster through the proxy. We are using <code>Vert.x-redis</code> and the log showed that it also got a problem</p>
@@ -513,10 +513,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">PDF</a>
               </li>
              
@@ -525,7 +521,27 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Spring Cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Configuration</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Translation</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -549,18 +565,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Translation</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Spring Cloud</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Configuration</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Heroku</a>
               </li>
              
@@ -573,10 +577,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Memory Leak</a>
               </li>
              
@@ -586,14 +586,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Algrithm</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Lambda</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Book</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -622,6 +614,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">higher-order function</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Lambda</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Book</a>
               </li>
              
               <li class="article-tag-list-item">
