@@ -50,36 +50,34 @@
 		  <h1 class="header-author"><a href="/">LangInteger</a></h1>
 		</hgroup>
 		
-		<p class="header-subtitle">层楼终究误少年 自由早晚乱余生</p>
+		<p class="header-subtitle">Great artists steal</p>
 		
 
 		<nav class="header-menu">
 			<ul>
 			
-				<li><a href="/">主页</a></li>
+				<li><a href="/bio">Bio</a></li>
+	        
+				<li><a href="/">Articles</a></li>
 	        
 				<li><a href="/slides">Slides</a></li>
 	        
-				<li><a href="/english">English</a></li>
-	        
 				<li><a href="/CV">CV</a></li>
-	        
-				<li><a href="/animation">Anim</a></li>
 	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">文章搜索</a>
+    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">Search</a>
     			
             
     			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友情链接</a>
+    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">Link</a>
     			
             
     			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我郎</a>
+    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">About</a>
     			
             
 		</nav>
@@ -116,11 +114,9 @@
 			  <h1 class="header-author js-header-author">LangInteger</h1>
 			</hgroup>
 			
-			<p class="header-subtitle"><i class="icon icon-quo-left"></i>层楼终究误少年 自由早晚乱余生<i class="icon icon-quo-right"></i></p>
+			<p class="header-subtitle"><i class="icon icon-quo-left"></i>Great artists steal<i class="icon icon-quo-right"></i></p>
 			
 			
-			
-				
 			
 				
 			
@@ -150,15 +146,13 @@
 				<ul style="width: 70%">
 				
 				
-					<li style="width: 20%"><a href="/">主页</a></li>
+					<li style="width: 25%"><a href="/bio">Bio</a></li>
 		        
-					<li style="width: 20%"><a href="/slides">Slides</a></li>
+					<li style="width: 25%"><a href="/">Articles</a></li>
 		        
-					<li style="width: 20%"><a href="/english">English</a></li>
+					<li style="width: 25%"><a href="/slides">Slides</a></li>
 		        
-					<li style="width: 20%"><a href="/CV">CV</a></li>
-		        
-					<li style="width: 20%"><a href="/animation">Anim</a></li>
+					<li style="width: 25%"><a href="/CV">CV</a></li>
 		        
 				</ul>
 			</nav>
@@ -175,6 +169,183 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-zookeeper-network-partition" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/09/16/zookeeper-network-partition/">Apache ZooKeeper&#39;s Strategy for Handling Network Partition</a>
+    </h1>
+  
+
+        
+        <a href="/2023/09/16/zookeeper-network-partition/" class="archive-article-date">
+  	<time datetime="2023-09-16T17:28:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-09-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>TL;DR</p>
+<ul>
+<li>Zookeeper always avoids Split Brain problem with it’s majority rule for quorum</li>
+<li>When network partition happens, the group with the majority of nodes (if it exists) can continue to serve read and write requests</li>
+<li>When network partition happens, the group with minority nodes can not continue to serve write requests but can continue to serve read requests with client and server properly configured. It is obvious that read requests in this case will return stale values.</li>
+</ul>
+        
+          <a class="article-more-a" href="/2023/09/16/zookeeper-network-partition/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Distributed System</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Zookeeper</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network Partition</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/09/16/zookeeper-network-partition/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-an-odessey-of-push-notification-to-untiy-mobile-app" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2023/03/30/an-odessey-of-push-notification-to-untiy-mobile-app/">An Odessey of Push Notification to Untiy Mobile App</a>
+    </h1>
+  
+
+        
+        <a href="/2023/03/30/an-odessey-of-push-notification-to-untiy-mobile-app/" class="archive-article-date">
+  	<time datetime="2023-03-31T03:40:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2023-03-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Push notification is a killer feature for engaging users and keeping them informed. In recent development of a mobile app, we integrate APNS(Apple Push Notification service) and FCM(Firebase Cloud Messaging) to our iOS/Android app based on Untiy after overcoming several obstacles which I want to share with you here.</p>
+        
+          <a class="article-more-a" href="/2023/03/30/an-odessey-of-push-notification-to-untiy-mobile-app/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Unity</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Android</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iOS</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Push Notification</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2023/03/30/an-odessey-of-push-notification-to-untiy-mobile-app/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-an-odessey-of-connecting-to-aws-redis-cluster" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -188,7 +359,7 @@
 
         
         <a href="/2022/06/03/an-odessey-of-connecting-to-aws-redis-cluster/" class="archive-article-date">
-  	<time datetime="2022-06-03T06:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-03</time>
+  	<time datetime="2022-06-03T19:54:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-06-03</time>
 </a>
         
       </header>
@@ -270,14 +441,14 @@
 
         
         <a href="/2022/04/10/2022-04-10-an-odyssey-of-solving-online-database-problems/" class="archive-article-date">
-  	<time datetime="2022-04-10T14:14:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
+  	<time datetime="2022-04-11T03:14:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2022-04-10</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>It is my honor to work at one of the most famous technology companies since 2021, but soon I found that the honor comes with some price. The whole period is kind of an adventure (all the problems solved I mean), and in this article, I want to share my up and down in this journey with you.</p>
+        <p>Since joining one of the most renowned technology companies in 2021, my journey has been a whirlwind of challenges and triumphs. While it’s an honor to work for such a prestigious organization, I soon discovered that it came with a price. In this article, I want to share with you the up and downs of my adventure.</p>
         
           <a class="article-more-a" href="/2022/04/10/2022-04-10-an-odyssey-of-solving-online-database-problems/#more">more >></a>
         
@@ -346,7 +517,7 @@
 
         
         <a href="/2021/09/27/plantuml-workflow-hand-by-hand/" class="archive-article-date">
-  	<time datetime="2021-09-27T15:59:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
+  	<time datetime="2021-09-28T04:59:59.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-09-27</time>
 </a>
         
       </header>
@@ -422,7 +593,7 @@
 
         
         <a href="/2021/08/02/spring-web-data-binding-and-validation/" class="archive-article-date">
-  	<time datetime="2021-08-02T10:10:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-02</time>
+  	<time datetime="2021-08-02T23:10:56.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-08-02</time>
 </a>
         
       </header>
@@ -514,7 +685,7 @@
 
         
         <a href="/2020/11/18/2020-11-18-tuning-development-process-with-flyway/" class="archive-article-date">
-  	<time datetime="2020-11-18T06:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-18</time>
+  	<time datetime="2020-11-18T20:33:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-18</time>
 </a>
         
       </header>
@@ -596,7 +767,7 @@
 
         
         <a href="/2020/07/29/java-memory-leak-inspect/" class="archive-article-date">
-  	<time datetime="2020-07-29T12:13:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-29</time>
+  	<time datetime="2020-07-30T01:13:36.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-29</time>
 </a>
         
       </header>
@@ -673,198 +844,9 @@
 
 
   
-    <article id="post-lambda-and-closure" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/03/13/lambda-and-closure/">Lambda and Closure</a>
-    </h1>
-  
-
-        
-        <a href="/2020/03/13/lambda-and-closure/" class="archive-article-date">
-  	<time datetime="2020-03-12T16:50:45.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <div align="center"><br><img src="/2020/03/13/lambda-and-closure/title.jpg" width="70%" align="center"><br></div>
-        
-          <a class="article-more-a" href="/2020/03/13/lambda-and-closure/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">lambda</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">closure</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">scala</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">javascripty</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">higher-order function</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2020/03/13/lambda-and-closure/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-volatile-and-synchronize" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/17/volatile-and-synchronize/">Java 中的 volatile 和 synchronize 关键字解读</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/17/volatile-and-synchronize/" class="archive-article-date">
-  	<time datetime="2019-11-17T14:36:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>读 <strong>Concurrent Patterns and Best Practices</strong>，遇到两篇参考文章</p>
-<ul>
-<li>写于 2001 年的 <a href="https://www.javaworld.com/article/2074979/double-checked-locking--clever--but-broken.html?page=2" target="_blank" rel="noopener">Double-checked locking: Clever, but broken</a>，对 DCL 实现懒加载单例模式存在的问题进行了深刻的探讨，同时阐述了 synchronize 关键字的作用</li>
-<li>写于 2018 年的博客 <a href="http://tutorials.jenkov.com/java-concurrency/volatile.html" target="_blank" rel="noopener">Java Volatile Keyword</a>，详细阐述了 volatile 关键字的作用</li>
-</ul>
-<p>一番阅读之后，撰写此文备忘。</p>
-        
-          <a class="article-more-a" href="/2019/11/17/volatile-and-synchronize/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Volatile</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Synchronize</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/17/volatile-and-synchronize/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -876,7 +858,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2022 LangInteger
+    		&copy; 2023 LangInteger
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -930,15 +912,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">文章搜索</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">Search</a></li>
       
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友情链接</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">Link</a></li>
       
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我郎</a></li>
+      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">About</a></li>
       
         
     </ul>
@@ -959,14 +941,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Flyway</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Scala</a>
               </li>
              
@@ -979,27 +953,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring Boot</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Flyway</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Translation</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Java</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">DS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1011,11 +977,35 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Spring Cloud</a>
+                <a href="javascript:void(0)" class="js-tag color2">Translation</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Configuration</a>
+                <a href="javascript:void(0)" class="js-tag color1">Redis</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">Unity</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Android</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">iOS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Push Notification</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">DS</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1031,7 +1021,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Algrithm</a>
+                <a href="javascript:void(0)" class="js-tag color3">Spring Cloud</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Configuration</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1040,6 +1034,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">JVM</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Algrithm</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1095,15 +1093,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Transaction</a>
+                <a href="javascript:void(0)" class="js-tag color4">PlantUML</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Spring Data</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Spring</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1123,7 +1121,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">PlantUML</a>
+                <a href="javascript:void(0)" class="js-tag color2">Transaction</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1136,6 +1134,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Synchronize</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Distributed System</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Zookeeper</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Network Partition</a>
               </li>
             
             <div class="clearfix"></div>
