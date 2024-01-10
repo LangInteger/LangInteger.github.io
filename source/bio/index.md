@@ -5,6 +5,8 @@ title: Bio
 <body style="text-align: left; font-family: Times New Roman, Times, serif">
 </body>
 
+<img src="./lang1.jpg" alt="drawing" width="300"/>
+
 # Lang Liu
 
 **Ph.D. Student** [ [CV](./cv.pdf) ]
@@ -13,7 +15,7 @@ title: Bio
 
 Address: 004 Stuart Building, 10 W 31st Street,
 Illinois Institute of Technology, Chicago, IL 60616
-Email: lliu94.iit.edu
+Email: lliu94@hawk.iit.edu
 
 ## About
 
