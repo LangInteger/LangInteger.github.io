@@ -22,7 +22,7 @@ Email: lliu94@hawk.iit.edu
 
 Greatings! My name is Lang Liu.
 
-I am a Ph.D. student in Computer Science at Illinois Institute of Techonology. My advisor is Professor [Farzaneh Derakhshan](http://gauss.cs.iit.edu/~fderakhshan/). My research interests are in formal methods and use the technique to ensure the safety and security of concurrent programs.
+I am a Ph.D. student in Computer Science at Illinois Institute of Techonology. My advisor is Professor [Farzaneh Derakhshan](http://gauss.cs.iit.edu/~fderakhshan/). My research interests are in formal methods and using the technique to ensure the safety and security of concurrent programs.
 
 ## Publications
 
