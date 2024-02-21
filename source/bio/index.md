@@ -1,5 +1,6 @@
 ---
 title: Bio
+layout: false
 ---
 
 <body style="text-align: left; font-family: Times New Roman, Times, serif">
@@ -19,14 +20,15 @@ Email: lliu94@hawk.iit.edu
 
 ## About
 
-Greatings! My name is Lang Liu (刘郎 in Chinese).
+Greatings! My name is Lang Liu.
 
-I am a Ph.D. student in Computer Science at Illinois Institute of Techonology. My focus of research area is Type theory and Security in PL.
+I am a Ph.D. student in Computer Science at Illinois Institute of Techonology. My advisor is Professor [Farzaneh Derakhshan](http://gauss.cs.iit.edu/~fderakhshan/). My research interests are in formal methods and use the technique to ensure the safety and security of concurrent programs.
 
 ## Publications
 
-- Upcoming ...
+- Upcoming
 
 ## Teaching
 
+- Teaching Assistant: Spring 2024, CS536 Science of Programming, IIT
 - Teaching Assistant: Fall 2023, [CS351 System Programming](https://mseryn.com/teaching/cs351/), IIT
