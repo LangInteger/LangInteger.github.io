@@ -35,9 +35,10 @@ render_drafts: false
 post_asset_folder: true
 relative_link: false
 highlight:
+  hljs: true
   enable: true
   auto_detect: true
-  line_number: true
+  line_number: false 
   tab_replace: ""
 
 # Category & Tag
@@ -85,7 +86,7 @@ disqus_shortname:
 #  - hexo-generator-baidu-sitemap
 #  - hexo-generator-sitemap
 
-theme: yilia
+theme: paper 
 exclude_generator:
 
 # Deployment
