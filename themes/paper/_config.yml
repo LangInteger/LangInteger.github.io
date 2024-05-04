@@ -1,6 +1,6 @@
 
 # html lang
-language: zh
+language: en
 
 # main menu navigation
 menu:
@@ -34,7 +34,7 @@ scripts_defer:
 # toc: false
 link: false
 # archives: false
-# categories: false
+categories: false
 # tags: false
 
 # theme color
@@ -59,6 +59,6 @@ comment:
 
   # utterances (https://utteranc.es/) 需要的参数
   repo: Langinteger/LangInteger.github.io
-  issue_term: 
+  issue_term: pathname
   theme: github-light
 
