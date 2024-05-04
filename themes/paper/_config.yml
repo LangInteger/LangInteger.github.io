@@ -20,33 +20,34 @@ scripts_defer:
 - /js/paper.js # for basic script
 
 
-social:
-  Github: https://github.com/yours
-  Codepen: https://codepen.io/yours
-  Dribbble: https://dribbble.com/yours
-  Twitter: https://twitter.com/yours
-  知乎: https://www.zhihu.com/people/yours
-  掘金: https://juejin.im/user/yours
-  Mail: mailto:xxx@yourmail.xxxx
+# social:
+  # Github: https://github.com/yours
+  # Codepen: https://codepen.io/yours
+  # Dribbble: https://dribbble.com/yours
+  # Twitter: https://twitter.com/yours
+  # 知乎: https://www.zhihu.com/people/yours
+  # 掘金: https://juejin.im/user/yours
+  # Mail: mailto:xxx@yourmail.xxxx
   # and more, you can add other link by the same way
 
 # Uncomment to disable sidebar
 # toc: false
-# link: false
+link: false
 # archives: false
 # categories: false
 # tags: false
 
 # theme color
-main_color: default # forest | grass | sky | sun | sea
+# main_color: default # forest | grass | sky | sun | sea
+main_color: black
 
 # google Analytics
 google_analytics_id: xx-xxxxxxx-xx
 
 # comment module
 comment:
-  enable: false
-  type: valine # valine | utterances
+  enable: true
+  type: utterances # valine | utterances
 
   # valine 需要的参数
   appId: your-app-id
@@ -57,6 +58,7 @@ comment:
   avatar: mp
 
   # utterances (https://utteranc.es/) 需要的参数
-  repo: your-repo-name
-  issue_term: your-issue-term
-  theme: your-comment-theme
+  repo: Langinteger/LangInteger.github.io
+  issue_term: 
+  theme: github-light
+
