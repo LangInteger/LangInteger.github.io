@@ -136,3 +136,10 @@ skip_render:
   - animation/animation.html
   - animation/js/**/*
   - animation/models/**/*
+
+# 添加
+math:
+  engine: 'mathjax'
+  mathjax:
+    enable: true
+    cdn: https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML
