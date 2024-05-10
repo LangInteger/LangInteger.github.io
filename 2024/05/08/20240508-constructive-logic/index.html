@@ -54,6 +54,7 @@ MathJax.Hub.Queue(function() {
       {A\wedge B\,true}
       \wedge I</script><p>in which $A$ and $B$ are <strong>schematic variables</strong>, $J_1\dots J_n$ are called the <strong>premises</strong>, the judgment $J$ is called the <strong>conclusion</strong>. The inference rules for <strong>logic connectives</strong> $\wedge$, $\vee$, $\supset$, $\top$, $\bot$ are:</p>
 <script type="math/tex; mode=display">
+\small
 \begin{array}{ccc}
     Introduction\,Rules &&  Elimination\,Rules \\
     && \\
@@ -105,13 +106,13 @@ MathJax.Hub.Queue(function() {
     \dfrac{
         A\vee B\,true
         \quad
-        \begin{align*}
+        \begin{array}{c}
           \dfrac{}
             {A\,true}
             u \\
           &\vdots \\
           C\,true
-        \end{align*} 
+        \end{array} 
         \quad
         \begin{align*}
           \dfrac{}
@@ -139,7 +140,7 @@ A\equiv B = (A\supset B)\wedge(B\supset A) \\
 \neg A = (A\supset \bot)</script><p>We sometimes give a notational definition and then derive introduction and eliminaton rules for the connective. It should be unerstood that these rules have a different status from those that define a connective.</p>
 <h2 id="2-Harmony-of-Logic-Connective"><a href="#2-Harmony-of-Logic-Connective" class="headerlink" title="2 Harmony of Logic Connective"></a>2 Harmony of Logic Connective</h2><p>In the <strong>verificationist</strong> definition of the logical connectives, the introduction and elimination rules we defined are in harmony. We establish two properties: <strong>local soundness</strong> and <strong>local completeness</strong> to show it.</p>
 <ul>
-<li><strong>Local soundness</strong> shows that the <strong>elimination rules are no too strong</strong>: no matter how we apply elimination rules to the result of an introduction we cannot gain any new information.</li>
+<li><strong>Local soundness</strong> shows that the <strong>elimination rules are not too strong</strong>: no matter how we apply elimination rules to the result of an introduction we cannot gain any new information.</li>
 <li><strong>Local completeness</strong> shows that the <strong>elimination rules are not too weak</strong>: there is always a way to apply elimination rules so that we can reconstitute a proof of the original proposition from the results by applying introduction rules.</li>
 </ul>
 <p>Connectives are properly defined only if their introduction and elimination rules are in hormony in the sense that they are locally sound and complete.</p>
@@ -174,5 +175,149 @@ or
 \dfrac{\neg\neg A\,true}
   {A\,true}
   DNE</script><p><strong>TBD</strong>: there is a <strong>double-negation translation</strong> that translates any classical theorem into one that is intuitionisti valid.</p>
-<h2 id="5-Sequent-Calculus"><a href="#5-Sequent-Calculus" class="headerlink" title="5 Sequent Calculus"></a>5 Sequent Calculus</h2><p>Sequent calculus was originally introduced by Gentzen</p>
+<h2 id="5-Sequent-Calculus"><a href="#5-Sequent-Calculus" class="headerlink" title="5 Sequent Calculus"></a>5 Sequent Calculus</h2><p>Sequent calculus is another formal system for <strong>proof search</strong> in <strong>natural deduction</strong>. It is designed to exactly capture the notion of a <strong>verification</strong>.</p>
+<p><strong>Verifications($A\uparrow$)</strong> and <strong>uses($A\downarrow$)</strong> are a pair of comcepts that capture the proof search strategies to use introduction rules from the bottom up and elimination rules from the top down. <strong>Verifications</strong> are defined for each introduction rule. <strong>Uses</strong> are defined for each elimination rule.</p>
+<p>When constructing a <strong>verification</strong>, we are generally in a state of the following form:</p>
+<script type="math/tex; mode=display">
+\begin{array}{ccc}
+  A_1\downarrow & \dots & A_n\downarrow \\
+  & \vdots & \\
+  & C\uparrow & \\
+\end{array}</script><p>A <strong>sequent</strong> is a local notation for such a partially complete verification. We write</p>
+<script type="math/tex; mode=display">
+A_1\,\mathsf{left},\dots,A_n\,\mathsf{left}\Longrightarrow C\,\mathsf{right}</script><p>The judgements on the left are assumptions called <strong>antecedents</strong>, the judgment on the right side is the conclusion called the <strong>succedent</strong>. The rules taht define the $A\,\mathsf{left}$ and $A\,\mathsf{right}$ judgment are systematically constructed from the introduction and elimination rules.</p>
+<ul>
+<li><strong>Introduction rules</strong> already work from the conclusion to the premises (<strong>bottom-up</strong>), the mapping is straightforward</li>
+<li><strong>Elimination rules</strong> work <strong>top-down</strong>, so they have to be flipped upside-down in order to work as sequent rules</li>
+</ul>
+<p>The <strong>right and left rules</strong> are constructed as follows from <strong>verifications and uses</strong> one by one for $\wedge$, $\top$, $\supset$, $\vee$, $\bot$</p>
+<script type="math/tex; mode=display">
+\small
+\begin{array}{ccc}
+  verifications/uses & & right/left~rules \\
+  & & \\
+  \dfrac{A\uparrow\quad B\uparrow}
+  {A\wedge B\uparrow}
+  \wedge\uparrow
+  & &
+  \dfrac{\Gamma\Longrightarrow A \quad \Gamma\Longrightarrow B}
+  {\Gamma\Longrightarrow A\wedge B}
+  \wedge R
+  \\
+  &&\\
+  \dfrac{A\wedge B\downarrow}
+  {B\downarrow}
+  \wedge E_L 
+  & &
+  \dfrac{\Gamma,A\wedge B,A\Longrightarrow C}
+  {\Gamma,A\wedge B\Longrightarrow C}
+  \wedge L_1  
+  \\
+  &&\\
+  \dfrac{A\wedge B\downarrow}
+  {B\downarrow}
+  \wedge E_R
+  & &
+  \dfrac{\Gamma,A\wedge B,B\Longrightarrow C}
+  {\Gamma,A\wedge B\Longrightarrow C}
+  \wedge L_2
+  \\
+  &&\\
+  \dfrac{}
+  {\top\uparrow}
+  \top I  
+  & &
+  \dfrac{}
+  {\Gamma\Longrightarrow\top}
+  \top R 
+  \\
+  &&\\
+  \dfrac{
+      \begin{align*}
+        \dfrac{}
+          {A\downarrow}
+          u \\
+        &\vdots \\
+        B\uparrow
+      \end{align*}
+    }
+    {A\supset B\uparrow}
+    \supset I^{u} 
+  && 
+  \dfrac{\Gamma,A\Longrightarrow B}
+    {\Gamma\Longrightarrow A\supset B}
+    \supset R
+  \\
+  &&\\
+  \dfrac{A\supset B\downarrow\quad A\uparrow}
+  {B\downarrow}
+  \supset E
+  &&
+  \dfrac{
+    \Gamma,A\supset B\Longrightarrow A \quad
+    \Gamma,A\supset B,B\Longrightarrow C
+  }
+  {\Gamma,A\supset B\Longrightarrow C}
+  \supset L
+  \\
+  &&\\
+  \dfrac{A\uparrow}
+  {A\vee B\uparrow}
+  \vee I_L
+  & &
+  \dfrac{\Gamma\Longrightarrow A}
+  {\Gamma\Longrightarrow A\vee B}
+  \vee R_1
+  \\
+  &&\\
+  \dfrac{B\uparrow}
+  {A\vee B\uparrow}
+  \vee I_R
+  & &
+  \dfrac{\Gamma\Longrightarrow B}
+  {\Gamma\Longrightarrow A\vee B}
+  \vee R_2
+  \\
+  &&\\
+  \dfrac{
+      A\vee B\downarrow
+      \quad
+      \begin{array}{c}
+        \dfrac{}
+          {A\downarrow}
+          u \\
+        &\vdots \\
+        C\uparrow
+      \end{array} 
+      \quad
+      \begin{align*}
+        \dfrac{}
+          {B\downarrow}
+          \omega \\
+        &\vdots \\
+        C\uparrow
+      \end{align*} 
+    }
+    {C\uparrow}
+    \vee E^{u,\omega}
+  & &
+  \dfrac{
+    \Gamma,A\vee B,A\Longrightarrow C \quad
+    \Gamma,A\vee B,B\Longrightarrow C
+  }
+  {\Gamma,A\vee B\Longrightarrow C}
+  \vee L
+  \\
+  &&\\
+  \dfrac{\bot\downarrow}
+  {C\uparrow}
+  \bot E
+  & &
+  \dfrac{}
+  {\Gamma,\bot\Longrightarrow C}
+  \bot L
+  \\
+\end{array}</script><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+<li><a href="http://gauss.cs.iit.edu/~fderakhshan/files/JAR.pdf" target="_blank" rel="noopener">Human-Centered Automated Proof Search</a></li>
+</ul>
 </div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka-Http/">Akka Http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algrithm/">Algrithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book/">Book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Configuration/">Configuration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DS/">DS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dead-Lock/">Dead-Lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-System/">Distributed System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flyway/">Flyway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOC/">IOC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPA/">JPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/">Lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda-Calculus/">Lambda Calculus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logic/">Logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memory-Leak/">Memory Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Movie/">Movie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Partition/">Network Partition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDF/">PDF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PlantUML/">PlantUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming-Language/">Programming Language</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Push-Notification/">Push Notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud/">Spring Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Data/">Spring Data</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Synchronize/">Synchronize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transaction/">Transaction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translation/">Translation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Turing-Machine/">Turing Machine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity/">Unity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Validation/">Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volatile/">Volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebCrawler/">WebCrawler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/higher-order-function/">higher-order function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iText/">iText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascripty/">javascripty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda/">lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button">No More</a><a class="next-button" href="/2024/05/04/from-turing-machine-to-lambda-calculus/">From Turing Machine to Lambda Calculus</a></div><script src="https://utteranc.es/client.js" repo="Langinteger/LangInteger.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="footer"><span>©️2018 - 2024 &nbsp;<strong><tag>LangInteger</tag></strong></span></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
