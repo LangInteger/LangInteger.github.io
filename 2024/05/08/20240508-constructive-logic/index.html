@@ -140,10 +140,304 @@ A\equiv B = (A\supset B)\wedge(B\supset A) \\
 \neg A = (A\supset \bot)</script><p>We sometimes give a notational definition and then derive introduction and eliminaton rules for the connective. It should be unerstood that these rules have a different status from those that define a connective.</p>
 <h2 id="2-Harmony-of-Logic-Connective"><a href="#2-Harmony-of-Logic-Connective" class="headerlink" title="2 Harmony of Logic Connective"></a>2 Harmony of Logic Connective</h2><p>In the <strong>verificationist</strong> definition of the logical connectives, the introduction and elimination rules we defined are in harmony. We establish two properties: <strong>local soundness</strong> and <strong>local completeness</strong> to show it.</p>
 <ul>
-<li><strong>Local soundness</strong> shows that the <strong>elimination rules are not too strong</strong>: no matter how we apply elimination rules to the result of an introduction we cannot gain any new information.</li>
-<li><strong>Local completeness</strong> shows that the <strong>elimination rules are not too weak</strong>: there is always a way to apply elimination rules so that we can reconstitute a proof of the original proposition from the results by applying introduction rules.</li>
+<li><strong>Local soundness</strong> shows that the <strong>elimination rules are not too strong</strong>: no matter how we apply elimination rules to the result of an introduction we cannot gain any new information. We use the below notation to show the local reduction of a deduction $\mathcal{D}$ to another deduction $\mathcal{D’}$.<script type="math/tex; mode=display">
+\begin{array}{c}
+\mathcal{D} \\
+A~true
+\end{array}
+\Longrightarrow_R
+\begin{array}{c}
+\mathcal{D'} \\
+A~true
+\end{array}</script></li>
+<li><strong>Local completeness</strong> shows that the <strong>elimination rules are not too weak</strong>: there is always a way to apply elimination rules so that we can reconstitute a proof of the original proposition from the results by applying introduction rules. We use the below notation to show the local expansion of a deduction $\mathcal{D}$ to another deduction $\mathcal{D’}$.<script type="math/tex; mode=display">
+\begin{array}{c}
+\mathcal{D} \\
+A~true
+\end{array}
+\Longrightarrow_E
+\begin{array}{c}
+\mathcal{D'} \\
+A~true
+\end{array}</script></li>
 </ul>
-<p>Connectives are properly defined only if their introduction and elimination rules are in hormony in the sense that they are locally sound and complete.</p>
+<p>Another criterion we would like to apply uniformly is that both introduction and elimination rules do not refer to other propositional constants or connectives besides the one we are trying to define, which could create a dangerous dependency of the various connectives on each other.</p>
+<p>Connectives are properly defined only if their introduction and elimination rules are in hormony in the sense that they are locally sound and complete. Next, we show how to prove them.</p>
+<p><strong>Proof for local soundness:</strong></p>
+<ul>
+<li>Conjunction $\wedge$<ul>
+<li>$\wedge~E_L$<script type="math/tex; mode=display">
+\dfrac{
+\dfrac{
+\begin{array}{c}
+  \mathcal{D} \\
+  A~true
+\end{array}
+\quad
+\begin{array}{c}
+  \mathcal{E} \\
+  B~true
+\end{array}
+}
+{A\wedge B~true}
+\wedge I
+}
+{A~true}
+E_L
+\Longrightarrow_R
+\begin{array}{c}
+\mathcal{D} \\
+A~true
+\end{array}</script></li>
+<li>$\wedge~E_R$<script type="math/tex; mode=display">
+\dfrac{
+\dfrac{
+\begin{array}{c}
+  \mathcal{D} \\
+  A~true
+\end{array}
+\quad
+\begin{array}{c}
+  \mathcal{E} \\
+  B~true
+\end{array}
+}
+{A\wedge B~true}
+\wedge I
+}
+{B~true}
+E_R
+\Longrightarrow_R
+\begin{array}{c}
+\mathcal{D} \\
+B~true
+\end{array}</script></li>
+</ul>
+</li>
+<li>Implication $\supset$<ul>
+<li>$\supset E$<script type="math/tex; mode=display">
+\dfrac{
+\dfrac{
+    \begin{align*}
+      \dfrac{}
+        {A\,true}
+        u \\
+      &\vdots \\
+      B\,true
+    \end{align*}
+  }
+  {A\supset B\,true}
+  \supset I^{u} 
+\qquad 
+A\,true}
+{B\,true}
+\supset E
+\Longrightarrow
+\begin{align*}
+\dfrac{\mathcal{D}}
+  {A\,true}
+  u \\
+&\vdots \\
+B\,true
+\end{align*}</script></li>
+</ul>
+</li>
+<li>Disjunction $\vee$<ul>
+<li>$\vee E$<script type="math/tex; mode=display">
+\dfrac{
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D} \\
+    A\,true
+  \end{array}
+}
+{A\vee B\,true}
+\vee I_L
+\quad
+\begin{array}{c}
+  \dfrac{}
+    {A\,true}
+    u \\
+  &\vdots \\
+  C\,true
+\end{array} 
+\quad
+\begin{align*}
+  \dfrac{}
+    {B\,true}
+    \omega \\
+  &\vdots \\
+  C\,true
+\end{align*} 
+}
+{C\,true}
+\vee E^{u,\omega}
+\Longrightarrow_R
+\begin{align*}
+\dfrac{\mathcal{D}}
+  {A\,true}
+  u \\
+&\vdots \\
+C\,true
+\end{align*}</script><script type="math/tex; mode=display">
+\dfrac{
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D} \\
+    B\,true
+  \end{array}
+}
+{A\vee B\,true}
+\vee I_L
+\quad
+\begin{array}{c}
+  \dfrac{}
+    {A\,true}
+    u \\
+  &\vdots \\
+  C\,true
+\end{array} 
+\quad
+\begin{align*}
+  \dfrac{}
+    {B\,true}
+    \omega \\
+  &\vdots \\
+  C\,true
+\end{align*} 
+}
+{C\,true}
+\vee E^{u,\omega}
+\Longrightarrow_R
+\begin{align*}
+\dfrac{\mathcal{D}}
+  {B\,true}
+  \omega \\
+&\vdots \\
+C\,true
+\end{align*}</script></li>
+</ul>
+</li>
+<li>Truth $\top$. There is no elimination rule, so there is no case to check for local soundness.</li>
+<li>Falsehood $\bot$<ul>
+<li>$\bot~E$. Local soundness is trivially satisfied since we have no introduction rule</li>
+</ul>
+</li>
+</ul>
+<p><strong>Proof for local completeness:</strong></p>
+<ul>
+<li>Conjunction $\wedge$<script type="math/tex; mode=display">
+\begin{array}{c}
+\mathcal{D} \\
+A\wedge B~true
+\end{array}
+\Longrightarrow_E
+\dfrac{
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D} \\
+    A\wedge B~true
+  \end{array}
+}
+{A~true}
+\wedge E_L
+\quad
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D} \\
+    A\wedge B~true
+  \end{array}
+}
+{B~true}
+\wedge E_R
+}
+{A\wedge B~true}
+\wedge I</script></li>
+<li>Implication $\supset$<script type="math/tex; mode=display">
+\begin{array}{c}
+\mathcal{D} \\
+A\supset B~true
+\end{array}
+\Longrightarrow_E
+\dfrac{
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D} \\
+    A\supset B~true
+  \end{array}
+  \quad
+  \dfrac{}
+  {A~true}
+  u
+}
+{B~true}
+\supset E
+}
+{A\supset B~true}
+\supset I^u</script></li>
+<li>Disjunction $\vee$<ul>
+<li>In the proof here the elimination rule is applied last rather than first. Mostly, this is due to the notion of natural deduction. It represents the step from using the knowledge of $A\vee B~true$ and eliminating it to obtain the hypotheses $A~true$ and $B~true$ in the two cases.<script type="math/tex; mode=display">
+\begin{array}{c}
+\mathcal{D} \\
+A\vee B~true
+\end{array}
+\Longrightarrow_E
+\dfrac{
+\begin{array}{c}
+\mathcal{D} \\
+A\vee B~true
+\end{array}
+\quad
+\dfrac{
+\dfrac{
+}
+{A~true}
+u
+\quad
+}
+{A\vee B~true}
+\vee I_L
+\quad
+\dfrac{
+\dfrac{
+}
+{B~true}
+\omega
+}
+{A\vee B~true}
+\vee I_R
+}
+{A\vee B~true}
+\vee E^{u,\omega}</script></li>
+</ul>
+</li>
+<li>Truth $\top$<script type="math/tex; mode=display">
+\begin{array}{c}
+\mathcal{D} \\
+\top~true
+\end{array}
+\Longrightarrow_E
+\dfrac{}
+{\top~true}
+\top_I</script></li>
+<li>Falsehood $\bot$<ul>
+<li>It seems there is no case to consider since there is no introduction rule for $\bot$. Nevertheless, the following is the right local expansion.<script type="math/tex; mode=display">
+\begin{array}{c}
+\mathcal{D} \\
+\bot~true
+\end{array}
+\Longrightarrow_E
+\dfrac{
+\begin{array}{c}
+\mathcal{D} \\
+\bot~true
+\end{array}
+}
+{\bot~true}
+\bot_E</script></li>
+</ul>
+</li>
+</ul>
 <h2 id="3-Proof-as-Programs"><a href="#3-Proof-as-Programs" class="headerlink" title="3 Proof as Programs"></a>3 Proof as Programs</h2><p>The <strong>computational interpretation</strong> of <strong>constructive proofs</strong> on the <strong>propositional fragment of logic</strong> is called the <strong>Curry-Howard isomorphism</strong>. We use the following judgement to illustrate the relationship between proofs and programs:</p>
 <script type="math/tex; mode=display">
 M:A\qquad M\text{ is a proof term for proposition }A\\
@@ -198,7 +492,7 @@ A_1\,\mathsf{left},\dots,A_n\,\mathsf{left}\Longrightarrow C\,\mathsf{right}</sc
   & & \\
   \dfrac{A\uparrow\quad B\uparrow}
   {A\wedge B\uparrow}
-  \wedge\uparrow
+  \wedge I
   & &
   \dfrac{\Gamma\Longrightarrow A \quad \Gamma\Longrightarrow B}
   {\Gamma\Longrightarrow A\wedge B}
@@ -206,7 +500,7 @@ A_1\,\mathsf{left},\dots,A_n\,\mathsf{left}\Longrightarrow C\,\mathsf{right}</sc
   \\
   &&\\
   \dfrac{A\wedge B\downarrow}
-  {B\downarrow}
+  {A\downarrow}
   \wedge E_L 
   & &
   \dfrac{\Gamma,A\wedge B,A\Longrightarrow C}
@@ -317,7 +611,154 @@ A_1\,\mathsf{left},\dots,A_n\,\mathsf{left}\Longrightarrow C\,\mathsf{right}</sc
   {\Gamma,\bot\Longrightarrow C}
   \bot L
   \\
-\end{array}</script><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
+  &&\\
+  \dfrac{P\downarrow}
+  {P\uparrow}
+  \downarrow\uparrow
+  & &
+  \dfrac{}
+  {\Gamma,P\Longrightarrow P}
+  init
+  \\
+\end{array}</script><p>Same as introduction and elimination rules, connectives are properly defined only if their left and right rules are in hormony. To show this, we introduce two theorems.</p>
+<p><strong>Identity Theorem</strong>: For any proposition $A$, we have $A\Longrightarrow A$. This is the global version of the <strong>local completeness</strong> property for each individual connective. This can be explained as:</p>
+<ul>
+<li>If we assume $A~left$ we can prove $A~right$</li>
+<li>The left rules of the sequent calculus are strong enough so that we can reconstitute a proof of $A$ from the assumption A</li>
+</ul>
+<p><strong>Proof:</strong> By induction on the structure of $A$.</p>
+<ul>
+<li>Case: $A=P$. Then<script type="math/tex; mode=display">
+\dfrac{}
+{P\Longrightarrow P}
+\mathsf{init}</script></li>
+<li>Case: $A = A_1 \wedge A_2$. By i.h. on $A_1$ and weakening, we have $A_1\wedge A_2,A_1\Longrightarrow A_1$. By i.h. on $A_2$ and weakening, we have $A_1\wedge A_2,A_2\Longrightarrow A_2$. Then<script type="math/tex; mode=display">
+\dfrac{
+\dfrac{A_1\wedge A_2,A_1\Longrightarrow A_1}
+{A_1\wedge A_2\Longrightarrow A_1}
+\wedge L_1
+\quad
+\dfrac{A_1\wedge A_2,A_2\Longrightarrow A_2}
+{A_1\wedge A_2\Longrightarrow A_2}
+\wedge L_2
+}
+{A_1\wedge A_2\Longrightarrow A_1\wedge A_2}
+\wedge R</script></li>
+<li>Case: $A=A_1\supset A_2$. By i.h. on $A_1$ and weakening, we have $A_1\supset A_2,A_1\supset A_2,A_1\Longrightarrow A_1$. By i.h. on $A_2$ and weakening, we have $A_1\supset A_2,A_1\supset A_2,A_1,A_2\Longrightarrow A_2$. Then<script type="math/tex; mode=display">
+\dfrac{
+\dfrac{
+  A_1\supset A_2,A_1\supset A_2,A_1\Longrightarrow A_1
+  \quad 
+  A_1\supset A_2,A_1\supset A_2,A_1,A_2\Longrightarrow A_2}
+{A_1\supset A_2,A_1\supset A_2,A_1\Longrightarrow A_2}
+\supset L
+}
+{A_1\supset A_2 \Longrightarrow A_1\supset A_2}
+\supset R</script></li>
+<li>Case: $A=A_1\vee A_2$. By i.h. on $A_1$ and weakening, we have $A_1\vee A_2,A_1\Longrightarrow A_1$. By i.h. on $A_2$ and weakening, we have $A_1\vee A_2,A_2\Longrightarrow A_2$. Then <script type="math/tex; mode=display">
+\dfrac{
+\dfrac{A_1\vee A_2,A_1 \Longrightarrow A_1}
+{A_1\vee A_2,A_1 \Longrightarrow A_1\vee A_2}
+\vee R_L
+\quad
+\dfrac{A_1\vee A_2,A_2 \Longrightarrow A_2}
+{A_1\vee A_2,A_2 \Longrightarrow A_1\vee A_2}
+\vee R_L 
+}
+{A_1\vee A_2 \Longrightarrow A_1\vee A_2}
+\vee L</script></li>
+</ul>
+<p><strong>Cut theorem</strong>: If $\Gamma\Longrightarrow A~right$ and $\Gamma,A~left\Longrightarrow C$ then $\Gamma\Longrightarrow C$. This can be explained as:</p>
+<ul>
+<li>If we have a proof of $A~right$, we are licensed to assume $A~left$. </li>
+<li>the left rules are not too strong</li>
+</ul>
+<p><strong>Proof:</strong> By induction on the structure of $A$, the derivation $\mathcal{D}$ of $\Gamma\Longrightarrow A$ and $\mathcal{E}$ of $\Gamma,A\Longrightarrow C$.</p>
+<script type="math/tex; mode=display">
+\begin{array}{c}\mathcal{D}\\\Gamma\Longrightarrow A\end{array}\quad\text{and}\quad\begin{array}{c}\mathcal{E}\\\Gamma,A\Longrightarrow C\end{array}\quad\text{of}\quad\begin{array}{c}\mathcal{F}\\\Gamma\Longrightarrow C\end{array}</script><ul>
+<li>Case 1: $\mathcal{D}$ is init rule. Then $\Gamma=\Gamma’,A$. So we have $\Gamma’,A\Longrightarrow A$ and $\Gamma’,A,A\Longrightarrow C$. By contraction theorem, we have $\Gamma’,A\Longrightarrow C$.</li>
+<li>Case 2: $\mathcal{E}$ is the init rule using cut formula. </li>
+<li>Case 3: $\mathcal{E}$ is the init rule not using cut formula. Then <ul>
+<li>$\mathcal{E}=\dfrac{}{\Gamma’,P,A\Longrightarrow P}init$</li>
+<li>$\Gamma=\Gamma’,P$</li>
+<li>$C=P$<br>By rule init and weaking, we have $\Gamma’,P\Longrightarrow P$, so $\Gamma\Longrightarrow C$</li>
+</ul>
+</li>
+<li>Case 4: $A$ is the principle formula of the last inference in both $\mathcal{D}$ and $\mathcal{E}$.<ul>
+<li>Case 4.1 $A = A_1\wedge A_2$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+\begin{array}{c}
+  \mathcal{D_1} \\
+  \Gamma\Longrightarrow A_1
+\end{array}
+\quad
+\begin{array}{c}
+  \mathcal{D_2} \\
+  \Gamma\Longrightarrow A_2
+\end{array}
+}
+{\Gamma\Longrightarrow A_1\wedge A_2}
+\wedge R</script><script type="math/tex; mode=display">
+\mathcal{E}=
+\dfrac{
+\begin{array}{c}
+  \mathcal{E_1} \\
+  \Gamma,A_1\wedge A_2,A_1\Longrightarrow C
+\end{array}
+}
+{\Gamma,A_1\wedge A_2\Longrightarrow C}
+\wedge L_1</script>By weakening on $\mathcal{D}$ (adding $A_1$ to the context) and induction on $\mathcal{D}$ and $\mathcal{E_1}$, $\Gamma,A_1\Longrightarrow C$. By induction on $\Gamma,A_1\Longrightarrow C$ and $\mathcal{D_1}$, we have $\Gamma\Longrightarrow C$.</li>
+<li>Case 4.2 …</li>
+</ul>
+</li>
+<li>Case 5: $A$ is not the principle formula of the last inference in $\mathcal{D}$. In this case $\mathcal{D}$ must end in a left rule, for which we can analyze case by case.<ul>
+<li>Case 5.1 $\wedge L_1$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+\begin{array}{c}
+  \mathcal{D_1} \\
+  \Gamma',A_1\wedge A_2,A_1\Longrightarrow A
+\end{array}
+}
+{\Gamma',A_1\wedge A_2\Longrightarrow A}
+\wedge L_1</script>Then we have:<ul>
+<li>$\Gamma=\Gamma’,A_1\wedge A_2$</li>
+<li>$\Gamma’,A_1\wedge A_2,A\Longrightarrow C$</li>
+<li>By weakening, $\Gamma’,A_1\wedge A_2,A_1,A\Longrightarrow C$</li>
+<li>By induction on $\mathcal{D_1}$, $\mathcal{E}$ and the above line, $\Gamma’,A_1\wedge A_2,A_1\Longrightarrow C$</li>
+<li>By rule $\wedge L_1$, we have $\Gamma’,A_1\wedge A_2\Longrightarrow C$, thus $\Gamma\Longrightarrow C$</li>
+</ul>
+</li>
+<li>Case 5.2 …</li>
+</ul>
+</li>
+<li>Case 6: $A$ is not the principle formula of the last inference in $\mathcal{E}$.<ul>
+<li>Case 6.1 $\wedge R$<script type="math/tex; mode=display">
+\mathcal{E}=
+\dfrac{
+\begin{array}{c}
+  \mathcal{E_1} \\
+  \Gamma,A\Longrightarrow C_1
+\end{array}
+\quad
+\begin{array}{c}
+  \mathcal{E_2} \\
+  \Gamma,A\Longrightarrow C_2
+\end{array}
+}
+{\Gamma,A\Longrightarrow C_1\wedge C_2}
+\wedge R</script><ul>
+<li>By induction on $\mathcal{D}$ and $\mathcal{E_1}$, By induction on $\mathcal{D}$ and $\mathcal{E_1}$, we have $\Gamma\Longrightarrow C_1$</li>
+<li>By induction on $\mathcal{D}$ and $\mathcal{E_2}$, By induction on $\mathcal{D}$ and $\mathcal{E_1}$, we have $\Gamma\Longrightarrow C_2$</li>
+<li>By rule $\wedge R$ on above two, we have $\Gamma\Longrightarrow C_1\wedge C_2$, thus $\Gamma\Longrightarrow C$</li>
+</ul>
+</li>
+<li>Case 6.2 …</li>
+</ul>
+</li>
+</ul>
+<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
 <li><a href="http://gauss.cs.iit.edu/~fderakhshan/files/JAR.pdf" target="_blank" rel="noopener">Human-Centered Automated Proof Search</a></li>
 </ul>
 </div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka-Http/">Akka Http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algrithm/">Algrithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book/">Book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Configuration/">Configuration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DS/">DS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dead-Lock/">Dead-Lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-System/">Distributed System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flyway/">Flyway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOC/">IOC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPA/">JPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/">Lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda-Calculus/">Lambda Calculus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logic/">Logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memory-Leak/">Memory Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Movie/">Movie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Partition/">Network Partition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDF/">PDF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PlantUML/">PlantUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming-Language/">Programming Language</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Push-Notification/">Push Notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud/">Spring Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Data/">Spring Data</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Synchronize/">Synchronize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transaction/">Transaction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translation/">Translation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Turing-Machine/">Turing Machine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity/">Unity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Validation/">Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volatile/">Volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebCrawler/">WebCrawler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/higher-order-function/">higher-order function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iText/">iText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascripty/">javascripty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda/">lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button">No More</a><a class="next-button" href="/2024/05/04/from-turing-machine-to-lambda-calculus/">From Turing Machine to Lambda Calculus</a></div><script src="https://utteranc.es/client.js" repo="Langinteger/LangInteger.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="footer"><span>©️2018 - 2024 &nbsp;<strong><tag>LangInteger</tag></strong></span></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
