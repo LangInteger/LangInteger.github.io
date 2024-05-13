@@ -6,7 +6,7 @@ tags:
   - Programming Language
 ---
 
-This is a notes for [Constructive Logic](https://www.cs.cmu.edu/~fp/courses/15317-f09/schedule.html). Logic is the study of the principles of valid inferences and demonstration,  which constitutes an important area in the disciplines of philosophy and mathematics.
+This is a note for [Constructive Logic](https://www.cs.cmu.edu/~fp/courses/15317-f09/schedule.html). Logic is the study of the principles of valid inferences and demonstration,  which constitutes an important area in the disciplines of philosophy and mathematics.
 
 <!--more-->
 
