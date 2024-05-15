@@ -1,12 +1,12 @@
 ---
-title: Notes of Constructive Logic
+title: Note for Constructive Logic
 date: 2024-05-08 12:05:54
 tags: 
   - Logic
   - Programming Language
 ---
 
-This is a note for [Constructive Logic](https://www.cs.cmu.edu/~fp/courses/15317-f09/schedule.html). Logic is the study of the principles of valid inferences and demonstration,  which constitutes an important area in the disciplines of philosophy and mathematics.
+This is a note for my learning of [Constructive Logic](https://www.cs.cmu.edu/~fp/courses/15317-f09/schedule.html) by **Frank Pfenning**. Logic is the study of the principles of valid inferences and demonstration,  which constitutes an important area in the disciplines of philosophy and mathematics.
 
 <!--more-->
 
@@ -223,7 +223,11 @@ $$
       {A\supset B\,true}
       \supset I^{u} 
     \qquad 
-    A\,true}
+    \begin{array}{c}
+      \mathcal{D} \\
+      A\,true
+    \end{array}
+    }
   {B\,true}
   \supset E
   \Longrightarrow
@@ -374,6 +378,7 @@ $$
 - Disjunction $\vee$
   - In the proof here the elimination rule is applied last rather than first. Mostly, this is due to the notion of natural deduction. It represents the step from using the knowledge of $A\vee B~true$ and eliminating it to obtain the hypotheses $A~true$ and $B~true$ in the two cases.
 $$
+\scriptsize
 \begin{array}{c}
   \mathcal{D} \\
   A\vee B~true
@@ -647,15 +652,17 @@ $$
 \end{array}
 $$
 
+## 6 Local Completeness/Soundness - Global Version
+
 Same as introduction and elimination rules, connectives are properly defined only if their left and right rules are in hormony. To show this, we introduce two theorems.
 
-**Identity Theorem**: For any proposition $A$, we have $A\Longrightarrow A$. This is the global version of the **local completeness** property for each individual connective. This can be explained as:
+**Identity Theorem**: For any proposition $A$, we have $A\Longrightarrow A$. This is the **global version** of the **local completeness** property for each individual connective. This can be explained as:
 
 - If we assume $A~left$ we can prove $A~right$
 - The left rules of the sequent calculus are strong enough so that we can reconstitute a proof of $A$ from the assumption A
 
 **Proof:** By induction on the structure of $A$.
-- Case: $A=P$. Then
+- Case: $A$ is an atomic proposition. $A=P$. Then
 $$
 \dfrac{}
 {P\Longrightarrow P}
@@ -675,14 +682,14 @@ $$
 {A_1\wedge A_2\Longrightarrow A_1\wedge A_2}
 \wedge R
 $$
-- Case: $A=A_1\supset A_2$. By i.h. on $A_1$ and weakening, we have $A_1\supset A_2,A_1\supset A_2,A_1\Longrightarrow A_1$. By i.h. on $A_2$ and weakening, we have $A_1\supset A_2,A_1\supset A_2,A_1,A_2\Longrightarrow A_2$. Then
+- Case: $A=A_1\supset A_2$. By i.h. on $A_1$ and weakening, we have $A_1\supset A_2,A_1\Longrightarrow A_1$. By i.h. on $A_2$ and weakening, we have $A_1\supset A_2,A_1,A_2\Longrightarrow A_2$. Then
 $$
 \dfrac{
   \dfrac{
-    A_1\supset A_2,A_1\supset A_2,A_1\Longrightarrow A_1
+    A_1\supset A_2,A_1\Longrightarrow A_1
     \quad 
-    A_1\supset A_2,A_1\supset A_2,A_1,A_2\Longrightarrow A_2}
-  {A_1\supset A_2,A_1\supset A_2,A_1\Longrightarrow A_2}
+    A_1\supset A_2,A_1,A_2\Longrightarrow A_2}
+  {A_1\supset A_2,A_1\Longrightarrow A_2}
   \supset L
 }
 {A_1\supset A_2 \Longrightarrow A_1\supset A_2}
@@ -703,98 +710,578 @@ $$
 \vee L
 $$
 
-**Cut theorem**: If $\Gamma\Longrightarrow A~right$ and $\Gamma,A~left\Longrightarrow C$ then $\Gamma\Longrightarrow C$. This can be explained as:
+**Cut theorem**: If $\Gamma\Longrightarrow A~right$ and $\Gamma,A~left\Longrightarrow C$ then $\Gamma\Longrightarrow C$. This is the **global version** of **local soundness**, which can be explained as:
 
 - If we have a proof of $A~right$, we are licensed to assume $A~left$. 
 - the left rules are not too strong
 
-**Proof:** By induction on the structure of $A$, the derivation $\mathcal{D}$ of $\Gamma\Longrightarrow A$ and $\mathcal{E}$ of $\Gamma,A\Longrightarrow C$.
+**Proof:** By induction on the structure of cut formula $A$, the derivation $\mathcal{D}$ of $\Gamma\Longrightarrow A$ and $\mathcal{E}$ of $\Gamma,A\Longrightarrow C$. We show how to transform
 
 $$
-\begin{array}{c}\mathcal{D}\\\Gamma\Longrightarrow A\end{array}\quad\text{and}\quad\begin{array}{c}\mathcal{E}\\\Gamma,A\Longrightarrow C\end{array}\quad\text{of}\quad\begin{array}{c}\mathcal{F}\\\Gamma\Longrightarrow C\end{array}
+\begin{array}{c}\mathcal{D}\\\Gamma\Longrightarrow A\end{array}\quad\text{and}\quad\begin{array}{c}\mathcal{E}\\\Gamma,A\Longrightarrow C\end{array}\quad\text{to}\quad\begin{array}{c}\mathcal{F}\\\Gamma\Longrightarrow C\end{array}
 $$
 
-- Case 1: $\mathcal{D}$ is init rule. Then $\Gamma=\Gamma',A$. So we have $\Gamma',A\Longrightarrow A$ and $\Gamma',A,A\Longrightarrow C$. By contraction theorem, we have $\Gamma',A\Longrightarrow C$.
-- Case 2: $\mathcal{E}$ is the init rule using cut formula. 
-- Case 3: $\mathcal{E}$ is the init rule not using cut formula. Then 
-  - $\mathcal{E}=\dfrac{}{\Gamma',P,A\Longrightarrow P}init$
-  - $\Gamma=\Gamma',P$
-  - $C=P$
-  By rule init and weaking, we have $\Gamma',P\Longrightarrow P$, so $\Gamma\Longrightarrow C$
-- Case 4: $A$ is the principle formula of the last inference in both $\mathcal{D}$ and $\mathcal{E}$.
-  - Case 4.1 $A = A_1\wedge A_2$
+in this constructive proof.
+
+We build the proof by the combination of the last inference rule that is applied in $\mathcal{D}$ and $\mathcal{E}$. To simplify the cases we need to consider, we classify the cases as follows:
+
+- The last inference rule is initial sequent in $\mathcal{D}$ or $\mathcal{E}$
+  - Case 1: the last inference rule in $\mathcal{D}$ is initial sequent
+  - Case 2: the last inference rule in $\mathcal{E}$ is initial sequent using cut formula $A$
+  - Case 3: the last inference rule in $\mathcal{E}$ is initial sequent not using cut formula $A$
+- The last inference rule is not initial sequent in $\mathcal{D}$ and $\mathcal{E}$
+  - Case 4: $A$ is the principle formula of the last inference rule (which is not initial sequent) in both $\mathcal{D}$ and $\mathcal{E}$
+  - Case 5: $A$ is not the principle formula of the last inference rule (which is not initial sequent) in $\mathcal{D}$ 
+  - Case 6: $A$ is not the principle formula of the last inference rule (which is not initial sequent) in $\mathcal{E}$ 
+
+The proof for the six cases are as follows.
+
+- Case 1: $\mathcal{D}$ is an initial sequent like
+$$
+\dfrac{}
+{\Gamma',P\Longrightarrow P}
+init
+$$
+  Then $\Gamma=\Gamma',P$. We have $\Gamma',P,P\Longrightarrow C$ by $\mathcal{E}$. By contraction theorem, we have $\Gamma',P\Longrightarrow C$, which shows $\Gamma\Longrightarrow C$.
+- Case 2: $\mathcal{E}$ is an initial sequent using cut formula 
+  $$
+    \begin{array}{c}
+      \mathcal{D} \\
+      \Gamma\Longrightarrow P
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{}
+    {\Gamma,P\Longrightarrow P}
+    init
+  $$
+  We have $C=P$, which shows $\Gamma\Longrightarrow C$.
+- Case 3: $\mathcal{E}$ is an initial sequent not using cut formula. Then 
+  $$
+  \mathcal{E}=\dfrac{}{\Gamma',P,A\Longrightarrow P}init
+  $$
+  So $\Gamma=\Gamma',P$ and $C=P$. By rule init and weaking, we have $\Gamma',P\Longrightarrow P$, so $\Gamma\Longrightarrow C$
+- Case 4: $A$ is the principle formula of the last inference in both $\mathcal{D}$ and $\mathcal{E}$. There are no cases for $\top$ and $\bot$ as they only have left or right rule, not both.
+    - Case 4.1 $A = A_1\wedge A_2$
+    $$
+    \scriptsize
+    \mathcal{D}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{D_1} \\
+        \Gamma\Longrightarrow A_1
+      \end{array}
+      \quad
+      \begin{array}{c}
+        \mathcal{D_2} \\
+        \Gamma\Longrightarrow A_2
+      \end{array}
+    }
+    {\Gamma\Longrightarrow A_1\wedge A_2}
+    \wedge R
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma,A_1\wedge A_2,A_1\Longrightarrow C
+      \end{array}
+    }
+    {\Gamma,A_1\wedge A_2\Longrightarrow C}
+    \wedge L_1
+    $$
+    By weakening on $\mathcal{D}$ (adding $A_1$ to the context), we get a structurally identical deduction $\mathcal{D'}$ as $\scriptsize
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{D_1} \\
+        \Gamma,A_1\Longrightarrow A_1
+      \end{array}
+      \quad
+      \begin{array}{c}
+        \mathcal{D_2} \\
+        \Gamma,A_1\Longrightarrow A_2
+      \end{array}
+    }
+    {\Gamma,A_1\Longrightarrow A_1\wedge A_2}
+    \wedge R$. 
+    $$
+    \color{red}{\text{There are many other cases need weakening like this.}}
+    \\
+    \color{red}{\text{We will skip weakening in some cases and use i.h. directly.}}
+    $$
+    
+    Consider the following induction hypothesis. 
+    $$
+    \begin{array}{ccc}
+      i.h. & on & result \\
+      1
+      &
+      A_1\wedge A_2,\,\mathcal{D'},\,\mathcal{E_1}
+      &
+      \Gamma,A_1\Longrightarrow C
+      \\
+      2
+      &
+      A_1,\,D_1~and~\Gamma,A_1\Longrightarrow C
+      &
+      \Gamma\Longrightarrow C
+      \\
+    \end{array}
+    $$
+    - Case 4.2 $A=A_1\supset A_2$
+    $$
+    \scriptsize
+    \mathcal{D}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{D_1} \\
+        \Gamma,A_1\Longrightarrow A_2
+      \end{array}
+    }
+    {\Gamma\Longrightarrow A_1\supset A_2}
+    \supset R
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma,A_1\supset A_2\Longrightarrow A_1
+      \end{array}
+      \quad
+      \begin{array}{c}
+      \mathcal{E_2} \\
+      \Gamma,A_1\supset A_2,A_2\Longrightarrow C
+      \end{array}
+    }
+    {\Gamma,A_1\supset A_2\Longrightarrow C}
+    \supset L
+    $$
+    Consider the following induction hypothesis. 
+    $$
+    \begin{array}{ccc}
+      i.h. & on & result \\
+      1
+      &
+      A_1\supset A_2,\,\mathcal{D},\,\mathcal{E_2}
+      &
+      \Gamma,A_2\Longrightarrow C
+      \\
+      2
+      &
+      A_1\supset A_2,\,\mathcal{D},\mathcal{E_1}
+      &
+      \Gamma\Longrightarrow A_1
+      \\
+      3
+      &
+      A_1~and~\Gamma\Longrightarrow A_1~and~\mathcal{D_1}
+      &
+      \Gamma\Longrightarrow A_2
+      \\
+      4
+      &
+      A_2~and~\Gamma\Longrightarrow A_2~and~\Gamma,A_2\Longrightarrow C
+      &
+      \Gamma\Longrightarrow C
+      \\
+    \end{array}
+    $$
+    - Case 4.3 $A=A_1\vee A_2$
+    $$
+    \scriptsize
+    \mathcal{D}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{D_1} \\
+        \Gamma\Longrightarrow A_1
+      \end{array}
+    }
+    {\Gamma\Longrightarrow A_1\vee A_2}
+    \vee R_1
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma,A_1\vee A_2,A_1\Longrightarrow C
+      \end{array}
+      \quad
+      \begin{array}{c}
+      \mathcal{E_2} \\
+      \Gamma,A_1\vee A_2,A_2\Longrightarrow C
+      \end{array}
+    }
+    {\Gamma,A_1\vee A_2\Longrightarrow C}
+    \vee L
+    $$
+    Consider the following induction hypothesis. 
+    $$
+    \begin{array}{ccc}
+      i.h. & on & result \\
+      1
+      &
+      A_1\vee A_2,\,\mathcal{D},\,\mathcal{E_1}
+      &
+      \Gamma,A_1\Longrightarrow C
+      \\
+      2
+      &
+      A_1,\mathcal{D_1}~and~\Gamma,A_1\Longrightarrow C
+      &
+      \Gamma\Longrightarrow C
+      \\
+    \end{array}
+    $$
+- Case 5: $A$ is not the principle formula of the last inference in $\mathcal{D}$. In this case $\mathcal{D}$ must end in a left rule, for which we can analyze case by case.
+    - Case 5.1 $\wedge L_1$
+    $$
+    \mathcal{D}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{D_1} \\
+        \Gamma',A_1\wedge A_2,A_1\Longrightarrow A
+      \end{array}
+    }
+    {\Gamma',A_1\wedge A_2\Longrightarrow A}
+    \wedge L_1
+    ,\quad
+    \begin{array}{c}
+      \mathcal{E}\\\Gamma',A_1\wedge A_2,A\Longrightarrow C
+    \end{array}
+    $$
+    Then we have:
+      - $\Gamma=\Gamma',A_1\wedge A_2$
+      - By weakening on $\mathcal{E}$, $\scriptsize\begin{array}{c}\mathcal{E'}\\\Gamma',A_1\wedge A_2,A_1,A\Longrightarrow C\end{array}$
+      - By i.h. on $A_1\wedge A_2$, $\mathcal{D_1}$, $\mathcal{E'}$, then we have $\Gamma',A_1\wedge A_2,A_1\Longrightarrow C$
+      - By rule $\wedge L_1$, we have $\Gamma',A_1\wedge A_2\Longrightarrow C$, thus $\Gamma\Longrightarrow C$
+    - Case 5.2 $\wedge L_2$, the proof is symmetric to 5.1
+    - Case 5.3 $\supset L$
+    $$
+    \scriptsize
+    \mathcal{D}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{D_1} \\
+        \Gamma',A_1\supset A_2\Longrightarrow A_1
+      \end{array}
+      \quad
+      \begin{array}{c}
+        \mathcal{D_2} \\
+        \Gamma',A_1\supset A_2,A_2\Longrightarrow A
+      \end{array}
+    }
+    {\Gamma',A_1\supset A_2\Longrightarrow A}
+    \supset L
+    ,\quad
+    \begin{array}{c}
+      \mathcal{E}\\\Gamma',A_1\supset A_2,A\Longrightarrow C
+    \end{array}
+    $$
+    Then we have:
+      - $\Gamma=\Gamma',A_1\supset A_2$
+      - By i.h. on $A_1\supset A_2$ and $\mathcal{D_2}$ and $\mathcal{E}$, we get $\Gamma',A_1\supset A_2,A_2\Longrightarrow C$
+      - By $\supset L$ on $\mathcal{D_1}$ and the above result, we get $\Gamma',A_1\supset A_2\Longrightarrow C$, which shows that $\Gamma\Longrightarrow C$
+    - Case 5.4 $\vee L$
+    $$
+    \scriptsize
+    \mathcal{D}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{D_1} \\
+        \Gamma',A_1\vee A_2,A_1\Longrightarrow A
+      \end{array}
+      \quad
+      \begin{array}{c}
+        \mathcal{D_2} \\
+        \Gamma',A_1\vee A_2,A_2\Longrightarrow A
+      \end{array}
+    }
+    {\Gamma',A_1\vee A_2\Longrightarrow A}
+    \vee L
+    ,\quad
+    \begin{array}{c}
+      \mathcal{E}\\\Gamma',A_1\vee A_2,A\Longrightarrow C
+    \end{array}
+    $$
+    Then we have:
+      - $\Gamma=\Gamma',A_1\vee A_2$
+      - By i.h. on $A_1\vee A_2$, $\mathcal{D_1}$ and $\mathcal{E}$, we have $\Gamma',A_1\vee A_2,A_1\Longrightarrow C$
+      - By i.h. on $A_1\vee A_2$, $\mathcal{D_2}$ and $\mathcal{E}$, we have $\Gamma',A_1\vee A_2,A_2\Longrightarrow C$
+      - By $\vee L$ on the above two results, we have $\Gamma',A_1\vee A_2\Longrightarrow C$, which shows that $\Gamma\Longrightarrow C$
+    - Case 5.5 $\bot L$
+    $$
+    \mathcal{D}=
+    \dfrac{}
+    {\Gamma',\bot\Longrightarrow A}
+    \bot L
+    ,\quad
+    \begin{array}{c}
+      \mathcal{E}\\
+      \Gamma',\bot,A\Longrightarrow C
+    \end{array}
+    $$
+    Then $\Gamma = \Gamma',\bot$. Apply $\bot L$, we have $\Gamma',\bot\Longrightarrow C$, which show $\Gamma\Longrightarrow C$
+- Case 6: $A$ is not the principle formula of the last inference in $\mathcal{E}$. In this case, $\mathcal{E}$ must end in a left or right rule that not gets $A$ involved. We can analyse this case by case.
+    - Case 6.1 $\wedge R$
+    $$
+    \begin{array}{c}
+      \mathcal{D} \\
+      \Gamma\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma,A\Longrightarrow C_1
+      \end{array}
+      \quad
+      \begin{array}{c}
+        \mathcal{E_2} \\
+        \Gamma,A\Longrightarrow C_2
+      \end{array}
+    }
+    {\Gamma,A\Longrightarrow C_1\wedge C_2}
+    \wedge R
+    $$
+      - $C=C_1\wedge C_2$
+      - By i.h. on $A$, $\mathcal{D}$ and $\mathcal{E_1}$, we have $\Gamma\Longrightarrow C_1$
+      - By i.h. on $A$, $\mathcal{D}$ and $\mathcal{E_2}$, we have $\Gamma\Longrightarrow C_2$
+      - By rule $\wedge R$ on above two, we have $\Gamma\Longrightarrow C_1\wedge C_2$, thus $\Gamma\Longrightarrow C$
+    - Case 6.2 $\supset R$
+    $$
+    \begin{array}{c}
+      \mathcal{D} \\
+      \Gamma\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma,A,C_1\Longrightarrow C_2
+      \end{array}
+    }
+    {\Gamma,A\Longrightarrow C_1\supset C_2}
+    \supset R_1
+    $$
+      - $C=C_1\supset C_2$
+      - By i.h. on $A$, $\mathcal{D}$ and $\mathcal{E_1}$, we have $\Gamma,C_1\Longrightarrow C_2$.
+      - Apply $\supset R$ with the above result, we have $\Gamma\Longrightarrow C_1\supset C_2$
+    - Case 6.3 $\vee R_1$
+    $$
+    \begin{array}{c}
+      \mathcal{D} \\
+      \Gamma\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma,A\Longrightarrow C_1
+      \end{array}
+    }
+    {\Gamma,A\Longrightarrow C_1\vee C_2}
+    \vee R_1
+    $$
+      - $C=C_1\vee C_2$
+      - By i.h. on $A$, $\mathcal{D}$ and $\mathcal{E_1}$, we have $\Gamma\Longrightarrow C_1$.
+      - Apply $\vee R_1$ with the above result, we have $\Gamma\Longrightarrow C_1\vee C_2$
+    - Case 6.4 $\vee R_2$. The proof is symmetric to 6.3
+    - Case 6.5 $\top R$
+    $$
+   \begin{array}{c}
+      \mathcal{D}\\
+      \Gamma\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{}
+    {\Gamma,A\Longrightarrow \top}
+    \top R
+    $$
+    Then $C = \top$. Apply $\top R$, we have $\Gamma\Longrightarrow \top$, which show $\Gamma\Longrightarrow C$
+    - Case 6.6 $\wedge L_1$
+    $$
+    \begin{array}{c}
+      \mathcal{D}\\
+      \Gamma',A_1\wedge A_2\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma',A_1\wedge A_2,A_1,A\Longrightarrow C
+      \end{array}
+    }
+    {\Gamma',A_1\wedge A_2,A\Longrightarrow C}
+    \wedge L_1
+    $$
+    Then we have:
+      - $\Gamma=\Gamma',A_1\wedge A_2$
+      - By i.h. on $A$, $\mathcal{D}$, $\mathcal{E_1}$, we have $\Gamma',A_1\wedge A_2,A_1\Longrightarrow C$
+      - Apply $\wedge L_1$ with the above result, we get $\Gamma',A_1\wedge A_2\Longrightarrow C$, which shows $\Gamma\Longrightarrow C$
+    - Case 6.7 $\wedge L_2$, the proof is symmetric to 6.6 
+    - Case 6.8 $\supset L$
+    $$
+    \scriptsize
+    \begin{array}{c}
+      \mathcal{D} \\
+      \Gamma',A_1\supset A_2\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma',A_1\supset A_2,A\Longrightarrow A_1
+      \end{array}
+      \quad
+      \begin{array}{c}
+        \mathcal{E_2} \\
+        \Gamma',A_1\supset A_2,A,A_1\Longrightarrow C
+      \end{array}
+    }
+    {\Gamma',A_1\supset A_2,A\Longrightarrow C}
+    \supset L
+    $$
+      - $\Gamma=\Gamma',A_1\supset A_2$
+      - By i.h. on $A$, $\mathcal{D}$, $\mathcal{E_1}$, we have $\Gamma',A_1\supset A_2\Longrightarrow A_1$
+      - By i.h. on $A$, $\mathcal{D}$, $\mathcal{E_2}$, we have $\Gamma',A_1\supset A_2, A_1\Longrightarrow C$
+      - Apply $\supset L$ with the above two results, we get $\Gamma',A_1\supset A_2\Longrightarrow C$, which shows $\Gamma\Longrightarrow C$
+    - Case 6.9 $\vee L$
+    $${
+    \scriptsize
+    \begin{array}{c}
+      \mathcal{D} \\
+      \Gamma',A_1\vee A_2\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{
+      \begin{array}{c}
+        \mathcal{E_1} \\
+        \Gamma',A_1\vee A_2,A_1,A\Longrightarrow C
+      \end{array}
+      \quad
+      \begin{array}{c}
+        \mathcal{E_2} \\
+        \Gamma',A_1\vee A_2,A_2,A\Longrightarrow C
+      \end{array}
+    }
+    {\Gamma',A_1\vee A_2,A\Longrightarrow C}
+    \vee L
+    }$$
+      - $\Gamma=\Gamma',A_1\vee A_2$
+      - By i.h. on $A$, $\mathcal{D}$, $\mathcal{E_1}$, we have $\Gamma',A_1\vee A_2,A_1\Longrightarrow C$
+      - By i.h. on $A$, $\mathcal{D}$, $\mathcal{E_2}$, we have $\Gamma',A_1\vee A_2, A_2\Longrightarrow C$
+      - Apply $\vee L$ with the above two results, we get $\Gamma',A_1\vee A_2\Longrightarrow C$, which shows $\Gamma\Longrightarrow C$
+    - Case 6.10 $\bot L$
+    $$
+    \begin{array}{c}
+      \mathcal{D}\\
+      \Gamma',\bot\Longrightarrow A
+    \end{array}
+    ,\quad
+    \mathcal{E}=
+    \dfrac{}
+    {\Gamma',\bot,A\Longrightarrow C}
+    \bot L
+    $$
+    Then $\Gamma = \Gamma',\bot$. Apply $\bot L$, we have $\Gamma',\bot\Longrightarrow C$, which show $\Gamma\Longrightarrow C$
+
+## 7 Cut Elimination
+
+The cut elimination is the theorem connecting **cut-free sequent calculus** and **sequent calculus with cut**. The cut elimination theorem states that if $\mathcal{D}$ is a deduction of $\Gamma\Longrightarrow C$ possibily using the cut rule, then there exists a cut-free deduction $\mathcal{D'}$ of $\Gamma\Longrightarrow C$. That is
+
+$$
+\text{if }
+\begin{array}{c}
+  \mathcal{D}\\
+  \Gamma\Longrightarrow A
+\end{array}
+\text{ then }
+\begin{array}{c}
+  \mathcal{D'}\\
+  \Gamma\Longrightarrow A
+\end{array}
+$$
+
+In the following constructive proof building $\mathcal{D'}$,
+$$
+\color{red}{\text{we cannot use $cut$ rule as we are in the cut-free setting.}}
+\\
+\color{red}{\text{But we can apply cut threom that we have built above.}}
+$$
+
+**Proof:** by induction on the structure of $\mathcal{D}$.
+
+- Case $init$
+  $$
+  \dfrac{}
+  {\Gamma',A\Longrightarrow A}
+  init
+  $$
+  let $\mathcal{D'} = \mathcal{D}$.
+- Case $\top R$, Case $\bot L$ are same to the above case.
+- Case $\wedge L_1$
   $$
   \mathcal{D}=
   \dfrac{
     \begin{array}{c}
-      \mathcal{D_1} \\
+      \mathcal{D_1}\\
+      \Gamma',B_1\wedge B_2,B_1\Longrightarrow A
+    \end{array}
+  }
+  {\Gamma',B_1\wedge B_2\Longrightarrow A}
+  \wedge L_1
+  $$
+  By i.h. on $\mathcal{D_1}$, there is a cut-free deduction $\mathcal{D_1'}$ of $\Gamma',B_1\wedge B_2,B_1\Longrightarrow A$. Apply $\wedge L$ to the result, we build the deduction $\mathcal{D'}$ of $\Gamma\Longrightarrow A$.
+- Case $\wedge R$
+  $$
+  \mathcal{D}=
+  \dfrac{
+    \begin{array}{c}
+      \mathcal{D_1}\\
       \Gamma\Longrightarrow A_1
     \end{array}
     \quad
     \begin{array}{c}
-      \mathcal{D_2} \\
+      \mathcal{D_2}\\
       \Gamma\Longrightarrow A_2
     \end{array}
   }
   {\Gamma\Longrightarrow A_1\wedge A_2}
   \wedge R
   $$
-  $$
-  \mathcal{E}=
-  \dfrac{
-    \begin{array}{c}
-      \mathcal{E_1} \\
-      \Gamma,A_1\wedge A_2,A_1\Longrightarrow C
-    \end{array}
-  }
-  {\Gamma,A_1\wedge A_2\Longrightarrow C}
-  \wedge L_1
-  $$
-  By weakening on $\mathcal{D}$ (adding $A_1$ to the context) and induction on $\mathcal{D}$ and $\mathcal{E_1}$, $\Gamma,A_1\Longrightarrow C$. By induction on $\Gamma,A_1\Longrightarrow C$ and $\mathcal{D_1}$, we have $\Gamma\Longrightarrow C$.
-  - Case 4.2 ...
-- Case 5: $A$ is not the principle formula of the last inference in $\mathcal{D}$. In this case $\mathcal{D}$ must end in a left rule, for which we can analyze case by case.
-  - Case 5.1 $\wedge L_1$
+  By i.h. on $\mathcal{D_1}$, there is a cut-free deduction $\mathcal{D_1'}$ of $\Gamma\Longrightarrow A_1$. 
+  By i.h. on $\mathcal{D_2}$, there is a cut-free deduction $\mathcal{D_2'}$ of $\Gamma\Longrightarrow A_2$.
+  Apply $\wedge R$ to the above results, we build the deduction $\mathcal{D'}$ of $\Gamma\Longrightarrow A$.
+- Case $\supset L$, Case $\supset R$, Case $\vee R_1$, Case $\vee R_2$, Case $\vee L$ are similar to the above two cases
+- Case $cut$
   $$
   \mathcal{D}=
   \dfrac{
     \begin{array}{c}
-      \mathcal{D_1} \\
-      \Gamma',A_1\wedge A_2,A_1\Longrightarrow A
-    \end{array}
-  }
-  {\Gamma',A_1\wedge A_2\Longrightarrow A}
-  \wedge L_1
-  $$
-  Then we have:
-    - $\Gamma=\Gamma',A_1\wedge A_2$
-    - $\Gamma',A_1\wedge A_2,A\Longrightarrow C$
-    - By weakening, $\Gamma',A_1\wedge A_2,A_1,A\Longrightarrow C$
-    - By induction on $\mathcal{D_1}$, $\mathcal{E}$ and the above line, $\Gamma',A_1\wedge A_2,A_1\Longrightarrow C$
-    - By rule $\wedge L_1$, we have $\Gamma',A_1\wedge A_2\Longrightarrow C$, thus $\Gamma\Longrightarrow C$
-  - Case 5.2 ...
-- Case 6: $A$ is not the principle formula of the last inference in $\mathcal{E}$.
-  - Case 6.1 $\wedge R$
-  $$
-  \mathcal{E}=
-  \dfrac{
-    \begin{array}{c}
-      \mathcal{E_1} \\
-      \Gamma,A\Longrightarrow C_1
+      \mathcal{D_1}\\
+      \Gamma\Longrightarrow B
     \end{array}
     \quad
     \begin{array}{c}
-      \mathcal{E_2} \\
-      \Gamma,A\Longrightarrow C_2
+      \mathcal{D_2}\\
+      \Gamma,B\Longrightarrow A
     \end{array}
   }
-  {\Gamma,A\Longrightarrow C_1\wedge C_2}
-  \wedge R
+  {\Gamma\Longrightarrow A}
+  cut
   $$
-    - By induction on $\mathcal{D}$ and $\mathcal{E_1}$, By induction on $\mathcal{D}$ and $\mathcal{E_1}$, we have $\Gamma\Longrightarrow C_1$
-    - By induction on $\mathcal{D}$ and $\mathcal{E_2}$, By induction on $\mathcal{D}$ and $\mathcal{E_1}$, we have $\Gamma\Longrightarrow C_2$
-    - By rule $\wedge R$ on above two, we have $\Gamma\Longrightarrow C_1\wedge C_2$, thus $\Gamma\Longrightarrow C$
-  - Case 6.2 ...
+  By i.h. on $\mathcal{D_1}$, there is a cut-free deduction $\mathcal{D_1'}$ of $\Gamma\Longrightarrow B$.
+  By i.h. on $\mathcal{D_2}$, there is a cut-free deduction $\mathcal{D_2'}$ of $\Gamma,B\Longrightarrow A$.
+  Apply $cut$ theorem with the above results, we build the deduction $\mathcal{D'}$ of $\Gamma\Longrightarrow A$
 
 ## Reference
 
+- [Frank Pfenning - Constructive Logic](https://www.cs.cmu.edu/~fp/courses/15317-f09/schedule.html)
 - [Human-Centered Automated Proof Search](http://gauss.cs.iit.edu/~fderakhshan/files/JAR.pdf)
