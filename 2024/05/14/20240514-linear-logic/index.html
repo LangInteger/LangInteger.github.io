@@ -40,9 +40,9 @@ MathJax.Hub.Queue(function() {
   for(i=0; i < all.length; i += 1) {
       all[i].SourceElement().parentNode.className += ' has-jax';
   }
-});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"></head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">LangInteger</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Note for Linear Logic</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Note for Linear Logic</a></h2><span class="post__date">2024-05-14</span><a href="/tags/Logic/"><span class="post__tags">#Logic</span></a><a href="/tags/Programming-Language/"><span class="post__tags">#Programming Language</span></a><a href="/tags/Linear-Logic/"><span class="post__tags">#Linear Logic</span></a></div></div><div class="article__content"><p>This is my note learning <a href="https://www.cs.cmu.edu/~fp/courses/15816-s12/schedule.html" target="_blank" rel="noopener">Linear Logic</a> by <strong>Frank Pfenning</strong>.</p>
+});</script><link rel="preload" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://cdn.bootcss.com/highlight.js/9.6.0/styles/github.min.css"><link rel="preload" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap"></head><body><div class="mask-border"></div><div class="head"><div class="head__inner"><h1><a href="/">LangInteger</a></h1><p></p></div></div><div class="paper-container"><div class="main"><div class="location-bar"><div class="line-1"><div class="horizontal-line" style="height: 3px"></div></div><div class="line-2"><div class="horizontal-line" style="height: 1px"></div></div><p class="text">Note for Linear Logic</p><div class="switch-button"><input class="container_toggle" type="checkbox" id="switch" name="mode"><label for="switch">Toggle</label></div><div class="line-3"><div class="horizontal-line" style="height: 1px"></div></div></div><div class="main__2-col"><article class="post-view__article"><div class="article__infomation"><div class="posts-item"><h2 class="posts-item__title"><a href="">Note for Linear Logic</a></h2><span class="post__date">2024-05-14</span><a href="/tags/Logic/"><span class="post__tags">#Logic</span></a><a href="/tags/Linear-Logic/"><span class="post__tags">#Linear Logic</span></a><a href="/tags/Programming-Language/"><span class="post__tags">#Programming Language</span></a></div></div><div class="article__content"><p>This is my note learning <a href="https://www.cs.cmu.edu/~fp/courses/15816-s12/schedule.html" target="_blank" rel="noopener">Linear Logic</a> by <strong>Frank Pfenning</strong>.</p>
 <a id="more"></a>
-<h2 id="Linear-Logic"><a href="#Linear-Logic" class="headerlink" title="Linear Logic"></a>Linear Logic</h2><p>The notation below shows how to tracks all the ephemeral propositions in the judgment explicitly during inference:</p>
+<h2 id="1-Formalize"><a href="#1-Formalize" class="headerlink" title="1 Formalize"></a>1 Formalize</h2><p>The notation below shows how to tracks all the ephemeral propositions in the judgment explicitly during inference:</p>
 <script type="math/tex; mode=display">
 \underbrace{A_1~pers,\dots,A_n~pers}_\Gamma;\underbrace{B_1~eph,\dots,B_n~eph}_\Delta\vdash C~eph</script><p>in which $\Delta$ is the $\mathit{resources}$ and $C$ as the goal we have to achieve. We have to use all the resources in $\Delta$ $\mathit{exactly~once}$ in the proof that we can achieve C.</p>
 <p>Structural rules:</p>
@@ -170,7 +170,7 @@ MathJax.Hub.Queue(function() {
   {\Gamma;\Delta,!A~eph\vdash C~eph}
   \,!L
   \\
-\end{array}</script><h2 id="Linear-Logic-vs-Intuitionistic-Logic"><a href="#Linear-Logic-vs-Intuitionistic-Logic" class="headerlink" title="Linear Logic vs Intuitionistic Logic"></a>Linear Logic vs Intuitionistic Logic</h2><ul>
+\end{array}</script><h2 id="2-Linear-Logic-vs-Intuitionistic-Logic"><a href="#2-Linear-Logic-vs-Intuitionistic-Logic" class="headerlink" title="2 Linear Logic vs Intuitionistic Logic"></a>2 Linear Logic vs Intuitionistic Logic</h2><ul>
 <li>there is no weakening in Linear Logic like the following rule<script type="math/tex; mode=display">
 \dfrac{\Delta\vdash C}
 {\Delta,A\vdash C}
@@ -180,7 +180,7 @@ MathJax.Hub.Queue(function() {
 {\Delta,A\vdash C}
 \mathsf{contraction}</script></li>
 </ul>
-<h2 id="Local-Harmony"><a href="#Local-Harmony" class="headerlink" title="Local Harmony"></a>Local Harmony</h2><h3 id="Local-Completeness-Identity-Expansion"><a href="#Local-Completeness-Identity-Expansion" class="headerlink" title="Local Completeness - Identity Expansion"></a>Local Completeness - Identity Expansion</h3><p>In natural deduction, we justify that the proof for the original proposition can be reconstructed via Elimination and then Introduction to show that the Elimination and Introduction rules match for local completeness.</p>
+<h2 id="3-Harmony-Local"><a href="#3-Harmony-Local" class="headerlink" title="3 Harmony - Local"></a>3 Harmony - Local</h2><h3 id="3-1-Local-Completeness-Identity-Expansion"><a href="#3-1-Local-Completeness-Identity-Expansion" class="headerlink" title="3.1 Local Completeness - Identity Expansion"></a>3.1 Local Completeness - Identity Expansion</h3><p>In natural deduction, we justify that the proof for the original proposition can be reconstructed via Elimination and then Introduction to show that the Elimination and Introduction rules match for local completeness.</p>
 <p>However, in sequent calculus, we need to show that the identity rule at a compound type can be expanded to the identity rule at smaller types. Or in another words, we can construct the identity rule on compound type based on identity rules on smaller types using left and right rules.</p>
 <script type="math/tex; mode=display">
 \scriptsize
@@ -338,7 +338,7 @@ MathJax.Hub.Queue(function() {
   {0\vdash 0}
   0 L
   \\
-\end{array}</script><h3 id="Local-Soundness-Cut-Reduction"><a href="#Local-Soundness-Cut-Reduction" class="headerlink" title="Local Soundness - Cut Reduction"></a>Local Soundness - Cut Reduction</h3><p>In natural deduction, we demonstrate that a more direct proof of the conclusion of an elimination can be found thanone that first introduces and then eliminates to show that the Elimination and Introduction rules match for local soundness.</p>
+\end{array}</script><h3 id="3-2-Local-Soundness-Cut-Reduction"><a href="#3-2-Local-Soundness-Cut-Reduction" class="headerlink" title="3.2 Local Soundness - Cut Reduction"></a>3.2 Local Soundness - Cut Reduction</h3><p>In natural deduction, we demonstrate that a more direct proof of the conclusion of an elimination can be found that first introduces and then eliminates to show that the Elimination and Introduction rules match for local soundness.</p>
 <p>However, in sequent calculus, we need to show that we can reduce a cut at a compound type to cuts on smaller types.</p>
 <script type="math/tex; mode=display">
 \tiny
@@ -358,6 +358,7 @@ MathJax.Hub.Queue(function() {
   cut_{A\otimes B}
   &
   \rightarrow_R
+  &
   \dfrac{
     \Delta'\vdash B
     \quad
@@ -388,6 +389,7 @@ MathJax.Hub.Queue(function() {
   cut_{A\multimap B}
   &
   \rightarrow_R
+  &
   \dfrac{
     \Delta'',B\vdash C
     \quad
@@ -398,4 +400,659 @@ MathJax.Hub.Queue(function() {
   {\Delta,\Delta',\Delta''\vdash C}
   cut_B
   \\
-\end{array}</script></div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka-Http/">Akka Http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algrithm/">Algrithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book/">Book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Configuration/">Configuration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DS/">DS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dead-Lock/">Dead-Lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-System/">Distributed System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flyway/">Flyway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOC/">IOC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPA/">JPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/">Lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda-Calculus/">Lambda Calculus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Logic/">Linear Logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logic/">Logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memory-Leak/">Memory Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Movie/">Movie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Partition/">Network Partition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDF/">PDF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PlantUML/">PlantUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming-Language/">Programming Language</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Push-Notification/">Push Notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud/">Spring Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Data/">Spring Data</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Synchronize/">Synchronize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transaction/">Transaction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translation/">Translation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Turing-Machine/">Turing Machine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity/">Unity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Validation/">Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volatile/">Volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebCrawler/">WebCrawler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/higher-order-function/">higher-order function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iText/">iText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascripty/">javascripty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda/">lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button">No More</a><a class="next-button" href="/2024/05/08/20240508-constructive-logic/">Note for Constructive Logic</a></div><script src="https://utteranc.es/client.js" repo="Langinteger/LangInteger.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="footer"><span>©️2018 - 2024 &nbsp;<strong><tag>LangInteger</tag></strong></span></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
+  &&&\\
+  1
+  &
+  \dfrac{
+    \dfrac{}
+    {\cdot\vdash 1}
+    1R
+    \quad
+    \dfrac{\Delta\vdash C}
+    {\Delta,1\vdash C}
+    1L
+  }
+  {\Delta\vdash C}
+  cut_1
+  &
+  \rightarrow_R
+  &
+  \Delta\vdash C
+  \\
+  &&&\\
+  A\& B
+  &
+  \dfrac{
+    \dfrac{\Delta\vdash A\quad\Delta\vdash B}
+    {\Delta\vdash A\,\&\,B}
+    \& R
+    \quad
+    \dfrac{\Delta',A\vdash C}
+    {\Delta', A\,\&\,B\vdash C}
+    \& L_1
+  }
+  {\Delta,\Delta'\vdash C}
+  cut_{A\& B}
+  &
+  \rightarrow_R
+  &
+  \dfrac{\Delta\vdash A\quad\Delta',A\vdash C}
+  {\Delta,\Delta'\vdash C}
+  cut_A
+  \\
+  &&&\\
+  T
+  &&&
+  \\
+  &&&\\
+  A\otimes B
+  &
+  \dfrac{
+    \dfrac{\Delta'\vdash A}
+    {\Delta'\vdash A\oplus B}
+    \oplus R_1
+    \quad
+    \dfrac{\Delta,A\vdash C\quad\Delta,B\vdash C}
+    {\Delta,A\oplus B\vdash C}
+    \oplus L
+  }
+  {
+    \Delta,\Delta'\vdash C
+  }
+  cut_{A\otimes B}
+  &
+  \rightarrow_R
+  &
+  \dfrac{
+    \Delta'\vdash A
+    \quad
+    \Delta,A\vdash C
+  }
+  {
+    \Delta,\Delta'\vdash C
+  }
+  cut_A
+  \\
+  &&&\\
+  0 &&&\\
+\end{array}</script><h2 id="4-Harmony-Global"><a href="#4-Harmony-Global" class="headerlink" title="4 Harmony - Global"></a>4 Harmony - Global</h2><h3 id="4-1-Linear-Cut-Admissibility-Soundness"><a href="#4-1-Linear-Cut-Admissibility-Soundness" class="headerlink" title="4.1 Linear Cut Admissibility - Soundness"></a>4.1 Linear Cut Admissibility - Soundness</h3><p>The admissibility of cut can be formalized as ($\Rightarrow$ means we can prove the corresponding judgement using $\vdash$ without using cut rule): if $\begin{array}{c}\mathcal{D}\\Delta\Rightarrow A\end{array}$ and $\begin{array}{c}\mathcal{E}\\Delta’,A\Rightarrow C\end{array}$ then $\begin{array}{c}\mathcal{F}\\Delta,\Delta’\Rightarrow C\end{array}$</p>
+<p>Same as the proof in intuitionistic logic, we build the proof by the combination of the last inference rule that is applied in $\mathcal{D}$ and $\mathcal{E}$. To simplify the cases we need to consider, we classify the cases as follows:</p>
+<ul>
+<li>The last inference rule is initial sequent in $\mathcal{D}$ or $\mathcal{E}$<ul>
+<li>Case 1: the last inference rule in $\mathcal{D}$ is initial sequent</li>
+<li>Case 2: the last inference rule in $\mathcal{E}$ is initial sequent using cut formula $A$<ul>
+<li>There is no case for not using A, as all resources must be consumed in Linear Logic</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>The last inference rule is not initial sequent in $\mathcal{D}$ and $\mathcal{E}$<ul>
+<li>Case 3: $A$ is the principle formula of the last inference rule (which is not initial sequent) in both $\mathcal{D}$ and $\mathcal{E}$<ul>
+<li>It must be derived by a left rule applied as last inference rule in $\mathcal{E}$ and by a right rule applied as last inference rule in $\mathcal{D}$. Apparently, all the cases have been covered in <strong>Cut Reduction</strong>. It can be proved by induction hypothesis on the smaller type, sub deduction of $\mathcal{D}$ and $\mathcal{E}$ used in the result of the reduction.</li>
+</ul>
+</li>
+<li>Case 4: $A$ is not the principle formula of the last inference rule (which is not initial sequent) in $\mathcal{D}$ </li>
+<li>Case 5: $A$ is not the principle formula of the last inference rule (which is not initial sequent) in $\mathcal{E}$ </li>
+</ul>
+</li>
+</ul>
+<p><strong>Proof:</strong> By induction on the structure of $A$, derivation $\mathcal{D}$ and $\mathcal{E}$</p>
+<ul>
+<li>Case 1: the last inference rule in $\mathcal{D}$ is initial sequent<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{}
+{A\Rightarrow A}
+init
+\quad
+\begin{array}{c}
+  \mathcal{E}\\
+  \Delta',A\Rightarrow C
+\end{array}</script>Thus $\Delta=A$. We have $\Delta’,A\Rightarrow C$, which shows $\Delta,\Delta’\Rightarrow C$.</li>
+<li>Case 2: the last inference rule in $\mathcal{E}$ is initial sequent<script type="math/tex; mode=display">
+  \begin{array}{c}\mathcal{D}\\\Delta\Rightarrow A\end{array}
+  \quad
+  \mathcal{E}=
+  \dfrac{}
+  {\cdot,C\Rightarrow C}
+  init</script>Thus $\Delta’=\cdot$ and $A=C$. We have $\Delta\Rightarrow A$ by $\mathcal{D}$, which shows $\Delta,\Delta’\Rightarrow C$.</li>
+<li><p>Case 4: A is not the principle formula of the last inference rule (which is not initial sequent) in $\mathcal{D}$. We do case analyse by all the left rules that can be applied as the last inference rule in $\mathcal{D}$</p>
+<ul>
+<li>Case 4.1 $\otimes L$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D_1}\\
+    \Delta_1,B_1, B_2\Rightarrow A
+  \end{array}
+}
+{\Delta_1,B_1\otimes B_2\Rightarrow A}
+\otimes L
+,\quad
+\begin{array}{c}
+  \mathcal{E}\\
+  \Delta',A\Rightarrow C
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta_1,B_1, B_2,\Delta'\Rightarrow C
+  &&
+  \text{By i.h. on }A, \mathcal{D_1}\text{ and }\mathcal{E}
+  \\
+  \Delta_1,B_1\otimes B_2,\Delta'\Rightarrow C
+  &&
+  \text{By rule }\otimes L\text{ on above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 4.2 $\multimap L$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D_1}\\
+    \Delta_1\Rightarrow B_1
+  \end{array}
+  \quad
+  \begin{array}{c}
+    \mathcal{D_2}\\
+    \Delta_2,B_2\Rightarrow A
+  \end{array}
+}
+{\Delta_1,\Delta_2,B_1\multimap B_2\Rightarrow A}
+\multimap L
+,\quad
+\begin{array}{c}
+  \mathcal{E}\\
+  \Delta',A\Rightarrow C
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta_2,B_2,\Delta'\Rightarrow C
+  &&
+  \text{By i.h. on }A, \mathcal{D_2}\text{ and }\mathcal{E}
+  \\
+  \Delta_1,\Delta_2,B_1\multimap B_2,\Delta'\Rightarrow C
+  &&
+  \text{By rule }\multimap L\text{ on }\mathcal{D_1}\text{ and the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 4.3 $1 L$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D_1}\\
+    \Delta_1\Rightarrow A
+  \end{array}
+}
+{\Delta_1,1\Rightarrow A}
+1 L
+,\quad
+\begin{array}{c}
+  \mathcal{E}\\
+  \Delta',A\Rightarrow C
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta_1,\Delta'\Rightarrow C
+  &&
+  \text{By i.h. on }A, \mathcal{D_1}\text{ and }\mathcal{E}
+  \\
+  \Delta_1,1,\Delta'\Rightarrow C
+  &&
+  \text{By rule }1 L\text{ on the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 4.4 $\&amp; L_1$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D_1}\\
+    \Delta_1,B_1\Rightarrow A
+  \end{array}
+}
+{\Delta_1,B_1\,\&\,B_2\Rightarrow A}
+\& L
+,\quad
+\begin{array}{c}
+  \mathcal{E}\\
+  \Delta',A\Rightarrow C
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta_1,B_1,\Delta'\Rightarrow C
+  &&
+  \text{By i.h. on }A, \mathcal{D_1}\text{ and }\mathcal{E}
+  \\
+  \Delta_1,B_1\& B_2,\Delta'\Rightarrow C
+  &&
+  \text{By rule }\& L\text{ on the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 4.5 $\&amp; L_2$. The proof is symmetric to 4.4</li>
+<li>Case 4.6 $\oplus L$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{D_1}\\
+    \Delta_1,B_1\Rightarrow A
+  \end{array}
+  \quad
+  \begin{array}{c}
+    \mathcal{D_2}\\
+    \Delta_2,B_2\Rightarrow A
+  \end{array}
+}
+{\Delta_1,\Delta_2,B_1\oplus B_2\Rightarrow A}
+\oplus L
+,\quad
+\begin{array}{c}
+  \mathcal{E}\\
+  \Delta',A\Rightarrow C
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta_2,B_2,\Delta'\Rightarrow C
+  &&
+  \text{By i.h. on }A,\mathcal{D_2},\mathcal{E}
+  \\
+  \Delta_1,\Delta_2,B_1\oplus B_2,\Delta'\Rightarrow C
+  &&
+  \text{By rule }\oplus L\text{ on }\mathcal{D_1}\text{ and above}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 4.7 $0 L$<script type="math/tex; mode=display">
+\mathcal{D}=
+\dfrac{
+}
+{\Delta_1,0\Rightarrow A}
+0 L
+,\quad
+\begin{array}{c}
+  \mathcal{E}\\
+  \Delta',A\Rightarrow C
+\end{array}</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta_1,\Delta',0\Rightarrow C
+  &&
+  \text{By rule }0L
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+</ul>
+</li>
+<li><p>Case 5: A is not the principle formula of the last inference rule (which is not initial sequent) in $\mathcal{E}$. We do case analyse by all the left and right rules that can be applied as the last inference rule in $\mathcal{E}$</p>
+<ul>
+<li>Case 5.1 $\otimes L$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta_1,B_1,B_2,A\Rightarrow C
+  \end{array}
+}
+{\Delta_1,B_1\otimes B_2,A\Rightarrow C}
+\otimes L</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta_1,B_1,B_2\Rightarrow C
+  &&
+  \text{By i.h. on }A,\mathcal{D},\mathcal{E_1}
+  \\
+  \Delta,\Delta_1,B_1\otimes B_2\Rightarrow C
+  &&
+  \text{By rule }\otimes L\text{  on above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.2 $\multimap L$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta_1\Rightarrow B_1
+  \end{array}
+  \quad
+  \begin{array}{c}
+    \mathcal{E_2}\\
+    \Delta_2,A,B_2\Rightarrow C
+  \end{array}
+}
+{\Delta_1,\Delta_2,B_1\multimap B_2,A\Rightarrow C}
+\multimap L</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta_2,B_2\Rightarrow C
+  &&
+  \text{By i.h. on }A,\mathcal{D},\mathcal{E_2}
+  \\
+  \Delta,\Delta_1,\Delta_2,B_1\multimap B_2\Rightarrow C
+  &&
+  \text{By rule }\multimap L\text{  on }\mathcal{E_1}\text{ above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.3 $1 L$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta_1,A\Rightarrow C
+  \end{array}
+}
+{\Delta_1,1,A\Rightarrow C}
+1 L</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta_1\Rightarrow C
+  &&
+  \text{By i.h. on }A,\mathcal{D},\mathcal{E_1}
+  \\
+  \Delta,\Delta_1,1\Rightarrow C
+  &&
+  \text{By rule }1 L\text{  on the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.4 $\&amp; L_1$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta_1,B_1,A\Rightarrow C
+  \end{array}
+}
+{\Delta_1,B_1\,\&\,B_2,A\Rightarrow C}
+\& L</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta_1,B_1\Rightarrow C
+  &&
+  \text{By i.h. on }A,\mathcal{D},\mathcal{E_1}
+  \\
+  \Delta,\Delta_1,B_1\,\&\,B_2\Rightarrow C
+  &&
+  \text{By rule }\& L\text{  on the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.5 $\&amp; L_2$. The proof is symmetric to Cae 5.4.</li>
+<li>Case 5.6 $\oplus L$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta_1,B_1,A\Rightarrow C
+  \end{array}
+  \quad
+  \begin{array}{c}
+    \mathcal{E_2}\\
+    \Delta_1,B_2,A\Rightarrow C
+  \end{array}
+}
+{\Delta_1,B_1\oplus B_2,A\Rightarrow C}
+\oplus L</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta_1,B_1\Rightarrow C
+  &&
+  \text{By i.h. on }A,\mathcal{D},\mathcal{E_1}
+  \\
+  \Delta,\Delta_1,B_2\Rightarrow C
+  &&
+  \text{By i.h. on }A,\mathcal{D},\mathcal{E_2}
+  \\
+  \Delta,\Delta_1,B_1\oplus B_2\Rightarrow C
+  &&
+  \text{By rule }\oplus L\text{  on the above lines}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.7 $0 L$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+}
+{\Delta_1,0,A\Rightarrow C}
+0 L</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta_1,0,A\Rightarrow C
+  &&
+  \text{By rule }0 L
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.8 $\otimes R$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta_1\Rightarrow B_1
+  \end{array}
+  \quad
+  \begin{array}{c}
+    \mathcal{E_2}\\
+    \Delta_2,A\Rightarrow B_2
+  \end{array}
+}
+{\Delta_1,\Delta_2,A\Rightarrow B_1\otimes B_2}
+\otimes R</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta_2\Rightarrow B_2
+  &&
+  \text{By i.h. on }A, \mathcal{D}\text{ and }\mathcal{E_1}
+  \\
+  \Delta,\Delta_1,\Delta_2\Rightarrow B_1\otimes B_2
+  &&
+  \text{By rule }\otimes R\text{ on }\mathcal{E_1}\text{ and the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.9 $\multimap R$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta',A,B_1\Rightarrow B_2
+  \end{array}
+}
+{\Delta',A\Rightarrow B_1\multimap B_2}
+\multimap R</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta',B_1\Rightarrow B_2
+  &&
+  \text{By i.h. on }A, \mathcal{D}\text{ and }\mathcal{E_1}
+  \\
+  \Delta,\Delta'\Rightarrow B_1\multimap B_2
+  &&
+  \text{By rule }\multimap R\text{ on the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.10 $1 R$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \cdot\Rightarrow 1
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+}
+{\cdot,\cdot\Rightarrow 1}
+1 R</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \cdot\Rightarrow 1
+  &&
+  \text{By rule }1 R
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.11 $\&amp; R$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta',A\Rightarrow B_1
+  \end{array}
+  \quad
+  \begin{array}{c}
+    \mathcal{E_2}\\
+    \Delta',A\Rightarrow B_2
+  \end{array}
+}
+{\Delta',A\Rightarrow B_1\,\&\,B_2}
+\& R</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta'\Rightarrow B_1
+  &&
+  \text{By i.h. on }A, \mathcal{D}\text{ and }\mathcal{E_1}
+  \\
+  \Delta,\Delta'\Rightarrow B_2
+  &&
+  \text{By i.h. on }A, \mathcal{D}\text{ and }\mathcal{E_2}
+  \\
+  \Delta,\Delta'\Rightarrow B_1\,\&\,B_2
+  &&
+  \text{By rule }\& R\text{ on the above two lines}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.12 $\top R$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+}
+{\Delta',A\Rightarrow \top}
+\top R</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta\Delta'\Rightarrow \top
+  &&
+  \text{By rule }\top R
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.13 $\oplus R_1$<script type="math/tex; mode=display">
+\begin{array}{c}
+  \mathcal{D}\\
+  \Delta\Rightarrow A
+\end{array}  
+,\quad
+\mathcal{E}=
+\dfrac{
+  \begin{array}{c}
+    \mathcal{E_1}\\
+    \Delta',A\Rightarrow B_1
+  \end{array}
+}
+{\Delta',A\Rightarrow B_1\,\oplus\,B_2}
+\oplus R_1</script><script type="math/tex; mode=display">
+\begin{array}{lcr}
+  \Delta,\Delta'\Rightarrow B_1
+  &&
+  \text{By i.h. on }A, \mathcal{D}\text{ and }\mathcal{E_1}
+  \\
+  \Delta,\Delta'\Rightarrow B_1\oplus B_2
+  &&
+  \text{By rule }\oplus R_1\text{ on the above line}
+  \\
+  \Delta,\Delta'\Rightarrow C
+  &&
+  \text{By equality}
+  \\
+\end{array}</script></li>
+<li>Case 5.14 $\oplus R_2$. The proof is symmetric to Case 5.13.</li>
+</ul>
+</li>
+</ul>
+</div></article><div class="post-view__sidebar"><div class="sidebar"><div class="tocbot"><h2>Toc</h2><div class="toc__content"></div></div><h2>Archives</h2><div class="sidebar__archives"><ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/">2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/">2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/">2022</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/">2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/">2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/">2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/">2018</a></li></ul></div><h2>Tags</h2><div class="sidebar__tags"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka/">Akka</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Akka-Http/">Akka Http</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Algrithm/">Algrithm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Book/">Book</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Configuration/">Configuration</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DI/">DI</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DS/">DS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Dead-Lock/">Dead-Lock</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Distributed-System/">Distributed System</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Flyway/">Flyway</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Heroku/">Heroku</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOC/">IOC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JPA/">JPA</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JVM/">JVM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java/">Java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda/">Lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Lambda-Calculus/">Lambda Calculus</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linear-Logic/">Linear Logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Logic/">Logic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Memory-Leak/">Memory Leak</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Movie/">Movie</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Network-Partition/">Network Partition</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/OOP/">OOP</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ORM/">ORM</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PDF/">PDF</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/PlantUML/">PlantUML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Programming-Language/">Programming Language</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Push-Notification/">Push Notification</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Redis/">Redis</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SQL/">SQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Scala/">Scala</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Server/">Server</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring/">Spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Boot/">Spring Boot</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Cloud/">Spring Cloud</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Spring-Data/">Spring Data</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Synchronize/">Synchronize</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Transaction/">Transaction</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Translation/">Translation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Turing-Machine/">Turing Machine</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Unity/">Unity</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Validation/">Validation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Volatile/">Volatile</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Web/">Web</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebCrawler/">WebCrawler</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Zookeeper/">Zookeeper</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/closure/">closure</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/higher-order-function/">higher-order function</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iOS/">iOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/iText/">iText</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascripty/">javascripty</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/lambda/">lambda</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/scala/">scala</a></li></ul></div></div></div></div><div class="horizontal-line" style="height: 1px"></div><div class="main__bottom"><div class="pre-next"><a class="pre-button">No More</a><a class="next-button" href="/2024/05/08/20240508-constructive-logic/">Note for Constructive Logic</a></div><script src="https://utteranc.es/client.js" repo="Langinteger/LangInteger.github.io" issue-term="pathname" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="footer"><span>©️2018 - 2024 &nbsp;<strong><tag>LangInteger</tag></strong></span></div><div class="darkmode-mask" id="darkmode-mask"></div><div class="sidebar__button"></div></body></html>
