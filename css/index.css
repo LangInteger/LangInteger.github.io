@@ -702,3 +702,9 @@ img {
     border: 0.8rem #fff solid;
   }
 }
+.MathJax_Display,
+.MJXc-display,
+.MathJax_SVG_Display {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
