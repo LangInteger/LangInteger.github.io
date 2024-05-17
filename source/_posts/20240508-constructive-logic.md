@@ -10,13 +10,6 @@ This is a note for my learning of [Constructive Logic](https://www.cs.cmu.edu/~f
 
 <!--more-->
 
-        <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-         "HTML-CSS": { linebreaks: { automatic: true } },
-                 SVG: { linebreaks: { automatic: true } }
-        });
-        </script>
-
 ## 1 Inference Rule and Natural Deduction
 
 Two principal notions of logic are **propositions** and **proofs**. One approach to build foundations for these notions is to understand the meaning of a proposition by understanding its proofs. The system of **inference rules** that arises from this point of view is **natural deduction**. The cornerstone of the foundation of logic is a clear separation of the notions of **judgment** and **proposition**.
