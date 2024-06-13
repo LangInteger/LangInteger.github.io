@@ -157,15 +157,15 @@ $$
 \begin{align*}
   \mathcal{V}\lbrack\lbrack\text{bool}\rbrack\rbrack
   & \triangleq 
-  & \{\text{true, false}\} \\
+    \{\text{true, false}\} \\
   \mathcal{V}\lbrack\lbrack\tau_1\rightarrow\tau_2\rbrack\rbrack
   & \triangleq 
-  & \{\lambda x:\tau_1:e\,|\,\forall v\in
+    \{\lambda x:\tau_1:e\,|\,\forall v\in
         \mathcal{V}_1\lbrack\lbrack\tau\rbrack\rbrack. e[v/x]
         \in\mathcal{E}\lbrack\lbrack\tau_2\rbrack\rbrack \} \\
   \mathcal{E}\lbrack\lbrack\tau\rbrack\rbrack
   & \triangleq 
-  & \{
+    \{
       e\,|\,
       \forall e'.e\mapsto^*e'\wedge\text{irred}(e')
           \Rightarrow e'\in\mathcal{V}\lbrack\lbrack\tau\rbrack\rbrack
