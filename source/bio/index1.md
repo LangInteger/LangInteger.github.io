@@ -16,13 +16,15 @@ layout: false
 
 Address: 004 Stuart Building, 10 W 31st Street,
 Illinois Institute of Technology, Chicago, IL 60616
-Email: lliu94@hawk.iit.edu
+Email: lliu94@hawk.illinoistech.edu
 
 ## About
 
 Greatings! My name is Lang Liu.
 
-I am a Ph.D. student in Computer Science at Illinois Institute of Techonology. My advisor is Professor [Farzaneh Derakhshan](http://gauss.cs.iit.edu/~fderakhshan/). My research interests are in formal methods and using the technique to ensure the safety and security of concurrent programs.
+I am a Ph.D. student in Computer Science at Illinois Institute of Technology. My advisor is Dr. [Farzaneh Derakhshan](http://gauss.cs.iit.edu/~fderakhshan/). My research interests are in formal methods and using the technique to ensure the safety and security of concurrent programs. 
+
+Currently, I am working on LabelBI, a logic system based on the logic of Bunched Implication that enables compositional reasoning about underapproximations.
 
 ## Publications
 
