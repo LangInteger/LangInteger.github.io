@@ -11,6 +11,62 @@ layout: false
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lang Liu | Academic Blog</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Poem responsive: when in portrait or on small screens, show each clause on its own line */
+    #poem {
+      text-align: center;
+      margin: 40px auto;
+      max-width: 900px;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    /* Default: English and Chinese appear side-by-side in centered grid columns */
+    #poem .poem-line {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* equal-width columns so both columns center */
+      justify-items: center;
+      /* center content within each column */
+      column-gap: 2rem;
+      align-items: center;
+    }
+
+    #poem .poem-line .en,
+    #poem .poem-line .zh {
+      display: block;
+      text-align: center;
+    }
+
+    /* Place Chinese in the left column and English in the right column for horizontal layouts */
+    #poem .poem-line .zh {
+      grid-column: 1;
+    }
+
+    #poem .poem-line .en {
+      grid-column: 2;
+    }
+
+    /* Portrait / small screens: stack English above Chinese for each line */
+    @media (orientation: portrait),
+    (max-width: 700px) {
+      #poem .poem-line {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 0.2em;
+      }
+
+      /* ensure English appears above Chinese in portrait */
+      #poem .poem-line .en {
+        order: 1;
+      }
+
+      #poem .poem-line .zh {
+        order: 2;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -45,9 +101,13 @@ layout: false
     <section id="research">
       <h2>Publications</h2>
       <ul>
-        <li><strong>Quantified Underapproximation via Labeled Bunches</strong><br>
-          <em>OOPSLA 2025</em>
-          <!-- · <a href="#">[PDF]</a> <a href="#">[Project]</a> -->
+        <li>
+          <strong>Quantified Underapproximation via Labeled Bunches</strong>
+          <span class="authors">Lang Liu, Farzaneh Derakhshan, Limin Jia, Gabriel A. Moreno, Mark Klein</span>
+          <br><em>Proceedings of the ACM on Programming Languages, Volume 9 (OOPSLA2 2025).
+            Singapore</em><br>
+          <div style="margin-top:0.2em; font-size:0.95em;"><a href="https://doi.org/10.1145/3763051" target="_blank"
+              rel="noopener noreferrer">[acm dl]</a> </div>
         </li>
       </ul>
     </section>
@@ -58,11 +118,21 @@ layout: false
         <h3><a href="#">Bunched Implications: A Minimalist View</a></h3>
         <p class="date">July 2025</p> -->
     <h2>Postlude</h2>
-    <section id="poem" style="text-align: center; margin: 40px 0; font-style: italic; line-height: 1.8;">
-      <p style="margin: 0.2em 0;"><em>Humble as I, slow to say hi. &nbsp;&nbsp;&nbsp;&nbsp; Code as hobby, from day to
-          night.</em></p>
-      <p style="margin: 0.2em 0;">资质鄙陋，常不敢妄言。&nbsp;&nbsp;&nbsp;&nbsp; 闲敲代码，度日有月悬。</p>
-      <p style="margin: 0.2em 0;"><em>Devotion and working, are what to stand by. &nbsp;&nbsp;&nbsp;&nbsp; Build a
-          miracle, with you and I.</em></p>
-      <p style="margin: 0.2em 0;">立身于世，靠谱与实干。&nbsp;&nbsp;&nbsp;&nbsp; 与君共睹，创事业斐然。</p>
+    <section id="poem">
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">资质鄙陋，常不敢妄言。</span>
+        <span class="en"><em>Humble as I, slow to say hi.</em></span>
+      </div>
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">闲敲代码，度日有月悬。</span>
+        <span class="en"><em>Code as hobby, from day to night.</em></span>
+      </div>
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">立身于世，靠谱与实干。</span>
+        <span class="en"><em>Devotion and working, are what to stand by.</em></span>
+      </div>
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">与君共睹，创事业斐然。</span>
+        <span class="en"><em>Build a miracle, with you and I.</em></span>
+      </div>
     </section>
