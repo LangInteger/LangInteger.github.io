@@ -1,15 +1,132 @@
-<body style="text-align: left; font-family: Times New Roman, Times, serif">
-</body>
 
-<p><img src="/bio/./lang1.jpg" alt="drawing" width="300"></p>
-<h1 id="Lang-Liu"><a href="#Lang-Liu" class="headerlink" title="Lang Liu"></a>Lang Liu</h1><p><strong>Ph.D. Student</strong> [ <a href="./cv.pdf">CV</a> ]<br><strong>Computer Science Department</strong><br><strong>Illinois Institute of Technology</strong></p>
-<p>Address: 004 Stuart Building, 10 W 31st Street,<br>Illinois Institute of Technology, Chicago, IL 60616<br>Email: lliu94@hawk.iit.edu</p>
-<h2 id="About"><a href="#About" class="headerlink" title="About"></a>About</h2><p>Greatings! My name is Lang Liu.</p>
-<p>I am a Ph.D. student in Computer Science at Illinois Institute of Techonology. My advisor is Professor <a href="http://gauss.cs.iit.edu/~fderakhshan/" target="_blank" rel="noopener">Farzaneh Derakhshan</a>. My research interests are in formal methods and using the technique to ensure the safety and security of concurrent programs.</p>
-<h2 id="Publications"><a href="#Publications" class="headerlink" title="Publications"></a>Publications</h2><ul>
-<li>Upcoming</li>
-</ul>
-<h2 id="Teaching"><a href="#Teaching" class="headerlink" title="Teaching"></a>Teaching</h2><ul>
-<li>Teaching Assistant: Spring 2024, CS536 Science of Programming, IIT</li>
-<li>Teaching Assistant: Fall 2023, <a href="https://mseryn.com/teaching/cs351/" target="_blank" rel="noopener">CS351 System Programming</a>, IIT</li>
-</ul>
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lang Liu | Academic Blog</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Poem responsive: when in portrait or on small screens, show each clause on its own line */
+    #poem {
+      text-align: center;
+      margin: 40px auto;
+      max-width: 900px;
+      font-style: italic;
+      line-height: 1.8;
+    }
+
+    /* Default: English and Chinese appear side-by-side in centered grid columns */
+    #poem .poem-line {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      /* equal-width columns so both columns center */
+      justify-items: center;
+      /* center content within each column */
+      column-gap: 2rem;
+      align-items: center;
+    }
+
+    #poem .poem-line .en,
+    #poem .poem-line .zh {
+      display: block;
+      text-align: center;
+    }
+
+    /* Place Chinese in the left column and English in the right column for horizontal layouts */
+    #poem .poem-line .zh {
+      grid-column: 1;
+    }
+
+    #poem .poem-line .en {
+      grid-column: 2;
+    }
+
+    /* Portrait / small screens: stack English above Chinese for each line */
+    @media (orientation: portrait),
+    (max-width: 700px) {
+      #poem .poem-line {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 0.2em;
+      }
+
+      /* ensure English appears above Chinese in portrait */
+      #poem .poem-line .en {
+        order: 1;
+      }
+
+      #poem .poem-line .zh {
+        order: 2;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <img src="/bio/assets/avatar.jpg" alt="avatar" class="avatar">
+      <h1 style="margin-bottom: 0.1em; font-size: 2em;">Lang Liu</h1>
+      <h4 style="margin-top: 0; font-size: 1.1em;">刘郎
+        <p class="subtitle">Ph.D. student in Computer Science<br>Programming Languages · Formal Methods · Software
+          Engineering</p>
+        <!-- <nav>
+          <a href="#about">About</a>
+          <a href="#research">Research</a>
+          <a href="#blog">Blog</a>
+          <a href="#contact">Contact</a>
+        </nav> -->
+    </h4></header>
+
+    <section id="about">
+      <h2>About Me</h2>
+      <p>
+
+        I am a Ph.D. student in Computer Science at Illinois Institute of Technology. My advisor is <a href="http://gauss.cs.iit.edu/~fderakhshan/" target="_blank" rel="noopener noreferrer">
+          Farzaneh Derakhshan
+        </a>.
+
+        Currently, I am working on LabelBI, a logic system based on the logic of Bunched Implication that enables
+        compositional reasoning about underapproximations.</p>
+    </section>
+
+    <section id="research">
+      <h2>Publications</h2>
+      <ul>
+        <li>
+          <strong>Quantified Underapproximation via Labeled Bunches</strong>
+          <span class="authors">Lang Liu, Farzaneh Derakhshan, Limin Jia, Gabriel A. Moreno, Mark Klein</span>
+          <br><em>Proceedings of the ACM on Programming Languages, Volume 9 (OOPSLA2 2025).
+            Singapore</em><br>
+          <div style="margin-top:0.2em; font-size:0.95em;"><a href="https://doi.org/10.1145/3763051" target="_blank" rel="noopener noreferrer">[acm dl]</a> </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- <section id="blog">
+      <h2>Blog</h2>
+      <div class="post">
+        <h3><a href="#">Bunched Implications: A Minimalist View</a></h3>
+        <p class="date">July 2025</p> -->
+    <h2>Postlude</h2>
+    <section id="poem">
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">资质鄙陋，常不敢妄言。</span>
+        <span class="en"><em>Humble as I, slow to say hi.</em></span>
+      </div>
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">闲敲代码，度日有月悬。</span>
+        <span class="en"><em>Code as hobby, from day to night.</em></span>
+      </div>
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">立身于世，靠谱与实干。</span>
+        <span class="en"><em>Devotion and working, are what to stand by.</em></span>
+      </div>
+      <div class="poem-line" style="margin:0.2em 0;">
+        <span class="zh">与君共睹，创事业斐然。</span>
+        <span class="en"><em>Build a miracle, with you and I.</em></span>
+      </div>
+    </section></div></body></html>
