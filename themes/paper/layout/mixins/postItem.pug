@@ -1,5 +1,6 @@
 mixin postItem(post)
-  if(post)
+  //- if post && post.tags && post.tags.toArray().find(t => t.name === 'learn-scala-by-lt')
+  if post
     - let hasPhoto = post.photos && post.photos[0]
     .posts-item(class=post.top ? "posts-item--pintop" : "")
       h2.posts-item__title(class=hasPhoto ? "posts-item__title--image" : "")
