@@ -14,7 +14,7 @@ Bean 的管理是 Sping 框架中的核心内容。在 Spring 中，Bean 被抽�
 
 ## 1 Spring 框架继承关系
 
-![Spring 框架继承关系](spring-interface.jpg)
+![Spring 框架继承关系](spring-to-tell/spring-interface.jpg)
 
 Spring 框架结构层次设计精巧，比较复杂，直接切入代码去可能会造成只见树木，不见森林，所以必须要对 Spirng 的框架先有一个宏观了解。上面的继承关系图具体来源见图片水印，有空我会自己画画将其替换。
 
@@ -91,7 +91,7 @@ Spring 容器启动的过程主要有：
 
 围绕一次完整的 FileSystemXmlApplicationContext 的实例化流程的方法调用，可以得到不甚明了的如下流程图。你问我是不是下图中的每一行就代表了上面的每一个步骤，我可以约摸着告诉你是的。
 
-![控制反转](inverse-of-control.png)
+![控制反转](spring-to-tell/inverse-of-control.png)
 
 ## 4. 控制反转-代码分析
 
@@ -235,7 +235,7 @@ public void refresh() throws BeansException, IllegalStateException {
 本来作为将控制反转和依赖注入严格区分的笔者是没想在这里讲依赖注入的流程分析的，但由于标题取的是 Spring IOC 容器的启动流程分析，而单例的非懒加载 Bean 是我们经常会创建的，恰好会在启动过程中被预实例化。单例非懒加载 Bean 预实例化的过程和 getBean() 这个方法的中间流程有很多相似之处，索性就在这里将 getBean 方法的流程顺带分析一下。小节标题取为“依赖注入-流程分析”有其不严谨之处，因为依赖注入仅仅是 getBean() 方法执行过程中会涉及到的一个点，或者说 getBean() 会触发依赖注入，取为“ Bean 实例化-流程分析”可能更加严谨，但是不好看，不整齐，无它。
 主要的 Bean 实例化流程图如下：
 
-![依赖注入流程](dependency-injection.png)
+![依赖注入流程](spring-to-tell/dependency-injection.png)
 
 看完之后你可能会发出一声“哇擦哦”的感叹，因为流程图直到“populateBean”就戛然而止了，这是 getBean 中的最后一个流程，也是依赖注入核心代码实现所在。里面情况太多，以后开个专门的专题来讲解。
 
