@@ -1,5 +1,5 @@
 ---
-title: Distributed ID generation
+title: Best Practice for Unique Identifier Generation
 date: 2025-12-03 13:24:08
 tags: 
   - system design
