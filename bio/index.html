@@ -5,128 +5,183 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lang Liu | Academic Blog</title>
+  <title>Lang Liu</title>
+  <meta name="description" content="Lang Liu, Ph.D. student in Computer Science at Illinois Institute of Technology. Programming languages, formal methods, separation logic, program verification.">
   <link rel="stylesheet" href="style.css">
-  <style>
-    /* Poem responsive: when in portrait or on small screens, show each clause on its own line */
-    #poem {
-      text-align: center;
-      margin: 40px auto;
-      max-width: 900px;
-      font-style: italic;
-      line-height: 1.8;
-    }
-
-    /* Default: English and Chinese appear side-by-side in centered grid columns */
-    #poem .poem-line {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      /* equal-width columns so both columns center */
-      justify-items: center;
-      /* center content within each column */
-      column-gap: 2rem;
-      align-items: center;
-    }
-
-    #poem .poem-line .en,
-    #poem .poem-line .zh {
-      display: block;
-      text-align: center;
-    }
-
-    /* Place Chinese in the left column and English in the right column for horizontal layouts */
-    #poem .poem-line .zh {
-      grid-column: 1;
-    }
-
-    #poem .poem-line .en {
-      grid-column: 2;
-    }
-
-    /* Portrait / small screens: stack English above Chinese for each line */
-    @media (orientation: portrait),
-    (max-width: 700px) {
-      #poem .poem-line {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        row-gap: 0.2em;
-      }
-
-      /* ensure English appears above Chinese in portrait */
-      #poem .poem-line .en {
-        order: 1;
-      }
-
-      #poem .poem-line .zh {
-        order: 2;
-      }
-    }
-  </style>
 </head>
 
 <body>
   <div class="container">
-    <header>
-      <img src="/bio/assets/avatar.jpg" alt="avatar" class="avatar">
-      <h1 style="margin-bottom: 0.1em; font-size: 2em;">Lang Liu</h1>
-      <h4 style="margin-top: 0; font-size: 1.1em;">刘郎
-        <p class="subtitle">Ph.D. student in Computer Science<br>Programming Languages · Formal Methods · Software
-          Engineering</p>
-        <!-- <nav>
-          <a href="#about">About</a>
-          <a href="#research">Research</a>
-          <a href="#blog">Blog</a>
-          <a href="#contact">Contact</a>
-        </nav> -->
-    </h4></header>
+
+    <header class="profile">
+      <img src="/bio/assets/avatar.jpg" alt="Lang Liu" class="avatar">
+      <div class="profile-text">
+        <h1>Lang Liu <span class="name-zh">刘郎</span></h1>
+        <p class="role">Ph.D. Student in Computer Science<br>Illinois Institute of Technology</p>
+        <p class="contact">
+          lliu94 [at] hawk.illinoistech.edu<br>
+          Stuart Building, 10 W 31st St, Chicago, IL 60616
+        </p>
+        <nav class="links">
+          <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+          <a href="https://www.linkedin.com/in/langinteger" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://github.com/LangInteger" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href="/">Blog</a>
+        </nav>
+      </div>
+    </header>
 
     <section id="about">
-      <h2>About Me</h2>
+      <h2>About</h2>
       <p>
-
-        I am a Ph.D. student in Computer Science at Illinois Institute of Technology. My advisor is <a href="http://gauss.cs.iit.edu/~fderakhshan/" target="_blank" rel="noopener noreferrer">
-          Farzaneh Derakhshan
-        </a>.
-
-        Currently, I am working on LabelBI, a logic system based on the logic of Bunched Implication that enables
-        compositional reasoning about underapproximations.</p>
+        I am a Ph.D. student in Computer Science at Illinois Institute of Technology, advised by
+        <a href="http://gauss.cs.iit.edu/~fderakhshan/" target="_blank" rel="noopener noreferrer">Farzaneh
+          Derakhshan</a>. I work on programming languages and formal methods, with a focus on separation logic,
+        program verification, and compiler security.
+      </p>
+      <p>
+        My recent work develops <em>LabelBI</em>, a logic based on the logic of Bunched Implications that enables
+        compositional reasoning about underapproximations. I also work on logical frameworks for compiler validation
+        and static performance analysis frameworks on Processing-in-Memory (PIM) systems.
+      </p>
+      <p>
+        Before my Ph.D., I spent five years as a software engineer and engineering lead in industry, building
+        backend systems at startups and at Tencent.
+      </p>
     </section>
 
-    <section id="research">
+    <section id="news">
+      <h2>News</h2>
+      <ul class="news">
+        <li><span class="date">Summer 2026</span><span>Applied Scientist Intern at AWS, Automated Reasoning Group.
+          Our team placed Top 3 in the AWS Identity Hackathon (Operational Excellence).</span></li>
+        <li><span class="date">Oct 2025</span><span>Presented <em>Quantified Underapproximation via Labeled Bunches</em>
+          at OOPSLA 2025 in Singapore
+          (<a href="https://www.youtube.com/watch?v=l5phK55JEqw" target="_blank" rel="noopener noreferrer">video</a>).</span></li>
+        <li><span class="date">Jun 2024</span><span>Attended the Oregon Programming Languages Summer School (OPLSS) as a
+          fellow.</span></li>
+        <li><span class="date">Jan 2024</span><span>Started my Ph.D. at Illinois Institute of Technology.</span></li>
+      </ul>
+    </section>
+
+    <section id="publications">
       <h2>Publications</h2>
-      <ul>
+      <ul class="pubs">
         <li>
-          <strong>Quantified Underapproximation via Labeled Bunches</strong>
-          <span class="authors">Lang Liu, Farzaneh Derakhshan, Limin Jia, Gabriel A. Moreno, Mark Klein</span>
-          <br><em>Proceedings of the ACM on Programming Languages, Volume 9 (OOPSLA2 2025).
-            Singapore</em><br>
-          <div style="margin-top:0.2em; font-size:0.95em;"><a href="https://doi.org/10.1145/3763051" target="_blank" rel="noopener noreferrer">[acm dl]</a> </div>
+          <span class="venue">OOPSLA 2025</span>
+          <div class="pub-title">Quantified Underapproximation via Labeled Bunches</div>
+          <div class="authors"><strong>Lang Liu</strong>, Farzaneh Derakhshan, Limin Jia, Gabriel A. Moreno, Mark Klein
+          </div>
+          <div class="pub-venue">Proceedings of the ACM on Programming Languages, Volume 9, Issue OOPSLA2, 2025</div>
+          <div class="pub-links">
+            <a href="https://doi.org/10.1145/3763051" target="_blank" rel="noopener noreferrer">ACM DL</a>
+            <a href="https://dl.acm.org/doi/pdf/10.1145/3763051" target="_blank" rel="noopener noreferrer">PDF</a>
+            <a href="https://www.youtube.com/watch?v=l5phK55JEqw" target="_blank" rel="noopener noreferrer">Talk</a>
+            <a href="https://dl.acm.org/do/10.5281/zenodo.16929783/full/" target="_blank" rel="noopener noreferrer">Artifact</a>
+          </div>
+          <a class="badges" href="https://www.acm.org/publications/policies/artifact-review-and-badging-current" target="_blank" rel="noopener noreferrer">
+            <img src="/bio/assets/acm_artifacts_available.webp" alt="ACM badge: Artifacts Available v1.1" title="Artifacts Available v1.1">
+            <img src="/bio/assets/acm_artifacts_evaluated_reusable.webp" alt="ACM badge: Artifacts Evaluated – Reusable v1.1" title="Artifacts Evaluated – Reusable v1.1">
+            <img src="/bio/assets/acm_results_reproduced.webp" alt="ACM badge: Results Reproduced v1.1" title="Results Reproduced v1.1">
+          </a>
+        </li>
+      </ul>
+
+      <h3>Under Review</h3>
+      <ul class="pubs">
+        <li>
+          <div class="pub-title">End-to-End Guarantees for Compartmentalized Safety-Critical Software</div>
+          <div class="authors"><strong>Lang Liu</strong>, Z. Zhang, A. Vasudevan, Farzaneh Derakhshan, Limin Jia,
+            William Mansky</div>
+        </li>
+        <li>
+          <div class="pub-title">PIMSA: A Static Analysis Framework for Processing-in-Memory Programs</div>
+          <div class="authors"><strong>Lang Liu</strong>, A. Madhu, S. Nawaz, Farzaneh Derakhshan, M. Zhou</div>
         </li>
       </ul>
     </section>
 
-    <!-- <section id="blog">
-      <h2>Blog</h2>
-      <div class="post">
-        <h3><a href="#">Bunched Implications: A Minimalist View</a></h3>
-        <p class="date">July 2025</p> -->
-    <h2>Postlude</h2>
-    <section id="poem">
-      <div class="poem-line" style="margin:0.2em 0;">
-        <span class="zh">资质鄙陋，常不敢妄言。</span>
-        <span class="en"><em>Humble as I, slow to say hi.</em></span>
-      </div>
-      <div class="poem-line" style="margin:0.2em 0;">
-        <span class="zh">闲敲代码，度日有月悬。</span>
-        <span class="en"><em>Code as hobby, from day to night.</em></span>
-      </div>
-      <div class="poem-line" style="margin:0.2em 0;">
-        <span class="zh">立身于世，靠谱与实干。</span>
-        <span class="en"><em>Devotion and working, are what to stand by.</em></span>
-      </div>
-      <div class="poem-line" style="margin:0.2em 0;">
-        <span class="zh">与君共睹，创事业斐然。</span>
-        <span class="en"><em>Build a miracle, with you and I.</em></span>
-      </div>
-    </section></div></body></html>
+    <section id="talks">
+      <h2>Talks</h2>
+      <ul>
+        <li><em>Quantified Underapproximation via Labeled Bunches</em>. OOPSLA 2025, Singapore, Oct 2025.
+          <a href="https://www.youtube.com/watch?v=l5phK55JEqw" target="_blank" rel="noopener noreferrer">[video]</a>
+        </li>
+      </ul>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+      <ul class="entries">
+        <li>
+          <div class="entry-head"><span><strong>Ph.D. in Computer Science</strong></span><span class="when">Jan 2024 – May 2027
+              (expected)</span></div>
+          Illinois Institute of Technology, Chicago, IL
+        </li>
+        <li>
+          <div class="entry-head"><span><strong>B.S. in Civil Engineering</strong></span><span class="when">2013 – 2017</span></div>
+          Central South University, Changsha, China
+        </li>
+      </ul>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <ul class="entries">
+        <li>
+          <div class="entry-head"><span><strong>Amazon Web Services</strong>, Applied Scientist Intern</span><span class="when">Summer
+              2026</span></div>
+          Automated Reasoning Group. Built CranDSL, a Lean 4 DSL for writing test cases for the AWS IAM model,
+          using dependent types to enforce operation dependencies statically.
+        </li>
+        <li>
+          <div class="entry-head"><span><strong>Presence Inc.</strong>, Founding Software Engineer</span><span class="when">2022 –
+              2023</span></div>
+        </li>
+        <li>
+          <div class="entry-head"><span><strong>Tencent</strong>, Senior Software Engineer</span><span class="when">2021 –
+              2022</span></div>
+        </li>
+        <li>
+          <div class="entry-head"><span><strong>Wanguoyou Technology</strong>, Software Engineer → Software Manager</span><span class="when">2018 – 2021</span></div>
+        </li>
+      </ul>
+    </section>
+
+    <section id="teaching">
+      <h2>Teaching</h2>
+      <ul>
+        <li>Teaching Assistant, CS 534 Types and Programming Languages, IIT</li>
+        <li>Teaching Assistant, CS 536 Science of Programming, IIT</li>
+        <li>Teaching Assistant, <a href="https://mseryn.com/teaching/cs351/" target="_blank" rel="noopener noreferrer">CS 351 System Programming</a>, IIT</li>
+      </ul>
+    </section>
+
+    <section id="honors">
+      <h2>Honors &amp; Awards</h2>
+      <ul>
+        <li>Top 3, AWS Identity Hackathon (Operational Excellence), 2026</li>
+        <li>Oregon Programming Languages Summer School (OPLSS) Fellowship, 2024</li>
+        <li>Third Prize, National Olympiad in Informatics in Provinces (NOIP), Sichuan, 2010</li>
+      </ul>
+    </section>
+
+    <footer>
+      <details class="poem">
+        <summary>Postlude</summary>
+        <div class="poem-line"><span class="zh">资质鄙陋，常不敢妄言。</span><span class="en">Humble as I, slow to say
+            hi.</span></div>
+        <div class="poem-line"><span class="zh">闲敲代码，度日有月悬。</span><span class="en">Code as hobby, from day to
+            night.</span></div>
+        <div class="poem-line"><span class="zh">立身于世，靠谱与实干。</span><span class="en">Devotion and working, are what
+            to stand by.</span></div>
+        <div class="poem-line"><span class="zh">与君共睹，创事业斐然。</span><span class="en">Build a miracle, with you and
+            I.</span></div>
+      </details>
+      <p class="updated">Last updated: November 2026</p>
+    </footer>
+
+  </div>
+</body>
+
+</html>
